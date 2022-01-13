@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">OfflineBudgetTrackerAppProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date_hint">Enter date</string>
+    <string name="store_name_hint">StoreName</string>
+    <string name="product_name_hint">ProductName</string>
+    <string name="product_type_hint">ProductType</string>
+    <string name="price_hint">Price</string>
+    <string name="empty">Enter information</string>
+</resources>
