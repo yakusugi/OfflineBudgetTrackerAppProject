@@ -26,7 +26,7 @@
                 android:id="@+id/row_date_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center|center_horizontal"
                 android:padding="@dimen/general_padding"
                 android:text="TextView" />
 
@@ -34,7 +34,7 @@
                 android:id="@+id/row_product_name_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center|center_horizontal"
                 android:padding="@dimen/general_padding"
                 android:text="TextView" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/row_price_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center|center_horizontal"
                 android:padding="@dimen/general_padding"
                 android:text="TextView" />
         </LinearLayout>
