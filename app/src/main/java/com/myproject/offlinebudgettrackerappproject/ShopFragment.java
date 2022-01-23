@@ -1,10 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.myproject.offlinebudgettrackerappproject.adapter.ShopRecyclerViewAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
@@ -25,6 +28,9 @@ import java.util.List;
 public class ShopFragment extends Fragment {
 
     BudgetTrackerViewModel budgetTrackerViewModel;
+    private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
+    private RecyclerView storeRecyclerView;
+    private List<BudgetTracker> budgetTracker;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -66,6 +72,7 @@ public class ShopFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
 
         }
+
     }
 
     @Override
@@ -74,11 +81,17 @@ public class ShopFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         EditText enterStoreNameForQuery = (EditText) view.findViewById(R.id.store_search_txt);
         Button storeSearchQueryBtn = (Button) view.findViewById(R.id.btn_store_search);
+        storeRecyclerView = (RecyclerView) view.findViewById(R.id.storeRecyclerView);
+        storeRecyclerView.setHasFixedSize(true);
+        storeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        storeSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
+        shopRecyclerViewAdapter = new ShopRecyclerViewAdapter((LiveData<List<BudgetTracker>>) budgetTracker, getActivity());
+
+                storeSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BudgetTracker budgetTracker;
+                ShopRecyclerViewAdapter shopRecyclerViewAdapter;
 
                 String storeName = enterStoreNameForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
@@ -88,20 +101,22 @@ public class ShopFragment extends Fragment {
                 budgetTracker = new BudgetTracker();
                 budgetTracker.setStoreName(storeName);
 
-//                budgetTrackerViewModel.getStoreNameLists(storeName);
+                budgetTrackerViewModel.getStoreNameLists(storeName);
 
-                List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
+                LiveData<List<BudgetTracker>> viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
+
+                shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
 
                 Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
 
-                for(BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
-                }
+//                for(BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
+//                }
 
 //                Log.d("TAG", "onClick: " + list);
 

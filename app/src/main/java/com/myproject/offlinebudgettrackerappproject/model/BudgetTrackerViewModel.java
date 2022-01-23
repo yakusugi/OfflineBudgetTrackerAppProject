@@ -14,7 +14,7 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
 
     public static BudgetTrackerRepository repository;
     public final LiveData<List<BudgetTracker>> allBudgetTrackerLists;
-    public List<BudgetTracker> storeNameLists;
+    public LiveData<List<BudgetTracker>> storeNameLists;
     public List<BudgetTracker> productNameLists;
 
     public BudgetTrackerViewModel(@NonNull Application application) {
@@ -23,7 +23,7 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
         allBudgetTrackerLists = repository.getAllBudgetTrackerData();
     }
 
-    public BudgetTrackerViewModel(@NonNull Application application, LiveData<List<BudgetTracker>> allBudgetTrackerLists, List<BudgetTracker> storeNameLists) {
+    public BudgetTrackerViewModel(@NonNull Application application, LiveData<List<BudgetTracker>> allBudgetTrackerLists, LiveData<List<BudgetTracker>> storeNameLists) {
         super(application);
         this.allBudgetTrackerLists = allBudgetTrackerLists;
         this.storeNameLists = storeNameLists;
@@ -33,7 +33,7 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
         return allBudgetTrackerLists;
     }
 
-    public List<BudgetTracker> getStoreNameLists(String storeName) {
+    public LiveData<List<BudgetTracker>> getStoreNameLists(String storeName) {
         storeNameLists = repository.queryStoreName(storeName);
         return storeNameLists;
     }
