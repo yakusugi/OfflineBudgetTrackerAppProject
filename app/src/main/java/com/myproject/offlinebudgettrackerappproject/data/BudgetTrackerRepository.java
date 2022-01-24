@@ -13,7 +13,7 @@ public class BudgetTrackerRepository {
 
     private BudgetTrackerDao budgetTrackerDao;
     private LiveData<List<BudgetTracker>> allBudgetTrackerLists;
-    private LiveData<List<BudgetTracker>> storeNameLists;
+    private List<BudgetTracker> storeNameLists;
     private List<BudgetTracker> productNameLists;
 
     public BudgetTrackerRepository(Application application) {
@@ -33,7 +33,7 @@ public class BudgetTrackerRepository {
         });
     }
 
-    public LiveData<List<BudgetTracker>> queryStoreName(String storeName) {
+    public List<BudgetTracker> queryStoreName(String storeName) {
         storeNameLists = budgetTrackerDao.getStoreNameLists(storeName);
         return storeNameLists;
     }

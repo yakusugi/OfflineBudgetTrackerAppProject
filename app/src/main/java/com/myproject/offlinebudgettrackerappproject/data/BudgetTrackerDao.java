@@ -25,7 +25,7 @@ public interface BudgetTrackerDao {
     //    @Query("SELECT * FROM budget_tracker_table WHERE store_name = :storeName")
     //    @Query("SELECT * FROM budget_tracker_table WHERE store_name = '%:storeName%'")
     @Query("SELECT * FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%'")
-    LiveData<List<BudgetTracker>> getStoreNameLists(String storeName);
+    List<BudgetTracker> getStoreNameLists(String storeName);
 
     @Query("SELECT * FROM budget_tracker_table WHERE product_name LIKE '%' || :productName|| '%'")
     List<BudgetTracker> getProductNameLists(String productName);

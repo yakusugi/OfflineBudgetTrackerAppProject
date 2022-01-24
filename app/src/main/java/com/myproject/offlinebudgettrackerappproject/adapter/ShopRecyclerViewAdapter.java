@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myproject.offlinebudgettrackerappproject.R;
@@ -17,11 +16,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerViewAdapter.ViewHolder> {
-    private LiveData<List<BudgetTracker>> budgetTrackerList;
+    private List<BudgetTracker> budgetTrackerList;
     private Context context;
 
-    public ShopRecyclerViewAdapter(LiveData<List<BudgetTracker>> budgetTrackerList, Context context) {
-        this.budgetTrackerList = (LiveData<List<BudgetTracker>>) budgetTrackerList;
+    public ShopRecyclerViewAdapter(List<BudgetTracker> budgetTrackerList, Context context) {
+        this.budgetTrackerList = (List<BudgetTracker>) budgetTrackerList;
         this.context = context;
     }
 
@@ -36,7 +35,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ShopRecyclerViewAdapter.ViewHolder holder, int position) {
-        BudgetTracker budgetTracker = Objects.requireNonNull(budgetTrackerList.getValue()).get(position);
+        BudgetTracker budgetTracker = Objects.requireNonNull(budgetTrackerList.get(position));
         holder.shopDateRow.setText(budgetTracker.getDate());
         holder.shopStoreNameRow.setText(budgetTracker.getStoreName());
         holder.shopProductNameRow.setText(budgetTracker.getProductName());
@@ -48,7 +47,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
 
     @Override
     public int getItemCount() {
-        return Objects.requireNonNull(budgetTrackerList.getValue()).size();
+        return Objects.requireNonNull(budgetTrackerList.size());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
