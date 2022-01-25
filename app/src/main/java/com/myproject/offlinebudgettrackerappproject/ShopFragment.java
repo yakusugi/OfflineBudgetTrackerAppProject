@@ -105,8 +105,8 @@ public class ShopFragment extends Fragment {
 
                 List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
 
-//                shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
-//                recyclerView.setAdapter(shopRecyclerViewAdapter);
+                shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
+                storeRecyclerView.setAdapter(shopRecyclerViewAdapter);
 
                 Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
 
