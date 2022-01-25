@@ -40,7 +40,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         holder.shopStoreNameRow.setText(budgetTracker.getStoreName());
         holder.shopProductNameRow.setText(budgetTracker.getProductName());
         holder.shopProductTypeRow.setText(budgetTracker.getProductType());
-        holder.shopPriceRow.setText(budgetTracker.getPrice());
+        holder.shopPriceRow.setText(String.valueOf(budgetTracker.getPrice()));
 
     }
 
