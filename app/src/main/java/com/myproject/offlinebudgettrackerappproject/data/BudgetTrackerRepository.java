@@ -14,7 +14,9 @@ public class BudgetTrackerRepository {
     private BudgetTrackerDao budgetTrackerDao;
     private LiveData<List<BudgetTracker>> allBudgetTrackerLists;
     private List<BudgetTracker> storeNameLists;
-    private List<BudgetTracker> productNameLists;
+    private List<BudgetTracker> productTypeLists;
+    private int productTypeSum;
+    private List<BudgetTracker> dateLists;
 
     public BudgetTrackerRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -38,14 +40,19 @@ public class BudgetTrackerRepository {
         return storeNameLists;
     }
 
-    public List<BudgetTracker> queryProductName(String productName) {
-        productNameLists = budgetTrackerDao.getProductNameLists(productName);
-        return productNameLists;
+    public List<BudgetTracker> queryProductType(String productType) {
+        productTypeLists = budgetTrackerDao.getProductTypeLists(productType);
+        return productTypeLists;
+    }
+
+    public int queryProductTypeSum(String productType) {
+        productTypeSum = budgetTrackerDao.getProductSum(productType);
+        return productTypeSum;
     }
 
     public List<BudgetTracker> queryDate(String date1, String date2) {
-        productNameLists = budgetTrackerDao.getDateLists(date1, date2);
-        return productNameLists;
+        dateLists = budgetTrackerDao.getDateLists(date1, date2);
+        return dateLists;
     }
 
 

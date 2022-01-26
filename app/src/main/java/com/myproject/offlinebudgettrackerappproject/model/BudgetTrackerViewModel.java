@@ -15,7 +15,9 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public static BudgetTrackerRepository repository;
     public final LiveData<List<BudgetTracker>> allBudgetTrackerLists;
     public List<BudgetTracker> storeNameLists;
-    public List<BudgetTracker> productNameLists;
+    public List<BudgetTracker> productTypeLists;
+    public int productTypeSum;
+    public List<BudgetTracker> dateLists;
 
     public BudgetTrackerViewModel(@NonNull Application application) {
         super(application);
@@ -38,14 +40,19 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
         return storeNameLists;
     }
 
-    public List<BudgetTracker> getProductNameLists(String productName) {
-        productNameLists = repository.queryProductName(productName);
-        return productNameLists;
+    public List<BudgetTracker> getProductTypeLists(String productType) {
+        productTypeLists = repository.queryProductType(productType);
+        return productTypeLists;
+    }
+
+    public int getProductTypeSumNum(String productType) {
+        productTypeSum = repository.queryProductTypeSum(productType);
+        return productTypeSum;
     }
 
     public List<BudgetTracker> getDateLists(String date1, String date2) {
-        productNameLists = repository.queryDate(date1, date2);
-        return productNameLists;
+        dateLists = repository.queryDate(date1, date2);
+        return dateLists;
     }
 
     public static void insert(BudgetTracker budgetTracker) {

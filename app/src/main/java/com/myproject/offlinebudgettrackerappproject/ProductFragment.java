@@ -1,17 +1,20 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.myproject.offlinebudgettrackerappproject.adapter.ProductRecyclerViewAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
@@ -25,6 +28,9 @@ import java.util.List;
 public class ProductFragment extends Fragment {
 
     BudgetTrackerViewModel budgetTrackerViewModel;
+    private ProductRecyclerViewAdapter productRecyclerViewAdapter;
+    private RecyclerView productRecyclerView;
+    private List<BudgetTracker> budgetTracker;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,29 +76,39 @@ public class ProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
-        EditText enterProductNameForQuery = (EditText) view.findViewById(R.id.product_search_txt);
+        EditText enterProductTypeForQuery = (EditText) view.findViewById(R.id.product_search_txt);
         Button productSearchQueryBtn = (Button) view.findViewById(R.id.btn_product_search);
+        productRecyclerView = (RecyclerView) view.findViewById(R.id.productRecyclerView);
+        productRecyclerView.setHasFixedSize(true);
+        productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        productRecyclerViewAdapter = new ProductRecyclerViewAdapter(budgetTracker, getActivity());
 
         productSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BudgetTracker budgetTracker;
+                ProductRecyclerViewAdapter productRecyclerViewAdapter;
+                RecyclerView recyclerView = null;
+                List<BudgetTracker> viewModelProductTypeLists;
+                int viewModelProductTypeSum;
 
-                String productName = enterProductNameForQuery.getText().toString();
+                String productType = enterProductTypeForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-//                budgetTrackerViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(
-//                        this.getApplication()).create(CanteensViewModel.class);
 
-                budgetTracker = new BudgetTracker();
-                budgetTracker.setStoreName(productName);
+                viewModelProductTypeLists = budgetTrackerViewModel.getProductTypeLists(productType);
+                viewModelProductTypeSum = budgetTrackerViewModel.getProductTypeSumNum(productType);
+                String viewModelProductTypeSumStr = String.valueOf(viewModelProductTypeSum);
+                TextView calcResult = (TextView) view.findViewById(R.id.product_type_sum_result_txt);
+//                calcResult.setText(viewModelProductTypeSumStr);
 
-//                budgetTrackerViewModel.getStoreNameLists(storeName);
+                productRecyclerViewAdapter = new ProductRecyclerViewAdapter(viewModelProductTypeLists, getActivity());
+                productRecyclerView.setAdapter(productRecyclerViewAdapter);
 
-                List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getProductNameLists(productName);
+                Log.d("TAG", "onClick: " + enterProductTypeForQuery.getText().toString());
+                Log.d("TAG", "onClick: " + viewModelProductTypeSum);
 
-                Log.d("TAG", "onClick: " + enterProductNameForQuery.getText().toString());
-
-                for(BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
+                for(BudgetTracker budgetTrackerList : viewModelProductTypeLists) {
                     Log.d("TAG", "onClick: " + budgetTrackerList.getId());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
@@ -100,8 +116,6 @@ public class ProductFragment extends Fragment {
                     Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
                 }
-
-//                Log.d("TAG", "onClick: " + list);
 
             }
         });

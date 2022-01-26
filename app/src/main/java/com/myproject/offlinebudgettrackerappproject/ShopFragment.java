@@ -95,8 +95,6 @@ public class ShopFragment extends Fragment {
 
                 String storeName = enterStoreNameForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-//                budgetTrackerViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(
-//                        this.getApplication()).create(CanteensViewModel.class);
 
                 budgetTracker = new BudgetTracker();
                 budgetTracker.setStoreName(storeName);
@@ -118,8 +116,6 @@ public class ShopFragment extends Fragment {
                     Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
                 }
-
-//                Log.d("TAG", "onClick: " + list);
 
             }
         });
