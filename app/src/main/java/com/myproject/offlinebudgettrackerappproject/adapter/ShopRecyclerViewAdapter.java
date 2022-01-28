@@ -28,7 +28,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
     @Override
     public ShopRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.budget_tracker_shop_row, parent, false);
+        View view = layoutInflater.inflate(R.layout.budget_tracker_store_row, parent, false);
 
         return new ViewHolder(view);
     }
@@ -59,11 +59,11 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            shopDateRow = itemView.findViewById(R.id.shop_row_date);
-            shopStoreNameRow = itemView.findViewById(R.id.shop_row_store_name);
-            shopProductNameRow = itemView.findViewById(R.id.shop_row_product_name);
-            shopProductTypeRow = itemView.findViewById(R.id.shop_row_product_type);
-            shopPriceRow = itemView.findViewById(R.id.shop_row_price);
+            shopDateRow = itemView.findViewById(R.id.store_row_date);
+            shopStoreNameRow = itemView.findViewById(R.id.store_row_store_name);
+            shopProductNameRow = itemView.findViewById(R.id.store_row_product_name);
+            shopProductTypeRow = itemView.findViewById(R.id.store_row_product_type);
+            shopPriceRow = itemView.findViewById(R.id.store_row_price);
         }
     }
 }
