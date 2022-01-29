@@ -6,18 +6,22 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerDao;
+import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeDao;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BudgetTracker.class}, version = 1, exportSchema = false)
+@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class}, version = 2, exportSchema = false
+)
 public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerDao budgetTrackerDao();
+    public abstract BudgetTrackerIncomeDao budgetTrackerIncomeDao();
     public static final int NUMBER_OF_THREADS = 4;
 
     private static volatile BudgetTrackerDatabase INSTANCE;
@@ -32,6 +36,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                             BudgetTrackerDatabase.class, "budget_tracker_database")
                             .addCallback(sRoomDatabaseCallback)
                             .allowMainThreadQueries()
+                            .addMigrations(MIGRATION_1_2)
                             .build();
                 }
             }
@@ -47,6 +52,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
 
                     dataWritableExecutor.execute(() -> {
                         BudgetTrackerDao budgetTrackerDao = INSTANCE.budgetTrackerDao();
+                        BudgetTrackerIncomeDao budgetTrackerIncomeDao = INSTANCE.budgetTrackerIncomeDao();
                         budgetTrackerDao.deleteAll();
 
                         BudgetTracker budgetTracker = new BudgetTracker("2020-01-01", "DMM", "Kaguya", "e-book", 1200);
@@ -56,4 +62,15 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                     });
                 }
             };
+
+    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_income_table (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "date TEXT," +
+                    "category TEXT," +
+                    "amount INTEGER NOT NULL)");
+        }
+    };
 }

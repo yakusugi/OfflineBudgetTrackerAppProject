@@ -82,7 +82,7 @@ public class ProductFragment extends Fragment {
         Button productSearchQueryBtn = (Button) view.findViewById(R.id.btn_product_search);
         AutoCompleteTextView autoCompleteProductTextView  = (AutoCompleteTextView) view.findViewById(R.id.product_search_txt);
         ArrayAdapter<String> adapter;
-        String [] strings = {"Ebook", "Gadget", "Clothing"};
+        String [] strings = getResources().getStringArray(R.array.product_type_string_array);
 
         productRecyclerView = (RecyclerView) view.findViewById(R.id.productRecyclerView);
 
