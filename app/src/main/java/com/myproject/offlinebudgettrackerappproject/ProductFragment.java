@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,11 +80,21 @@ public class ProductFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
         EditText enterProductTypeForQuery = (EditText) view.findViewById(R.id.product_search_txt);
         Button productSearchQueryBtn = (Button) view.findViewById(R.id.btn_product_search);
+        AutoCompleteTextView autoCompleteProductTextView  = (AutoCompleteTextView) view.findViewById(R.id.product_search_txt);
+        ArrayAdapter<String> adapter;
+        String [] strings = {"Ebook", "Gadget", "Clothing"};
+
         productRecyclerView = (RecyclerView) view.findViewById(R.id.productRecyclerView);
+
         productRecyclerView.setHasFixedSize(true);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         productRecyclerViewAdapter = new ProductRecyclerViewAdapter(budgetTracker, getActivity());
+
+        adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line, strings);
+
+        autoCompleteProductTextView.setThreshold(1);
+        autoCompleteProductTextView.setAdapter(adapter);
 
         productSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,19 +105,26 @@ public class ProductFragment extends Fragment {
                 List<BudgetTracker> viewModelProductTypeLists;
                 int viewModelProductTypeSum;
 
-                String productType = enterProductTypeForQuery.getText().toString();
+                String productType = autoCompleteProductTextView.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
 
                 viewModelProductTypeLists = budgetTrackerViewModel.getProductTypeLists(productType);
                 viewModelProductTypeSum = budgetTrackerViewModel.getProductTypeSumNum(productType);
                 String viewModelProductTypeSumStr = String.valueOf(viewModelProductTypeSum);
                 TextView calcResult = (TextView) view.findViewById(R.id.product_type_sum_result_txt);
+
+                autoCompleteProductTextView.setThreshold(1);
+                autoCompleteProductTextView.setAdapter(adapter);
+
+
+
+//                TODO: calculated result of all product SQL will be here.
 //                calcResult.setText(viewModelProductTypeSumStr);
 
                 productRecyclerViewAdapter = new ProductRecyclerViewAdapter(viewModelProductTypeLists, getActivity());
                 productRecyclerView.setAdapter(productRecyclerViewAdapter);
 
-                Log.d("TAG", "onClick: " + enterProductTypeForQuery.getText().toString());
+                Log.d("TAG", "onClick: " + autoCompleteProductTextView.getText().toString());
                 Log.d("TAG", "onClick: " + viewModelProductTypeSum);
 
                 for(BudgetTracker budgetTrackerList : viewModelProductTypeLists) {

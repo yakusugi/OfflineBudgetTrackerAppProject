@@ -1,9 +1,11 @@
 package com.myproject.offlinebudgettrackerappproject.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,10 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ShopRecyclerViewAdapter.ViewHolder holder, int position) {
         BudgetTracker budgetTracker = Objects.requireNonNull(budgetTrackerList.get(position));
+        if (budgetTracker.getStoreName().equals("Google Store") || budgetTracker.getStoreName().equals("Google")) {
+            Drawable myDrawable = context.getResources().getDrawable(R.drawable.search);
+            holder.storeImageView.setImageDrawable(myDrawable);
+        }
         holder.shopDateRow.setText(budgetTracker.getDate());
         holder.shopStoreNameRow.setText(budgetTracker.getStoreName());
         holder.shopProductNameRow.setText(budgetTracker.getProductName());
@@ -51,6 +57,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView storeImageView;
         TextView shopDateRow;
         TextView shopStoreNameRow;
         TextView shopProductNameRow;
@@ -59,6 +66,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            storeImageView = itemView.findViewById(R.id.store_row_image);
             shopDateRow = itemView.findViewById(R.id.store_row_date);
             shopStoreNameRow = itemView.findViewById(R.id.store_row_store_name);
             shopProductNameRow = itemView.findViewById(R.id.store_row_product_name);

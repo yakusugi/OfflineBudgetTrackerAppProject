@@ -8,4 +8,6 @@
     <string name="product_type_hint">ProductType</string>
     <string name="price_hint">Price</string>
     <string name="empty">Enter information</string>
+    <string name="product_queqy_hint">Enter product type</string>
+    <string name="store_query_hint">Enter store name</string>
 </resources>

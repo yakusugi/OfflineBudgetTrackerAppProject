@@ -11,7 +11,10 @@
         android:theme="@style/Theme.OfflineBudgetTrackerAppProject">
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
+
         <activity
             android:name=".NewBudgetTracker"
             android:exported="true">

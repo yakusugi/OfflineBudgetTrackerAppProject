@@ -37,8 +37,9 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+//        TODO: insert images in the imageView
         BudgetTracker budgetTracker = Objects.requireNonNull(budgetTrackerList.get(position));
-        if (budgetTracker.getProductType() == "gadgets" || budgetTracker.getProductType() == "Gadgets") {
+        if (budgetTracker.getProductType().equals("gadget") || budgetTracker.getProductType().equals("Gadgets")) {
             Drawable myDrawable = context.getResources().getDrawable(R.drawable.gadget);
             holder.productImageView.setImageDrawable(myDrawable);
         }
