@@ -1,11 +1,13 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -72,6 +75,44 @@ public class DateFragment extends Fragment {
         EditText enterDateForQuery1 = (EditText) view.findViewById(R.id.date_search_txt1);
         EditText enterDateForQuery2 = (EditText) view.findViewById(R.id.date_search_txt2);
         Button dateSearchQueryBtn = (Button) view.findViewById(R.id.btn_date_search);
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        enterDateForQuery1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        String date = year + "-" + month + "-" + dayOfMonth;
+                        enterDateForQuery1.setText(date);
+                    }
+                }, year,month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        enterDateForQuery2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        String date = year + "-" + month + "-" + dayOfMonth;
+                        enterDateForQuery2.setText(date);
+                    }
+                }, year,month, day);
+                datePickerDialog.show();
+            }
+        });
+
 
         dateSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
