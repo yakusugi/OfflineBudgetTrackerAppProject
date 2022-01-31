@@ -7,6 +7,8 @@ import androidx.room.Query;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 
+import java.util.List;
+
 @Dao
 public interface BudgetTrackerBankDao {
     //CRUD
@@ -18,4 +20,7 @@ public interface BudgetTrackerBankDao {
 
     @Query("SELECT bank_balance FROM budget_tracker_bank_table")
     int getBankBalanceLists();
+
+    @Query("SELECT bank_name FROM budget_tracker_bank_table")
+    List<String> getBankNames();
 }

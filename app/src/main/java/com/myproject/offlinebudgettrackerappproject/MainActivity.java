@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
@@ -19,6 +20,7 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel
 public class MainActivity extends AppCompatActivity {
 
     private static final int NEW_BUDGET_TRACKER_ACTIVITY_REQUEST_CODE = 1;
+    private static final int NEW_BUDGET_TRACKER_INCOME_ACTIVITY_REQUEST_CODE = 1;
     BottomNavigationView bottomNavigationView;
     private BudgetTrackerViewModel budgetTrackerViewModel;
 
@@ -64,12 +66,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.add_budget_tracker_fab);
-        fab.setOnClickListener(view -> {
+        FloatingActionsMenu fabMenu = findViewById(R.id.add_budget_tracker_fab_menu);
+        fabMenu.setOnClickListener(view -> {
+            //            TODO: When the fab menu is pressed, change the image to wallet icon.
+        });
+
+        FloatingActionButton fabBudgetTracker = findViewById(R.id.add_budget_tracker_fab);
+        fabBudgetTracker.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, NewBudgetTracker.class);
             startActivityForResult(intent, NEW_BUDGET_TRACKER_ACTIVITY_REQUEST_CODE);
 
+        });
 
+        FloatingActionButton fabBudgetTrackerIncome = findViewById(R.id.add_budget_tracker_income_fab);
+        fabBudgetTrackerIncome.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, NewBudgetTrackerIncome.class);
+            startActivityForResult(intent, NEW_BUDGET_TRACKER_INCOME_ACTIVITY_REQUEST_CODE);
 
         });
     }
@@ -88,12 +100,8 @@ public class MainActivity extends AppCompatActivity {
             BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
             BudgetTrackerViewModel.insert(budgetTracker);
         }
+
     }
-
-
-
-
-
 
 
 }

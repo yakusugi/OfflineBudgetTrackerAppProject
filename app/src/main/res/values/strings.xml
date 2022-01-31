@@ -10,4 +10,7 @@
     <string name="empty">Enter information</string>
     <string name="product_queqy_hint">Enter product type</string>
     <string name="store_query_hint">Enter store name</string>
+    <string name="new_budget_tracker_income_date_hint">Enter date</string>
+    <string name="new_budget_tracker_income_category_hint">Enter category</string>
+    <string name="new_budget_tracker_income_amount_hint">Enter amount</string>
 </resources>

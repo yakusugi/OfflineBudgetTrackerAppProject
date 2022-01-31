@@ -99,7 +99,7 @@ public class ShopFragment extends Fragment {
                 budgetTracker = new BudgetTracker();
                 budgetTracker.setStoreName(storeName);
 
-                budgetTrackerViewModel.getStoreNameLists(storeName);
+
 
                 List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
 
