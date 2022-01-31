@@ -1,5 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -18,7 +19,7 @@ public class BudgetTrackerIncome {
 //    public BudgetTrackerIncome() {
 //    }
 
-    public BudgetTrackerIncome(int id, String date, String category, int amount) {
+    public BudgetTrackerIncome(@NonNull String date, String category, int amount) {
         this.id = id;
         this.date = date;
         this.category = category;

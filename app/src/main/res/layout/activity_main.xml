@@ -25,17 +25,50 @@
         app:menu="@menu/bottom_menu"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_budget_tracker_fab"
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
+        android:layout_marginBottom="12dp"
+        app:fab_expandDirection="up"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="MissingConstraints"
+        app:fab_size="normal"
+        >
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/bank_icon"
+            app:fab_title="adding bank balance info"
+            app:fab_size="mini"
+            />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/profit"
+            app:fab_title="adding income info"
+            app:fab_size="mini"
+            />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_budget_tracker_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/list_items"
+            app:fab_title="adding purchased item info"
+            app:fab_size="mini"
+            />
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

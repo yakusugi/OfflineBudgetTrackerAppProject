@@ -1,19 +1,17 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
@@ -70,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, NewBudgetTracker.class);
             startActivityForResult(intent, NEW_BUDGET_TRACKER_ACTIVITY_REQUEST_CODE);
+
+
+
         });
     }
 
@@ -88,4 +89,11 @@ public class MainActivity extends AppCompatActivity {
             BudgetTrackerViewModel.insert(budgetTracker);
         }
     }
+
+
+
+
+
+
+
 }

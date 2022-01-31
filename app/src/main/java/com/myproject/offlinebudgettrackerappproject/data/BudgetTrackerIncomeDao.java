@@ -16,9 +16,6 @@ public interface BudgetTrackerIncomeDao {
     @Query("DELETE FROM budget_tracker_income_table")
     void deleteAll();
 
-//    @Query("SELECT * FROM budget_tracker_income_table ORDER BY category ASC")
-//    LiveData<List<BudgetTracker>> getAllBudgetTrackerIncomeLists();
-
     @Query("SELECT amount FROM budget_tracker_income_table")
     int getAmountLists();
 }
