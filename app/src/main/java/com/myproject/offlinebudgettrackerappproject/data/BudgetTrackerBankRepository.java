@@ -2,6 +2,7 @@ package com.myproject.offlinebudgettrackerappproject.data;
 
 import android.app.Application;
 
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.util.BudgetTrackerDatabase;
 
 import java.util.List;
@@ -20,5 +21,11 @@ public class BudgetTrackerBankRepository {
 
     public List<String> getBankRepositoryBankNames() {
         return repositoryBankNames;
+    }
+
+    public void insert(BudgetTrackerBank budgetTrackerBank) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerBankDao.insert(budgetTrackerBank);
+        });
     }
 }

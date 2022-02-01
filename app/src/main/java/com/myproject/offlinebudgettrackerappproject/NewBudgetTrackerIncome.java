@@ -20,6 +20,10 @@ import java.util.Calendar;
 
 public class NewBudgetTrackerIncome extends AppCompatActivity {
 
+//    public static final String REPLY_INCOME_DATE = "reply_income_date";
+//    public static final String REPLY_INCOME_CATEGORY = "reply_income_category";
+//    public static final String REPLY_INCOME_AMOUNT = "reply_income_amount";
+
     private EditText enterIncomeDate;
     private EditText enterIncomeCategory;
     private EditText enterIncomeAmount;
@@ -85,11 +89,20 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
                 String incomeDate = enterIncomeDate.getText().toString();
                 String incomeCategory = enterIncomeCategory.getText().toString();
                 int incomeAmount = Integer.parseInt(enterIncomeAmount.getText().toString());
-                BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome(incomeDate, incomeCategory, incomeAmount);
 
+                BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome(incomeDate, incomeCategory, incomeAmount);
                 budgetTrackerIncomeViewModel.insert(budgetTrackerIncome);
 
+//                replyIntent.putExtra(REPLY_INCOME_DATE, incomeDate);
+//                replyIntent.putExtra(REPLY_INCOME_CATEGORY, incomeCategory);
+//                replyIntent.putExtra(REPLY_INCOME_AMOUNT, String.valueOf(incomeAmount));
+//                setResult(RESULT_OK, replyIntent);
+
+
             }
+//            else {
+//                setResult(RESULT_CANCELED, replyIntent);
+//            }
             finish();
 
         });

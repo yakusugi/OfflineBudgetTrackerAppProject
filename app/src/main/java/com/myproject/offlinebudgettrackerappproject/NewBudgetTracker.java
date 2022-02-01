@@ -12,17 +12,18 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
 import java.util.Calendar;
 
 public class NewBudgetTracker extends AppCompatActivity {
 
-    public static final String REPLY_DATE = "reply_date";
-    public static final String REPLY_STORE_NAME = "reply_store_name";
-    public static final String REPLY_PRODUCT_NAME = "reply_product_name";
-    public static final String REPLY_PRODUCT_TYPE = "reply_product_type";
-    public static final String PRICE = "price";
+//    public static final String REPLY_DATE = "reply_date";
+//    public static final String REPLY_STORE_NAME = "reply_store_name";
+//    public static final String REPLY_PRODUCT_NAME = "reply_product_name";
+//    public static final String REPLY_PRODUCT_TYPE = "reply_product_type";
+//    public static final String PRICE = "price";
     private EditText enterDate;
     private EditText enterStoreName;
     private EditText enterProductName;
@@ -83,16 +84,20 @@ public class NewBudgetTracker extends AppCompatActivity {
                 String productType = enterProductType.getText().toString();
                 int price = Integer.parseInt(enterPrice.getText().toString());
 
-                replyIntent.putExtra(REPLY_DATE, date);
-                replyIntent.putExtra(REPLY_STORE_NAME, storeName);
-                replyIntent.putExtra(REPLY_PRODUCT_NAME, productName);
-                replyIntent.putExtra(REPLY_PRODUCT_TYPE, productType);
-                replyIntent.putExtra(PRICE, String.valueOf(price));
-                setResult(RESULT_OK, replyIntent);
+                BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
+                budgetTrackerViewModel.insert(budgetTracker);
 
-            } else {
-                setResult(RESULT_CANCELED, replyIntent);
+//                replyIntent.putExtra(REPLY_DATE, date);
+//                replyIntent.putExtra(REPLY_STORE_NAME, storeName);
+//                replyIntent.putExtra(REPLY_PRODUCT_NAME, productName);
+//                replyIntent.putExtra(REPLY_PRODUCT_TYPE, productType);
+//                replyIntent.putExtra(PRICE, String.valueOf(price));
+//                setResult(RESULT_OK, replyIntent);
+
             }
+//            else {
+//                setResult(RESULT_CANCELED, replyIntent);
+//            }
             finish();
 
         });

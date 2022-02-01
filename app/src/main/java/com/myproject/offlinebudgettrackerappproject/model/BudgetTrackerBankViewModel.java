@@ -11,18 +11,22 @@ import java.util.List;
 
 public class BudgetTrackerBankViewModel extends AndroidViewModel {
 
-    public static BudgetTrackerBankRepository backRepository;
+    public static BudgetTrackerBankRepository bankRepository;
     private List<String> bankNames;
 
     public BudgetTrackerBankViewModel(@NonNull Application application) {
         super(application);
-        backRepository = new BudgetTrackerBankRepository(application);
-        bankNames = backRepository.getBankRepositoryBankNames();
+        bankRepository = new BudgetTrackerBankRepository(application);
+        bankNames = bankRepository.getBankRepositoryBankNames();
     }
 
 
     public List<String> getBankViewModelBankNames() {
         return bankNames;
+    }
+
+    public static void insert(BudgetTrackerBank budgetTrackerBank) {
+        bankRepository.insert(budgetTrackerBank);
     }
 
 
