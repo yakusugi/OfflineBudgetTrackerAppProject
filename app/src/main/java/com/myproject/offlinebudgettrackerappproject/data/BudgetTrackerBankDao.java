@@ -23,4 +23,8 @@ public interface BudgetTrackerBankDao {
 
     @Query("SELECT bank_name FROM budget_tracker_bank_table")
     List<String> getBankNames();
+
+    @Query("SELECT * FROM budget_tracker_bank_table")
+    List<BudgetTrackerBank> getBankList();
+
 }

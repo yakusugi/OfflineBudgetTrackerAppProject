@@ -3,9 +3,11 @@ package com.myproject.offlinebudgettrackerappproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,34 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //            Log.d("TAG", "onCreate: " + budgetTrackers.get(0).getProductName());
         });
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setItemIconTintList(null);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new HomeFragment()).commit();
 
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        fragment = new HomeFragment();
-                        break;
-                    case R.id.nav_shop:
-                        fragment = new ShopFragment();
-                        break;
-                    case R.id.nav_product:
-                        fragment = new ProductFragment();
-                        break;
-                    case R.id.nav_date:
-                        fragment = new DateFragment();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
-                return true;
-            }
-        });
 
         FloatingActionsMenu fabMenu = findViewById(R.id.add_budget_tracker_fab_menu);
         fabMenu.setOnClickListener(view -> {
@@ -92,6 +68,39 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent3);
 //            startActivityForResult(intent3, NEW_BUDGET_TRACKER_BANK_ACTIVITY_REQUEST_CODE);
 
+        });
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setItemIconTintList(null);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new HomeFragment()).commit();
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        fragment = new HomeFragment();
+                        fabMenu.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.nav_shop:
+                        fragment = new ShopFragment();
+                        fabMenu.setVisibility(View.INVISIBLE);
+                        break;
+                    case R.id.nav_product:
+                        fragment = new ProductFragment();
+                        fabMenu.setVisibility(View.INVISIBLE);
+                        break;
+                    case R.id.nav_date:
+                        fragment = new DateFragment();
+                        fabMenu.setVisibility(View.INVISIBLE);
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
+                return true;
+            }
         });
     }
 

@@ -14,8 +14,8 @@ public class BudgetTrackerBank {
     @ColumnInfo(name = "bank_balance")
     private int bankBalance;
 
-//    public BudgetTrackerBank() {
-//    }
+    public BudgetTrackerBank() {
+    }
 
     public BudgetTrackerBank(@NonNull String bankName, int bankBalance) {
         this.id = id;

@@ -11,16 +11,24 @@ public class BudgetTrackerBankRepository {
 
     private BudgetTrackerBankDao budgetTrackerBankDao;
     private List<String> repositoryBankNames;
+    private List<BudgetTrackerBank> repositoryBankList;
 
     public BudgetTrackerBankRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
         budgetTrackerBankDao = db.budgetTrackerBankDao();
 
         repositoryBankNames = budgetTrackerBankDao.getBankNames();
+        repositoryBankList = budgetTrackerBankDao.getBankList();
     }
 
     public List<String> getBankRepositoryBankNames() {
+
         return repositoryBankNames;
+    }
+
+    public List<BudgetTrackerBank> getBankRepositoryBankList() {
+
+        return repositoryBankList;
     }
 
     public void insert(BudgetTrackerBank budgetTrackerBank) {

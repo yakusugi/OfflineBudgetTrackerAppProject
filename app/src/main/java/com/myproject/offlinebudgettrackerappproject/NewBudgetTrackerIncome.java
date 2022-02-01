@@ -12,11 +12,13 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomeViewModel;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class NewBudgetTrackerIncome extends AppCompatActivity {
 
@@ -31,6 +33,8 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
 
     private BudgetTrackerIncomeViewModel budgetTrackerIncomeViewModel;
     private BudgetTrackerBankViewModel budgetTrackerBankViewModel;
+
+    private List<BudgetTrackerBank> bankList;
 
     public NewBudgetTrackerIncome() {
 
@@ -72,6 +76,14 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
                 .create(BudgetTrackerIncomeViewModel.class);
 
 //        TODO: another button press action to confirm there is at least one data in bank table
+//        bankList = new <BudgetTrackerBank>();
+//        bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
+//
+//        for(BudgetTrackerBank budgetTrackerBankList : bankList) {
+//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getId());
+//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankName().toString());
+//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankBalance());
+//        }
 
 //        List<String> bankNames = budgetTrackerBankViewModel.getBankViewModelBankNames();
 //        Log.d("TAG", "onCreate: " + bankNames);
