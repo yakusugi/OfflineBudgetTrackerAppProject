@@ -58,4 +58,8 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public static void insert(BudgetTracker budgetTracker) {
         repository.insert(budgetTracker);
     }
+
+    public LiveData<BudgetTracker> getBudgetTrackerId(int id) {return repository.getBudgetTrackerId(id);}
+    public static void updateBudgetTracker(BudgetTracker budgetTracker) {repository.updateBudgetTracker(budgetTracker);}
+    public static void deleteBudgetTracker(BudgetTracker budgetTracker) {repository.deleteBudgetTracker(budgetTracker);}
 }

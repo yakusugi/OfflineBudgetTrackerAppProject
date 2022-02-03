@@ -74,4 +74,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
             shopPriceRow = itemView.findViewById(R.id.store_row_price);
         }
     }
+
+    public interface onBudgetTrackerListener {
+        void onBudgetTrackerClick(int position);
+    }
 }

@@ -2,9 +2,11 @@ package com.myproject.offlinebudgettrackerappproject.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 
@@ -36,4 +38,13 @@ public interface BudgetTrackerDao {
 
     @Query("SELECT * FROM budget_tracker_table WHERE date >= :date1 and date <= :date2")
     List<BudgetTracker> getDateLists(String date1, String date2);
+
+    @Query("SELECT * FROM budget_tracker_table WHERE budget_tracker_table.id == :id")
+    LiveData<BudgetTracker> getBudgetTrackerId(int id);
+
+    @Update
+    void updateBudgetTracker(BudgetTracker budgetTracker);
+
+    @Delete
+    void deleteBudgetTracker(BudgetTracker budgetTracker);
 }

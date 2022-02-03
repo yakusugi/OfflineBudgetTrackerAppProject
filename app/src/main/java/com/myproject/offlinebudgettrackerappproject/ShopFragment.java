@@ -26,6 +26,7 @@ import java.util.List;
  */
 public class ShopFragment extends Fragment {
 
+    private static final String TAG = "Clicked";
     BudgetTrackerViewModel budgetTrackerViewModel;
     private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
     private RecyclerView storeRecyclerView;
@@ -86,7 +87,7 @@ public class ShopFragment extends Fragment {
 
         shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(budgetTracker, getActivity());
 
-                storeSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
+        storeSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BudgetTracker budgetTracker;
@@ -100,7 +101,6 @@ public class ShopFragment extends Fragment {
                 budgetTracker.setStoreName(storeName);
 
 
-
                 List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
 
                 shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
@@ -108,7 +108,7 @@ public class ShopFragment extends Fragment {
 
                 Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
 
-                for(BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
+                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
                     Log.d("TAG", "onClick: " + budgetTrackerList.getId());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
@@ -117,10 +117,13 @@ public class ShopFragment extends Fragment {
                     Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
                 }
 
+
             }
+
         });
 
         return view;
+
     }
 
 }

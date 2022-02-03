@@ -55,5 +55,17 @@ public class BudgetTrackerRepository {
         return dateLists;
     }
 
+    public LiveData<BudgetTracker> getBudgetTrackerId(int id) {
+        return budgetTrackerDao.getBudgetTrackerId(id);
+    }
+
+    public void updateBudgetTracker(BudgetTracker budgetTracker) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerDao.updateBudgetTracker(budgetTracker));
+    }
+
+    public void deleteBudgetTracker(BudgetTracker budgetTracker) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerDao.deleteBudgetTracker(budgetTracker));
+    }
+
 
 }
