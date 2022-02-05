@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -105,6 +106,13 @@ public class ShopFragment extends Fragment {
 
                 shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
                 storeRecyclerView.setAdapter(shopRecyclerViewAdapter);
+//Tap された際の呼び出し
+                shopRecyclerViewAdapter.setOnItemClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
 
@@ -115,6 +123,8 @@ public class ShopFragment extends Fragment {
                     Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
                     Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
+
+
                 }
 
 
@@ -123,6 +133,7 @@ public class ShopFragment extends Fragment {
         });
 
         return view;
+
 
     }
 

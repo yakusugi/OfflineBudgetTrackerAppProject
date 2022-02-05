@@ -20,6 +20,7 @@ import java.util.Objects;
 public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerViewAdapter.ViewHolder> {
     private List<BudgetTracker> budgetTrackerList;
     private Context context;
+    private View.OnClickListener listener;
 
     public ShopRecyclerViewAdapter(List<BudgetTracker> budgetTrackerList, Context context) {
         this.budgetTrackerList = (List<BudgetTracker>) budgetTrackerList;
@@ -47,7 +48,14 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         holder.shopProductNameRow.setText(budgetTracker.getProductName());
         holder.shopProductTypeRow.setText(budgetTracker.getProductType());
         holder.shopPriceRow.setText(String.valueOf(budgetTracker.getPrice()));
+//        When tapped
 
+
+    }
+
+    // Java 実装 When tapped
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
 
@@ -75,7 +83,5 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         }
     }
 
-    public interface onBudgetTrackerListener {
-        void onBudgetTrackerClick(int position);
-    }
+
 }
