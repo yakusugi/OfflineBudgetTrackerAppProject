@@ -53,11 +53,10 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
 
     }
 
-    // Java 実装 When tapped
+    //     Java 実装 When tapped
     public void setOnItemClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
-
 
     @Override
     public int getItemCount() {
