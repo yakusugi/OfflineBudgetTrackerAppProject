@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myproject.offlinebudgettrackerappproject.R;
@@ -48,9 +49,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         holder.shopProductNameRow.setText(budgetTracker.getProductName());
         holder.shopProductTypeRow.setText(budgetTracker.getProductType());
         holder.shopPriceRow.setText(String.valueOf(budgetTracker.getPrice()));
-//        When tapped
-
-
+//        2022.02.22 追加
+        holder.shopConstraintLayout.setOnClickListener((view -> listener.onClick(view)));
     }
 
     //     Java 実装 When tapped
@@ -64,6 +64,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        //        2022.02.22 追加
+        ConstraintLayout shopConstraintLayout;
         ImageView storeImageView;
         TextView shopDateRow;
         TextView shopStoreNameRow;
@@ -73,6 +75,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            //        2022.02.22 追加
+            shopConstraintLayout = itemView.findViewById(R.id.shopConstraintLayout);
             storeImageView = itemView.findViewById(R.id.store_row_image);
             shopDateRow = itemView.findViewById(R.id.store_row_date);
             shopStoreNameRow = itemView.findViewById(R.id.store_row_store_name);

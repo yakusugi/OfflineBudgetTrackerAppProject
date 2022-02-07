@@ -55,5 +55,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
 
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
 
 }
