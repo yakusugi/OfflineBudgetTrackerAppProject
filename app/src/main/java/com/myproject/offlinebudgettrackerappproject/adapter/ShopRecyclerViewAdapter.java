@@ -76,7 +76,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             //        2022.02.22 追加
-            shopConstraintLayout = itemView.findViewById(R.id.shopConstraintLayout);
+            shopConstraintLayout = itemView.findViewById(R.id.shop_constraint_layout);
             storeImageView = itemView.findViewById(R.id.store_row_image);
             shopDateRow = itemView.findViewById(R.id.store_row_date);
             shopStoreNameRow = itemView.findViewById(R.id.store_row_store_name);
