@@ -106,26 +106,37 @@ public class ShopFragment extends Fragment {
 
                 shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
                 storeRecyclerView.setAdapter(shopRecyclerViewAdapter);
-//Tap された際の呼び出し
+
+//                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
+//                }
+
+                //Tap された際の呼び出し
                 shopRecyclerViewAdapter.setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        List<BudgetTracker> list = viewModelStoreNameLists;
+
+                        for (BudgetTracker budgetTrackerList : list) {
+                            int index = 0;
+                            Log.d("TAG", "Current index is: " + budgetTrackerList + "," + index++ + "," + budgetTrackerList.getId());
+                        }
                         Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
-
-                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
-
-
-                }
+//                Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
+//
+//                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
+//                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
+//
+//
+//                }
 
 
             }
