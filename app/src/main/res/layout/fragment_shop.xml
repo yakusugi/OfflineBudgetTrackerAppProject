@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopFragment"
-    >
+    tools:context=".ShopFragment">
 
     <TextView
         android:id="@+id/textView4"
@@ -58,13 +57,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/storeRecyclerView"
+    <ListView
+        android:id="@+id/store_listview"
         android:layout_width="409dp"
-        android:layout_height="505dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="518dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_store_search" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_store_search"
+        tools:listitem="@layout/store_list_item"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

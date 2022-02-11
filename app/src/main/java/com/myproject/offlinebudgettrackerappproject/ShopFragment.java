@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.myproject.offlinebudgettrackerappproject.adapter.ShopRecyclerViewAdapter;
+import com.myproject.offlinebudgettrackerappproject.adapter.StoreListViewAdapter;
+import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
@@ -29,9 +29,12 @@ public class ShopFragment extends Fragment {
 
     private static final String TAG = "Clicked";
     BudgetTrackerViewModel budgetTrackerViewModel;
-    private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
-    private RecyclerView storeRecyclerView;
+//    private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
+    private StoreListViewAdapter storeListViewAdapter;
+//    private RecyclerView storeRecyclerView;
+    private ListView storeListView;
     private List<BudgetTracker> budgetTracker;
+    ActivityMainBinding activityMainBinding;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,17 +85,25 @@ public class ShopFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         EditText enterStoreNameForQuery = (EditText) view.findViewById(R.id.store_search_txt);
         Button storeSearchQueryBtn = (Button) view.findViewById(R.id.btn_store_search);
-        storeRecyclerView = (RecyclerView) view.findViewById(R.id.storeRecyclerView);
-        storeRecyclerView.setHasFixedSize(true);
-        storeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(budgetTracker, getActivity());
+//        RecyclerViewを削除
+//        storeRecyclerView = (RecyclerView) view.findViewById(R.id.storeRecyclerView);
+        storeListView = (ListView) view.findViewById(R.id.store_listview);
+//        storeRecyclerView.setHasFixedSize(true);
+//        storeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//      2022/02/11 追加
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+//      RecyclerVieなので不要
+//        shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(budgetTracker, getActivity());
+//      2022/02/11 追加
+        storeListViewAdapter = new StoreListViewAdapter(getActivity(), budgetTracker);
 
         storeSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BudgetTracker budgetTracker;
-                ShopRecyclerViewAdapter shopRecyclerViewAdapter;
+//                ShopRecyclerViewAdapter shopRecyclerViewAdapter;
+                //      2022/02/11 追加
+                StoreListViewAdapter storeListViewAdapter;
                 RecyclerView recyclerView = null;
 
                 String storeName = enterStoreNameForQuery.getText().toString();
@@ -104,39 +115,40 @@ public class ShopFragment extends Fragment {
 
                 List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
 
-                shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(viewModelStoreNameLists, getActivity());
-                storeRecyclerView.setAdapter(shopRecyclerViewAdapter);
+                storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
+                storeListView.setAdapter(storeListViewAdapter);
 
 //                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
 //                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
 //                }
 
-                //Tap された際の呼び出し
-                shopRecyclerViewAdapter.setOnItemClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        List<BudgetTracker> list = viewModelStoreNameLists;
+//                RecyclerViewの機能
+//                //Tap された際の呼び出し
+//                shopRecyclerViewAdapter.setOnItemClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        List<BudgetTracker> list = viewModelStoreNameLists;
+//
+//                        for (BudgetTracker budgetTrackerList : list) {
+//                            int index = 0;
+//                            Log.d("TAG", "Current index is: " + budgetTrackerList + "," + index++ + "," + budgetTrackerList.getId());
+//                        }
+//                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
-                        for (BudgetTracker budgetTrackerList : list) {
-                            int index = 0;
-                            Log.d("TAG", "Current index is: " + budgetTrackerList + "," + index++ + "," + budgetTrackerList.getId());
-                        }
-                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
 
-//                Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
-//
-//                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
-//                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
-//                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
-//                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
-//                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
-//                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
-//                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
-//
-//
-//                }
+                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
+                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
+                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
+                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
+                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
+                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
+                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
+
+
+                }
 
 
             }
