@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.StoreListViewAdapter;
 import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
@@ -104,7 +104,7 @@ public class ShopFragment extends Fragment {
 //                ShopRecyclerViewAdapter shopRecyclerViewAdapter;
                 //      2022/02/11 追加
                 StoreListViewAdapter storeListViewAdapter;
-                RecyclerView recyclerView = null;
+//                RecyclerView recyclerView = null;
 
                 String storeName = enterStoreNameForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
@@ -117,6 +117,23 @@ public class ShopFragment extends Fragment {
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
                 storeListView.setAdapter(storeListViewAdapter);
+
+//                activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
+                storeListViewAdapter.setOnItemClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        List<BudgetTracker> list = viewModelStoreNameLists;
+
+//                        for (BudgetTracker budgetTrackerList : list) {
+//                            int index = 0;
+//                            Log.d("TAG", "Current index is: " + budgetTrackerList + "," + index++ + "," + budgetTrackerList.getId());
+//                        }
+
+                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
 //                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
 //                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
