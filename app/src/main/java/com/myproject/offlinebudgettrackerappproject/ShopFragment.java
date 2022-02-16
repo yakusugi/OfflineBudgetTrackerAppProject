@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,7 +26,7 @@ import java.util.List;
  * Use the {@link ShopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShopFragment extends Fragment {
+public class ShopFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "Clicked";
     BudgetTrackerViewModel budgetTrackerViewModel;
@@ -117,6 +118,12 @@ public class ShopFragment extends Fragment {
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
                 storeListView.setAdapter(storeListViewAdapter);
+//                storeListView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
 //                activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
@@ -177,4 +184,8 @@ public class ShopFragment extends Fragment {
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +9,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,12 +27,15 @@ public class MainActivity extends AppCompatActivity {
     private static final int NEW_BUDGET_TRACKER_BANK_ACTIVITY_REQUEST_CODE = 1;
     BottomNavigationView bottomNavigationView;
     private BudgetTrackerViewModel budgetTrackerViewModel;
+    DrawerLayout drawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        drawerLayout = findViewById(R.id.main_drawer_layout);
 
         budgetTrackerViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this
                 .getApplication())
@@ -38,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         budgetTrackerViewModel.getAllBudgetTrackerLists().observe(this, budgetTrackers -> {
 //            Log.d("TAG", "onCreate: " + budgetTrackers.get(0).getProductName());
         });
-
-
 
         FloatingActionsMenu fabMenu = findViewById(R.id.add_budget_tracker_fab_menu);
         fabMenu.setOnClickListener(view -> {
@@ -103,6 +107,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //feb 15 追加
+    public void ClickMenu(View view) {
+        //open drawer
+        openDrawer(drawerLayout);
+    }
+
+    public void ClickHome(View view) {
+        //open drawer
+        redirectActivity(this,NewBudgetTracker.class);
+    }
+
+    private static void openDrawer(DrawerLayout drawerLayout) {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void ClickLogo(View view) {
+        //open drawer
+        closeDrawer(drawerLayout);
+    }
+
+    private static void closeDrawer(DrawerLayout drawerLayout) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
+
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

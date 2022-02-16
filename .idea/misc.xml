@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_menu.xml" value="0.124" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/item_selector.xml" value="0.1" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_main.xml" value="0.2594871794871795" />
@@ -22,6 +23,8 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_product.xml" value="0.25" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_shop.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/header_layout.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/main_nav_drawer.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/main_toolbar.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/store_list_item.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/bottom_menu.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

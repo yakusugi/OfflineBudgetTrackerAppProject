@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -78,13 +77,13 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
 
 //        TODO: another button press action to confirm there is at least one data in bank table
 //        bankList = new List<>();
-        bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
+//        bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
 
-        for(BudgetTrackerBank budgetTrackerBankList : bankList) {
-            Log.d("TAG", "onClick: " + budgetTrackerBankList.getId());
-            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankName().toString());
-            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankBalance());
-        }
+//        for(BudgetTrackerBank budgetTrackerBankList : bankList) {
+//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getId());
+//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankName().toString());
+//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankBalance());
+//        }
 
 //        List<String> bankNames = budgetTrackerBankViewModel.getBankViewModelBankNames();
 //        Log.d("TAG", "onCreate: " + bankNames);
