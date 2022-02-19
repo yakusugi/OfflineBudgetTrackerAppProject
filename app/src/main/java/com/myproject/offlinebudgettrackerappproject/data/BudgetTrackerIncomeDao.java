@@ -7,6 +7,8 @@ import androidx.room.Query;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 
+import java.util.List;
+
 @Dao
 public interface BudgetTrackerIncomeDao {
     //CRUD
@@ -18,4 +20,7 @@ public interface BudgetTrackerIncomeDao {
 
     @Query("SELECT amount FROM budget_tracker_income_table")
     int getAmountLists();
+
+    @Query("SELECT * FROM budget_tracker_income_table WHERE category LIKE '%' || :category|| '%'")
+    List<BudgetTrackerIncome> getIncomeCategoryLists(String category);
 }

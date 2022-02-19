@@ -20,4 +20,7 @@
     <string name="new_budget_tracker_product_name_hint">Enter product name</string>
     <string name="new_budget_tracker_product_type_hint">Enter product type</string>
     <string name="new_budget_tracker_price_hint">Enter price</string>
+    <string name="bank_query_hint">Search by bank name</string>
+    <string name="income_query_hint">Search by income source</string>
+    <string name="bank_qurey_hint">Search by bank name</string>
 </resources>

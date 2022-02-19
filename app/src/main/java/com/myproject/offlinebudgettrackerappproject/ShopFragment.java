@@ -127,6 +127,7 @@ public class ShopFragment extends Fragment implements AdapterView.OnItemClickLis
 
 //                activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
+                //When tapped
                 storeListViewAdapter.setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

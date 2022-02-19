@@ -12,6 +12,7 @@ public class BudgetTrackerBankRepository {
     private BudgetTrackerBankDao budgetTrackerBankDao;
     private List<String> repositoryBankNames;
     private List<BudgetTrackerBank> repositoryBankList;
+    private List<BudgetTrackerBank> bankNameLists;
 
     public BudgetTrackerBankRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -35,5 +36,10 @@ public class BudgetTrackerBankRepository {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
             budgetTrackerBankDao.insert(budgetTrackerBank);
         });
+    }
+
+    public List<BudgetTrackerBank> queryBankName(String bankName) {
+        bankNameLists = budgetTrackerBankDao.getBankNameLists(bankName);
+        return bankNameLists;
     }
 }

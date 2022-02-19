@@ -16,8 +16,8 @@ public class BudgetTrackerIncome {
     @ColumnInfo(name = "amount")
     private int amount;
 
-//    public BudgetTrackerIncome() {
-//    }
+    public BudgetTrackerIncome() {
+    }
 
     public BudgetTrackerIncome(@NonNull String date, String category, int amount) {
         this.id = id;

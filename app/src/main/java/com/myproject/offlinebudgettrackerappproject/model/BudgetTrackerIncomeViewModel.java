@@ -7,7 +7,11 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeRepository;
 
+import java.util.List;
+
 public class BudgetTrackerIncomeViewModel extends AndroidViewModel {
+
+    public List<BudgetTrackerIncome> incomeCategoryLists;
 
     public static BudgetTrackerIncomeRepository incomeRepository;
 
@@ -20,6 +24,11 @@ public class BudgetTrackerIncomeViewModel extends AndroidViewModel {
 
     public static void insert(BudgetTrackerIncome budgetTrackerIncome) {
         incomeRepository.insert(budgetTrackerIncome);
+    }
+
+    public List<BudgetTrackerIncome> getIncomeCategoryLists(String incomeCategory) {
+        incomeCategoryLists = incomeRepository.queryIncomeCategory(incomeCategory);
+        return incomeCategoryLists;
     }
 
 

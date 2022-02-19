@@ -114,9 +114,14 @@ public class MainActivity extends AppCompatActivity {
         openDrawer(drawerLayout);
     }
 
-    public void ClickHome(View view) {
+    public void ClickIncomeCategory(View view) {
         //open drawer
-        redirectActivity(this,NewBudgetTracker.class);
+        redirectActivity(this,BudgetTrackerIncomeActivity.class);
+    }
+
+    public void ClickBankName(View view) {
+        //open drawer
+        redirectActivity(this,BudgetTrackerBankActivity.class);
     }
 
     private static void openDrawer(DrawerLayout drawerLayout) {

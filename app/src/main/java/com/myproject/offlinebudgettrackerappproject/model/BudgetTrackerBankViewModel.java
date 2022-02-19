@@ -14,6 +14,7 @@ public class BudgetTrackerBankViewModel extends AndroidViewModel {
     public static BudgetTrackerBankRepository bankRepository;
     private List<String> bankNames;
     private List<BudgetTrackerBank> bankList;
+    private List<BudgetTrackerBank> bankNameLists;
 
     public BudgetTrackerBankViewModel(@NonNull Application application) {
         super(application);
@@ -35,6 +36,11 @@ public class BudgetTrackerBankViewModel extends AndroidViewModel {
 
     public static void insert(BudgetTrackerBank budgetTrackerBank) {
         bankRepository.insert(budgetTrackerBank);
+    }
+
+    public List<BudgetTrackerBank> getBankNameLists(String bankName) {
+        bankNameLists = bankRepository.queryBankName(bankName);
+        return bankNameLists;
     }
 
 

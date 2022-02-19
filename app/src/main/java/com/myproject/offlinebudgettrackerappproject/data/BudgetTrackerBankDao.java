@@ -27,4 +27,7 @@ public interface BudgetTrackerBankDao {
     @Query("SELECT * FROM budget_tracker_bank_table")
     List<BudgetTrackerBank> getBankList();
 
+    @Query("SELECT * FROM budget_tracker_bank_table WHERE bank_name LIKE '%' || :bankName|| '%'")
+    List<BudgetTrackerBank> getBankNameLists(String bankName);
+
 }
