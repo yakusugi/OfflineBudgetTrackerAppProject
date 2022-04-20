@@ -4,12 +4,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
@@ -19,17 +21,14 @@ import java.util.Calendar;
 
 public class NewBudgetTracker extends AppCompatActivity {
 
-//    public static final String REPLY_DATE = "reply_date";
-//    public static final String REPLY_STORE_NAME = "reply_store_name";
-//    public static final String REPLY_PRODUCT_NAME = "reply_product_name";
-//    public static final String REPLY_PRODUCT_TYPE = "reply_product_type";
-//    public static final String PRICE = "price";
     private EditText enterDate;
     private EditText enterStoreName;
     private EditText enterProductName;
     private EditText enterProductType;
     private EditText enterPrice;
     private Button saveInfoButton;
+    private int shopFragmentIntentId = 0;
+    boolean isEdit = false;
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
 
@@ -61,7 +60,7 @@ public class NewBudgetTracker extends AppCompatActivity {
                         String date = year + "-" + month + "-" + dayOfMonth;
                         enterDate.setText(date);
                     }
-                }, year,month, day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
@@ -70,14 +69,34 @@ public class NewBudgetTracker extends AppCompatActivity {
                 .getApplication())
                 .create(BudgetTrackerViewModel.class);
 
+        Intent shopFragmentGetIntent = getIntent();
+        Bundle shopFragmentGetIntentBundle = shopFragmentGetIntent.getExtras();
+        if (shopFragmentGetIntentBundle != null) {
+            shopFragmentIntentId = getIntent().getIntExtra(ShopFragment.SHOP_FRAGMENT_ID, 0);
+//            shopFragmentIntentId = shopFragmentGetIntentBundle.getInt(ShopFragment.SHOP_FRAGMENT_ID);
+            Log.d("TAG", "shopFragment: " + shopFragmentIntentId);
+            //observe only works when using LiveData
+            budgetTrackerViewModel.getBudgetTrackerId(shopFragmentIntentId).observe(this, new Observer<BudgetTracker>() {
+                @Override
+                public void onChanged(BudgetTracker budgetTracker) {
+                    enterDate.setText(budgetTracker.getDate());
+                    enterStoreName.setText(budgetTracker.getStoreName());
+                    enterProductName.setText(budgetTracker.getProductName());
+                    enterProductType.setText(budgetTracker.getProductType());
+                    enterPrice.setText(String.valueOf(budgetTracker.getPrice()));
+                }
+            });
+            isEdit = true;
+        }
+
         saveInfoButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
 
             if (!TextUtils.isEmpty(enterDate.getText())
-                && !TextUtils.isEmpty(enterStoreName.getText())
-                && !TextUtils.isEmpty(enterProductName.getText())
-                && !TextUtils.isEmpty(enterProductType.getText())
-                && !TextUtils.isEmpty(enterPrice.getText())) {
+                    && !TextUtils.isEmpty(enterStoreName.getText())
+                    && !TextUtils.isEmpty(enterProductName.getText())
+                    && !TextUtils.isEmpty(enterProductType.getText())
+                    && !TextUtils.isEmpty(enterPrice.getText())) {
                 String date = enterDate.getText().toString();
                 String storeName = enterStoreName.getText().toString();
                 String productName = enterProductName.getText().toString();

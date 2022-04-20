@@ -22,10 +22,16 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
     private List<BudgetTracker> budgetTrackerList;
     private Context context;
     private View.OnClickListener listener;
+    private OnItemClickListener onItemClickListener;
+
 
     public StoreListViewAdapter(Context context, List<BudgetTracker> budgetTrackerList) {
         super(context, R.layout.store_list_item, budgetTrackerList);
 
+    }
+
+    public StoreListViewAdapter(Context context, int num) {
+        super(context, num);
     }
 
     //When tapped
@@ -41,35 +47,37 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
 
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.store_list_item,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.store_list_item, parent, false);
         }
-
-//        budgetTracker = new BudgetTracker();
-
-//        budgetTracker = Objects.requireNonNull(budgetTrackerList.get(position));
-//        if (budgetTracker.getStoreName().equals("Google Store") || budgetTracker.getStoreName().equals("Google")) {
-//            Drawable myDrawable = context.getResources().getDrawable(R.drawable.search);
-//            ImageView storeImageViewRow = convertView.findViewById(R.id.store_circle_image_view);
-//            storeImageViewRow.setImageDrawable(myDrawable);
-//
-//        }
 
         ImageView storeImageViewRow = convertView.findViewById(R.id.store_circle_image_view);
         TextView storeNameRow = convertView.findViewById(R.id.store_name_text_row);
         TextView storeDateRow = convertView.findViewById(R.id.store_date_text_row);
         TextView storeProductRow = convertView.findViewById(R.id.store_product_name_text_row);
+        TextView storeProductTypeRow = convertView.findViewById(R.id.store_product_type_text_row);
         TextView storePriceRow = convertView.findViewById(R.id.store_price_text_row);
 
 //        storeImageViewRow.setImageResource(budgetTracker.imageId);
         storeNameRow.setText(budgetTracker.getStoreName());
         storeDateRow.setText(budgetTracker.getDate());
         storeProductRow.setText(budgetTracker.getProductName());
+        storeProductTypeRow.setText(budgetTracker.getProductType());
         storePriceRow.setText(String.valueOf(budgetTracker.getPrice()));
 
         return convertView;
     }
 
+
     public static int getItemPosition(StoreListViewAdapter adapter, Object object) {
         return getItemPosition(adapter, INVALID_POSITION);
+    }
+
+    //March 28 itemClickListener
+    public interface OnItemClickListener {
+        void onItemCLick(BudgetTracker budgetTracker);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 }

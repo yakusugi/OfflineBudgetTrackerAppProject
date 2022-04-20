@@ -3,6 +3,7 @@ package com.myproject.offlinebudgettrackerappproject.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "budget_tracker_bank_table")
@@ -14,6 +15,7 @@ public class BudgetTrackerBank {
     @ColumnInfo(name = "bank_balance")
     private int bankBalance;
 
+    @Ignore
     public BudgetTrackerBank() {
     }
 

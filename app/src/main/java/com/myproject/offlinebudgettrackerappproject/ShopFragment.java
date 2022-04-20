@@ -28,13 +28,14 @@ import java.util.List;
  * Use the {@link ShopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShopFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class ShopFragment extends Fragment {
 
     private static final String TAG = "Clicked";
+    public static final String SHOP_FRAGMENT_ID = "shop_fragment_id";
     BudgetTrackerViewModel budgetTrackerViewModel;
-//    private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
+    //    private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
     private StoreListViewAdapter storeListViewAdapter;
-//    private RecyclerView storeRecyclerView;
+    //    private RecyclerView storeRecyclerView;
     private ListView storeListView;
     private List<BudgetTracker> budgetTrackerList;
     List<BudgetTracker> viewModelStoreNameLists;
@@ -104,7 +105,8 @@ public class ShopFragment extends Fragment implements AdapterView.OnItemClickLis
 
         BaseAdapter adapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
 
-
+        storeListViewAdapter = new StoreListViewAdapter(getActivity(), 1);
+        storeListView.setAdapter(storeListViewAdapter);
 
         storeSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,22 +128,30 @@ public class ShopFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
                 storeListView.setAdapter(storeListViewAdapter);
-//                storeListView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
-//                activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-
-                //When tapped
-                storeListViewAdapter.setOnItemClickListener(new View.OnClickListener() {
+//              Todo  2022/04/10 Tapped modified
+                storeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        List<BudgetTracker> list = viewModelStoreNameLists;
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String date = adapterView.getItemAtPosition(position).toString();
+                        List<BudgetTracker> budgetListItems = viewModelStoreNameLists;
+                        int intId = (int) id;
+                        BudgetTracker storeItemId = budgetListItems.get(intId);
+                        Toast.makeText(getActivity(), Long.toString(storeItemId.getId()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), storeItemId.getStoreName(), Toast.LENGTH_SHORT).show();
+                        Intent shopFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
+                        shopFragmentIntent.putExtra(SHOP_FRAGMENT_ID, storeItemId.getId());
+                        startActivity(shopFragmentIntent);
 
-                        Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), Long.toString(id), Toast.LENGTH_SHORT).show();
+//                        for (BudgetTracker budgetTracker : budgetListItems) {
+//                            id = budgetTracker.getId();
+//                            String storeName = budgetTracker.getStoreName();
+//                            Toast.makeText(getActivity(), Long.toString(id), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), storeName, Toast.LENGTH_SHORT).show();
+//                        }
+
+                        Log.d(TAG, "onItemClick: " + date);
                     }
                 });
 
@@ -164,53 +174,6 @@ public class ShopFragment extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        ListView listView = (ListView) view.findViewById(R.id.store_listview);
-//        storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
-//        listView.setAdapter(storeListViewAdapter);
 
-//        ItemClicked item = storeListViewAdapter.getItemPosition(storeListViewAdapter, position);
 
-        int itemPosition = position;
-        String itemValue = (String) listView.getItemAtPosition(position);
-        Toast.makeText(getActivity(),
-                "Position :"+itemPosition+" ListItem : " +itemValue , Toast.LENGTH_LONG)
-                .show();
-
-        BudgetTracker item = storeListViewAdapter.getItem(position);
-        Toast.makeText(getActivity(), item + " selected", Toast.LENGTH_LONG).show();
-
-        StoreListViewAdapter storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
-        listView.setAdapter(storeListViewAdapter);
-        storeListViewAdapter.setOnItemClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(getActivity(), String.valueOf(viewModelStoreNameLists.get(view.getId())), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        Intent intent = new Intent(getActivity(), NewBudgetTracker.class);
-
-        // clickされたpositionのtextとphotoのID
-        BudgetTracker budgetTrackerList = (BudgetTracker) viewModelStoreNameLists;
-        int listId = budgetTrackerList.getId();
-        String listDate = budgetTrackerList.getDate();
-        String listStoreName = budgetTrackerList.getStoreName();
-        String listProductName = budgetTrackerList.getProductName();
-        String listProductType = budgetTrackerList.getProductType();
-        int listPrice = budgetTrackerList.getPrice();
-
-        // インテントにセット
-        intent.putExtra("list_id", listId);
-        intent.putExtra("list_date", listDate);
-        intent.putExtra("list_store_name", listStoreName);
-        intent.putExtra("list_product_name", listProductName);
-        intent.putExtra("list_product_type", listProductType);
-        intent.putExtra("list_price", listPrice);
-
-        // NewBudgetTrackerへ遷移
-        startActivity(intent);
-    }
 }
