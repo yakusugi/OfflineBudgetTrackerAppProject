@@ -84,11 +84,13 @@ public class NewBudgetTracker extends AppCompatActivity {
             budgetTrackerViewModel.getBudgetTrackerId(shopFragmentIntentId).observe(this, new Observer<BudgetTracker>() {
                 @Override
                 public void onChanged(BudgetTracker budgetTracker) {
-                    enterDate.setText(budgetTracker.getDate());
-                    enterStoreName.setText(budgetTracker.getStoreName());
-                    enterProductName.setText(budgetTracker.getProductName());
-                    enterProductType.setText(budgetTracker.getProductType());
-                    enterPrice.setText(String.valueOf(budgetTracker.getPrice()));
+                    if (budgetTracker != null) {
+                        enterDate.setText(budgetTracker.getDate());
+                        enterStoreName.setText(budgetTracker.getStoreName());
+                        enterProductName.setText(budgetTracker.getProductName());
+                        enterProductType.setText(budgetTracker.getProductType());
+                        enterPrice.setText(String.valueOf(budgetTracker.getPrice()));
+                    }
                 }
             });
             isEdit = true;
