@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
@@ -27,6 +28,8 @@ public class NewBudgetTracker extends AppCompatActivity {
     private EditText enterProductType;
     private EditText enterPrice;
     private Button saveInfoButton;
+    private Button shopUpdateButton;
+    private Button shopDeleteButton;
     private int shopFragmentIntentId = 0;
     boolean isEdit = false;
 
@@ -43,6 +46,8 @@ public class NewBudgetTracker extends AppCompatActivity {
         enterProductType = findViewById(R.id.enter_product_type);
         enterPrice = findViewById(R.id.enter_price);
         saveInfoButton = findViewById(R.id.saveIndoButton);
+        shopUpdateButton = findViewById(R.id.shop_update_btn);
+        shopDeleteButton = findViewById(R.id.shop_delete_btn);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -106,13 +111,6 @@ public class NewBudgetTracker extends AppCompatActivity {
                 BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
                 budgetTrackerViewModel.insert(budgetTracker);
 
-//                replyIntent.putExtra(REPLY_DATE, date);
-//                replyIntent.putExtra(REPLY_STORE_NAME, storeName);
-//                replyIntent.putExtra(REPLY_PRODUCT_NAME, productName);
-//                replyIntent.putExtra(REPLY_PRODUCT_TYPE, productType);
-//                replyIntent.putExtra(PRICE, String.valueOf(price));
-//                setResult(RESULT_OK, replyIntent);
-
             }
 //            else {
 //                setResult(RESULT_CANCELED, replyIntent);
@@ -120,6 +118,67 @@ public class NewBudgetTracker extends AppCompatActivity {
             finish();
 
         });
+
+        //Delete button
+        shopDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = shopFragmentIntentId;
+                String date = enterDate.getText().toString();
+                String storeName = enterStoreName.getText().toString();
+                String productName = enterProductName.getText().toString();
+                String productType = enterProductType.getText().toString();
+                int price = Integer.parseInt(enterPrice.getText().toString());
+
+                if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price))) {
+                    Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+                } else {
+                    BudgetTracker budgetTracker = new BudgetTracker();
+                    budgetTracker.setId(id);
+                    budgetTracker.setDate(date);
+                    budgetTracker.setStoreName(storeName);
+                    budgetTracker.setProductName(productName);
+                    budgetTracker.setProductType(productType);
+                    budgetTracker.setPrice(price);
+                    BudgetTrackerViewModel.deleteBudgetTracker(budgetTracker);
+                    finish();
+                }
+            }
+        });
+
+        //Update button
+        shopUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = shopFragmentIntentId;
+                String date = enterDate.getText().toString();
+                String storeName = enterStoreName.getText().toString();
+                String productName = enterProductName.getText().toString();
+                String productType = enterProductType.getText().toString();
+                int price = Integer.parseInt(enterPrice.getText().toString());
+
+                if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price))) {
+                    Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+                } else {
+                    BudgetTracker budgetTracker = new BudgetTracker();
+                    budgetTracker.setId(id);
+                    budgetTracker.setDate(date);
+                    budgetTracker.setStoreName(storeName);
+                    budgetTracker.setProductName(productName);
+                    budgetTracker.setProductType(productType);
+                    budgetTracker.setPrice(price);
+                    BudgetTrackerViewModel.updateBudgetTracker(budgetTracker);
+                    finish();
+                }
+            }
+        });
+
+        if (isEdit) {
+            saveInfoButton.setVisibility(View.GONE);
+        } else {
+            shopUpdateButton.setVisibility(View.GONE);
+            shopDeleteButton.setVisibility(View.GONE);
+        }
 
     }
 }

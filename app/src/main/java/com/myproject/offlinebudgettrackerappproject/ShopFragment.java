@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -137,19 +136,9 @@ public class ShopFragment extends Fragment {
                         List<BudgetTracker> budgetListItems = viewModelStoreNameLists;
                         int intId = (int) id;
                         BudgetTracker storeItemId = budgetListItems.get(intId);
-                        Toast.makeText(getActivity(), Long.toString(storeItemId.getId()), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getActivity(), storeItemId.getStoreName(), Toast.LENGTH_SHORT).show();
                         Intent shopFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
                         shopFragmentIntent.putExtra(SHOP_FRAGMENT_ID, storeItemId.getId());
                         startActivity(shopFragmentIntent);
-
-//                        Toast.makeText(getActivity(), Long.toString(id), Toast.LENGTH_SHORT).show();
-//                        for (BudgetTracker budgetTracker : budgetListItems) {
-//                            id = budgetTracker.getId();
-//                            String storeName = budgetTracker.getStoreName();
-//                            Toast.makeText(getActivity(), Long.toString(id), Toast.LENGTH_SHORT).show();
-//                            Toast.makeText(getActivity(), storeName, Toast.LENGTH_SHORT).show();
-//                        }
 
                         Log.d(TAG, "onItemClick: " + date);
                     }
@@ -173,7 +162,6 @@ public class ShopFragment extends Fragment {
 
 
     }
-
 
 
 }
