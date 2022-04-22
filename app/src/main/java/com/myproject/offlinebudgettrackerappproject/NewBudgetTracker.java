@@ -146,25 +146,33 @@ public class NewBudgetTracker extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = shopFragmentIntentId;
-                String date = enterDate.getText().toString();
-                String storeName = enterStoreName.getText().toString();
-                String productName = enterProductName.getText().toString();
-                String productType = enterProductType.getText().toString();
-                int price = Integer.parseInt(enterPrice.getText().toString());
+                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0) {
+                    int idStore = shopFragmentIntentId;
+                    int idProduct = productFragmentIntentId;
+                    String date = enterDate.getText().toString();
+                    String storeName = enterStoreName.getText().toString();
+                    String productName = enterProductName.getText().toString();
+                    String productType = enterProductType.getText().toString();
+                    int price = Integer.parseInt(enterPrice.getText().toString());
 
-                if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price))) {
-                    Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
-                } else {
-                    BudgetTracker budgetTracker = new BudgetTracker();
-                    budgetTracker.setId(id);
-                    budgetTracker.setDate(date);
-                    budgetTracker.setStoreName(storeName);
-                    budgetTracker.setProductName(productName);
-                    budgetTracker.setProductType(productType);
-                    budgetTracker.setPrice(price);
-                    BudgetTrackerViewModel.deleteBudgetTracker(budgetTracker);
-                    finish();
+                    if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price))) {
+                        Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        BudgetTracker budgetTracker = new BudgetTracker();
+                        if (shopFragmentIntentId != 0) {
+                            budgetTracker.setId(idStore);
+                        } else if (productFragmentIntentId != 0) {
+                            budgetTracker.setId(idProduct);
+                        }
+
+                        budgetTracker.setDate(date);
+                        budgetTracker.setStoreName(storeName);
+                        budgetTracker.setProductName(productName);
+                        budgetTracker.setProductType(productType);
+                        budgetTracker.setPrice(price);
+                        BudgetTrackerViewModel.deleteBudgetTracker(budgetTracker);
+                        finish();
+                    }
                 }
             }
         });
@@ -191,7 +199,7 @@ public class NewBudgetTracker extends AppCompatActivity {
                         } else if (productFragmentIntentId != 0) {
                             budgetTracker.setId(idProduct);
                         }
-                        budgetTracker.setDate(date);
+
                         budgetTracker.setStoreName(storeName);
                         budgetTracker.setProductName(productName);
                         budgetTracker.setProductType(productType);
