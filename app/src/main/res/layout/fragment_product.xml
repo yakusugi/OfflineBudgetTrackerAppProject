@@ -62,6 +62,7 @@
         android:id="@+id/product_type_sum_result_txt"
         android:layout_width="200dp"
         android:layout_height="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_product_search" />

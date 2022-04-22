@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -86,6 +87,7 @@ public class ProductFragment extends Fragment {
         EditText enterProductTypeForQuery = (EditText) view.findViewById(R.id.product_search_txt);
         Button productSearchQueryBtn = (Button) view.findViewById(R.id.btn_product_search);
         productListView = (ListView) view.findViewById(R.id.product_listview);
+        TextView productTypeSum = (TextView) view.findViewById(R.id.product_type_sum_result_txt);
 //        AutoCompleteTextView autoCompleteProductTextView  = (AutoCompleteTextView) view.findViewById(R.id.product_search_txt);
 //        ArrayAdapter<String> adapter;
 //        String [] strings = getResources().getStringArray(R.array.product_type_string_array);
@@ -116,6 +118,8 @@ public class ProductFragment extends Fragment {
 
                 productListViewAdapter = new ProductListViewAdapter(getActivity(), viewModelProductNameLists);
                 productListView.setAdapter(productListViewAdapter);
+                String productTypeSumStr = String.valueOf(budgetTrackerViewModel.getProductTypeSum(productType));
+                productTypeSum.setText(productTypeSumStr);
 
 //              Todo  2022/04/10 Tapped modified
                 productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

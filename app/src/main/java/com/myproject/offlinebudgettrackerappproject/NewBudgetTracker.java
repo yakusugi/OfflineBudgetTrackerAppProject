@@ -74,6 +74,31 @@ public class NewBudgetTracker extends AppCompatActivity {
         budgetTrackerViewModel = new ViewModelProvider.AndroidViewModelFactory(NewBudgetTracker.this
                 .getApplication())
                 .create(BudgetTrackerViewModel.class);
+
+        saveInfoButton.setOnClickListener(view -> {
+
+            if (!TextUtils.isEmpty(enterDate.getText())
+                    && !TextUtils.isEmpty(enterStoreName.getText())
+                    && !TextUtils.isEmpty(enterProductName.getText())
+                    && !TextUtils.isEmpty(enterProductType.getText())
+                    && !TextUtils.isEmpty(enterPrice.getText())) {
+                String date = enterDate.getText().toString();
+                String storeName = enterStoreName.getText().toString();
+                String productName = enterProductName.getText().toString();
+                String productType = enterProductType.getText().toString();
+                int price = Integer.parseInt(enterPrice.getText().toString());
+
+                BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
+                budgetTrackerViewModel.insert(budgetTracker);
+
+            }
+//            else {
+//                setResult(RESULT_CANCELED, replyIntent);
+//            }
+            finish();
+
+        });
+
 //  Get intent from ShopFragment
         Intent shopFragmentGetIntent = getIntent();
         Bundle shopFragmentGetIntentBundle = shopFragmentGetIntent.getExtras();
@@ -117,30 +142,7 @@ public class NewBudgetTracker extends AppCompatActivity {
             isEdit = true;
         }
 
-        saveInfoButton.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
 
-            if (!TextUtils.isEmpty(enterDate.getText())
-                    && !TextUtils.isEmpty(enterStoreName.getText())
-                    && !TextUtils.isEmpty(enterProductName.getText())
-                    && !TextUtils.isEmpty(enterProductType.getText())
-                    && !TextUtils.isEmpty(enterPrice.getText())) {
-                String date = enterDate.getText().toString();
-                String storeName = enterStoreName.getText().toString();
-                String productName = enterProductName.getText().toString();
-                String productType = enterProductType.getText().toString();
-                int price = Integer.parseInt(enterPrice.getText().toString());
-
-                BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
-                budgetTrackerViewModel.insert(budgetTracker);
-
-            }
-//            else {
-//                setResult(RESULT_CANCELED, replyIntent);
-//            }
-            finish();
-
-        });
 
         //Delete button
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +201,7 @@ public class NewBudgetTracker extends AppCompatActivity {
                         } else if (productFragmentIntentId != 0) {
                             budgetTracker.setId(idProduct);
                         }
-
+                        budgetTracker.setDate(date);
                         budgetTracker.setStoreName(storeName);
                         budgetTracker.setProductName(productName);
                         budgetTracker.setProductType(productType);

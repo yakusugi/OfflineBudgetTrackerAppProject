@@ -45,7 +45,7 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
         return productTypeLists;
     }
 
-    public int getProductTypeSumNum(String productType) {
+    public int getProductTypeSum(String productType) {
         productTypeSum = repository.queryProductTypeSum(productType);
         return productTypeSum;
     }
