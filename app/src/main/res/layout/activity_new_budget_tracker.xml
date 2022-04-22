@@ -99,23 +99,23 @@
         app:layout_constraintTop_toBottomOf="@+id/enter_price" />
 
     <Button
-        android:id="@+id/shop_delete_btn"
+        android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/shop_update_btn"
+        app:layout_constraintStart_toEndOf="@+id/update_btn"
         app:layout_constraintTop_toBottomOf="@+id/saveIndoButton" />
 
     <Button
-        android:id="@+id/shop_update_btn"
+        android:id="@+id/update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Update"
-        app:layout_constraintEnd_toStartOf="@+id/shop_delete_btn"
+        app:layout_constraintEnd_toStartOf="@+id/delete_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveIndoButton" />

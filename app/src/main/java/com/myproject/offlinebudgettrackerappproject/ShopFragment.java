@@ -32,9 +32,7 @@ public class ShopFragment extends Fragment {
     private static final String TAG = "Clicked";
     public static final String SHOP_FRAGMENT_ID = "shop_fragment_id";
     BudgetTrackerViewModel budgetTrackerViewModel;
-    //    private ShopRecyclerViewAdapter shopRecyclerViewAdapter;
     private StoreListViewAdapter storeListViewAdapter;
-    //    private RecyclerView storeRecyclerView;
     private ListView storeListView;
     private List<BudgetTracker> budgetTrackerList;
     List<BudgetTracker> viewModelStoreNameLists;
@@ -89,15 +87,10 @@ public class ShopFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         EditText enterStoreNameForQuery = (EditText) view.findViewById(R.id.store_search_txt);
         Button storeSearchQueryBtn = (Button) view.findViewById(R.id.btn_store_search);
-//        RecyclerViewを削除
-//        storeRecyclerView = (RecyclerView) view.findViewById(R.id.storeRecyclerView);
         storeListView = (ListView) view.findViewById(R.id.store_listview);
-//        storeRecyclerView.setHasFixedSize(true);
-//        storeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 //      2022/02/11 追加
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-//      RecyclerVieなので不要
-//        shopRecyclerViewAdapter = new ShopRecyclerViewAdapter(budgetTracker, getActivity());
 
 //      2022/02/11 追加
         storeListViewAdapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
@@ -111,10 +104,9 @@ public class ShopFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 BudgetTracker budgetTracker;
-//                ShopRecyclerViewAdapter shopRecyclerViewAdapter;
+
                 //      2022/02/11 追加
                 StoreListViewAdapter storeListViewAdapter;
-//                RecyclerView recyclerView = null;
 
                 String storeName = enterStoreNameForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
@@ -146,14 +138,6 @@ public class ShopFragment extends Fragment {
 
                 Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
 
-                for (BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
-                }
             }
 
         });

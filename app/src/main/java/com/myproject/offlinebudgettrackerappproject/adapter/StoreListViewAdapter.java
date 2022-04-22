@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 import com.myproject.offlinebudgettrackerappproject.R;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
@@ -19,15 +20,17 @@ import java.util.List;
 public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
 
     private static final Object INVALID_POSITION = -1;
-    private List<BudgetTracker> budgetTrackerList;
+    private LiveData<List<BudgetTracker>> budgetTrackerList;
     private Context context;
     private View.OnClickListener listener;
-    private OnItemClickListener onItemClickListener;
-
 
     public StoreListViewAdapter(Context context, List<BudgetTracker> budgetTrackerList) {
         super(context, R.layout.store_list_item, budgetTrackerList);
+    }
 
+    //TODO Someday, I need to adapt LiveData data transactions instead of the traditional List data transactions.
+    public StoreListViewAdapter(Context context, LiveData<List<BudgetTracker>> budgetTrackerList) {
+        super(context, R.layout.store_list_item, (List<BudgetTracker>) budgetTrackerList);
     }
 
     public StoreListViewAdapter(Context context, int num) {
@@ -69,17 +72,4 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
         return convertView;
     }
 
-
-    public static int getItemPosition(StoreListViewAdapter adapter, Object object) {
-        return getItemPosition(adapter, INVALID_POSITION);
-    }
-
-    //March 28 itemClickListener
-    public interface OnItemClickListener {
-        void onItemCLick(BudgetTracker budgetTracker);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
 }

@@ -1,22 +1,23 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.myproject.offlinebudgettrackerappproject.adapter.ProductRecyclerViewAdapter;
+import com.myproject.offlinebudgettrackerappproject.adapter.ProductListViewAdapter;
+import com.myproject.offlinebudgettrackerappproject.adapter.StoreListViewAdapter;
+import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
@@ -30,9 +31,13 @@ import java.util.List;
 public class ProductFragment extends Fragment {
 
     BudgetTrackerViewModel budgetTrackerViewModel;
-    private ProductRecyclerViewAdapter productRecyclerViewAdapter;
-    private RecyclerView productRecyclerView;
+    private ProductListViewAdapter productListViewAdapter;
+    public static final String PRODUCT_FRAGMENT_ID = "product_fragment_id";
+    private ListView productListView;
+    private List<BudgetTracker> budgetTrackerList;
     private List<BudgetTracker> budgetTracker;
+    List<BudgetTracker> viewModelProductNameLists;
+    ActivityMainBinding activityMainBinding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,63 +85,58 @@ public class ProductFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
         EditText enterProductTypeForQuery = (EditText) view.findViewById(R.id.product_search_txt);
         Button productSearchQueryBtn = (Button) view.findViewById(R.id.btn_product_search);
-        AutoCompleteTextView autoCompleteProductTextView  = (AutoCompleteTextView) view.findViewById(R.id.product_search_txt);
-        ArrayAdapter<String> adapter;
-        String [] strings = getResources().getStringArray(R.array.product_type_string_array);
+        productListView = (ListView) view.findViewById(R.id.product_listview);
+//        AutoCompleteTextView autoCompleteProductTextView  = (AutoCompleteTextView) view.findViewById(R.id.product_search_txt);
+//        ArrayAdapter<String> adapter;
+//        String [] strings = getResources().getStringArray(R.array.product_type_string_array);
 
-        productRecyclerView = (RecyclerView) view.findViewById(R.id.productRecyclerView);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        productRecyclerView.setHasFixedSize(true);
-        productRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        productRecyclerViewAdapter = new ProductRecyclerViewAdapter(budgetTracker, getActivity());
+        BaseAdapter adapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
 
-        adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, strings);
-
-        autoCompleteProductTextView.setThreshold(1);
-        autoCompleteProductTextView.setAdapter(adapter);
+        productListViewAdapter = new ProductListViewAdapter(getActivity(), 1);
+        productListView.setAdapter(productListViewAdapter);
 
         productSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BudgetTracker budgetTracker;
-                ProductRecyclerViewAdapter productRecyclerViewAdapter;
-                RecyclerView recyclerView = null;
-                List<BudgetTracker> viewModelProductTypeLists;
-                int viewModelProductTypeSum;
 
-                String productType = autoCompleteProductTextView.getText().toString();
+                //      2022/02/11 追加
+                ProductListViewAdapter productListViewAdapter;
+
+                String productType = enterProductTypeForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
 
-                viewModelProductTypeLists = budgetTrackerViewModel.getProductTypeLists(productType);
-                viewModelProductTypeSum = budgetTrackerViewModel.getProductTypeSumNum(productType);
-                String viewModelProductTypeSumStr = String.valueOf(viewModelProductTypeSum);
-                TextView calcResult = (TextView) view.findViewById(R.id.product_type_sum_result_txt);
-
-                autoCompleteProductTextView.setThreshold(1);
-                autoCompleteProductTextView.setAdapter(adapter);
+                budgetTracker = new BudgetTracker();
+                budgetTracker.setProductType(productType);
 
 
+                viewModelProductNameLists = budgetTrackerViewModel.getProductTypeLists(productType);
 
-//                TODO: calculated result of all product SQL will be here.
-//                calcResult.setText(viewModelProductTypeSumStr);
+                productListViewAdapter = new ProductListViewAdapter(getActivity(), viewModelProductNameLists);
+                productListView.setAdapter(productListViewAdapter);
 
-                productRecyclerViewAdapter = new ProductRecyclerViewAdapter(viewModelProductTypeLists, getActivity());
-                productRecyclerView.setAdapter(productRecyclerViewAdapter);
+//              Todo  2022/04/10 Tapped modified
+                productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String date = adapterView.getItemAtPosition(position).toString();
+                        List<BudgetTracker> budgetListItems = viewModelProductNameLists;
+                        int intId = (int) id;
+                        BudgetTracker productItemId = budgetListItems.get(intId);
+                        Intent shopFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
+                        shopFragmentIntent.putExtra(PRODUCT_FRAGMENT_ID, productItemId.getId());
+                        startActivity(shopFragmentIntent);
 
-                Log.d("TAG", "onClick: " + autoCompleteProductTextView.getText().toString());
-                Log.d("TAG", "onClick: " + viewModelProductTypeSum);
+                        Log.d("TAG", "onItemClick: " + date);
+                    }
+                });
 
-                for(BudgetTracker budgetTrackerList : viewModelProductTypeLists) {
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
-                }
+                Log.d("TAG", "onClick: " + enterProductTypeForQuery.getText().toString());
 
             }
+
         });
 
         return view;
