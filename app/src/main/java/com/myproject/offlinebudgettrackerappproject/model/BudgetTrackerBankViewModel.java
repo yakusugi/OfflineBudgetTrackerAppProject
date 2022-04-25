@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankRepository;
 
@@ -42,6 +43,10 @@ public class BudgetTrackerBankViewModel extends AndroidViewModel {
         bankNameLists = bankRepository.queryBankName(bankName);
         return bankNameLists;
     }
+
+    public LiveData<BudgetTrackerBank> getBudgetTrackerBankId(int id) {return bankRepository.getBudgetTrackerBankId(id);}
+    public static void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {bankRepository.updateBudgetTrackerBank(budgetTrackerBank);}
+    public static void deleteBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {bankRepository.deleteBudgetTrackerBank(budgetTrackerBank);}
 
 
 }

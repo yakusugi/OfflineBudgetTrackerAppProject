@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewBudgetTrackerBank"
     android:background="@drawable/bank_bg"
-    >
+    tools:context=".NewBudgetTrackerBank">
 
     <ImageView
         android:id="@+id/imageView5"
@@ -51,11 +50,32 @@
         android:id="@+id/save_button_budget_tracker_bank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
         android:layout_marginTop="28dp"
+        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_bank_balance"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/enter_bank_balance" />
+
+    <Button
+        android:id="@+id/bank_delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bank_update_btn"
+        app:layout_constraintTop_toBottomOf="@+id/save_button_budget_tracker_bank" />
+
+    <Button
+        android:id="@+id/bank_update_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Update"
+        app:layout_constraintEnd_toStartOf="@+id/bank_delete_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_button_budget_tracker_bank" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

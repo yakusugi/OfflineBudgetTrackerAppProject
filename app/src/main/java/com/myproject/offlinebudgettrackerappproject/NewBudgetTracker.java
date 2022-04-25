@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,6 +20,7 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class NewBudgetTracker extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class NewBudgetTracker extends AppCompatActivity {
     private int shopFragmentIntentId = 0;
     private int productFragmentIntentId = 0;
     boolean isEdit = false;
+    LiveData<List<BudgetTracker>> viewModelStoreNameLists;
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
 
@@ -173,6 +176,7 @@ public class NewBudgetTracker extends AppCompatActivity {
                         budgetTracker.setProductType(productType);
                         budgetTracker.setPrice(price);
                         BudgetTrackerViewModel.deleteBudgetTracker(budgetTracker);
+                        budgetTrackerViewModel.getAllBudgetTrackerLists();
                         finish();
                     }
                 }
@@ -207,6 +211,12 @@ public class NewBudgetTracker extends AppCompatActivity {
                         budgetTracker.setProductType(productType);
                         budgetTracker.setPrice(price);
                         BudgetTrackerViewModel.updateBudgetTracker(budgetTracker);
+//                         Todo Automatic search after updated an item
+//                        viewModelStoreNameLists = budgetTrackerViewModel.getAllBudgetTrackerLists();
+//                        StoreListViewAdapter storeListViewAdapter;
+//
+//                        storeListViewAdapter = new StoreListViewAdapter(this, viewModelStoreNameLists);
+//                        storeListView.setAdapter(storeListViewAdapter);
                         finish();
                     }
                 }

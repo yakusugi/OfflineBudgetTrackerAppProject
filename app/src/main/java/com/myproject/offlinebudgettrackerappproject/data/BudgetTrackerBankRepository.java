@@ -2,6 +2,8 @@ package com.myproject.offlinebudgettrackerappproject.data;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.util.BudgetTrackerDatabase;
 
@@ -41,5 +43,17 @@ public class BudgetTrackerBankRepository {
     public List<BudgetTrackerBank> queryBankName(String bankName) {
         bankNameLists = budgetTrackerBankDao.getBankNameLists(bankName);
         return bankNameLists;
+    }
+
+    public LiveData<BudgetTrackerBank> getBudgetTrackerBankId(int id) {
+        return budgetTrackerBankDao.getBudgetTrackerBankId(id);
+    }
+
+    public void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.updateBudgetTrackerBank(budgetTrackerBank));
+    }
+
+    public void deleteBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.deleteBudgetTrackerBank(budgetTrackerBank));
     }
 }

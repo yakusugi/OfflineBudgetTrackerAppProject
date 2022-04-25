@@ -1,7 +1,10 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -23,6 +26,7 @@ public class BudgetTrackerBankActivity extends AppCompatActivity {
     private List<BudgetTrackerBank> budgetTrackerBank;
     BudgetTrackerBankViewModel budgetTrackerBankViewModel;
     private ListView bankNameListView;
+    public static final String BUDGET_TRACKER_BANK_ID = "budget_bank_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,21 @@ public class BudgetTrackerBankActivity extends AppCompatActivity {
 
                 bankNameListViewAdapter = new BankNameListViewAdapter(BudgetTrackerBankActivity.this, viewModelBankNameLists);
                 bankNameListView.setAdapter(bankNameListViewAdapter);
+
+                bankNameListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String date = adapterView.getItemAtPosition(position).toString();
+                        List<BudgetTrackerBank> bankListItems = viewModelBankNameLists;
+                        int intId = (int) id;
+                        BudgetTrackerBank bankItemId = bankListItems.get(intId);
+                        Intent bankActivityIntent = new Intent(BudgetTrackerBankActivity.this, NewBudgetTrackerBank.class);
+                        bankActivityIntent.putExtra(BUDGET_TRACKER_BANK_ID, bankItemId.getId());
+                        startActivity(bankActivityIntent);
+
+                        Log.d("TAG", "onItemClick: " + date);
+                    }
+                });
 
             }
 
