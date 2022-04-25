@@ -18,9 +18,6 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankViewM
 
 public class NewBudgetTrackerBank extends AppCompatActivity {
 
-//    public static final String REPLY_BANK_NAME = "reply_bank_name";
-//    public static final String REPLY_BANK_BALANCE = "reply_bank_balance";
-
     private EditText enterBankName;
     private EditText enterBankBalance;
     private Button saveButtonBudgetTrackerBank;

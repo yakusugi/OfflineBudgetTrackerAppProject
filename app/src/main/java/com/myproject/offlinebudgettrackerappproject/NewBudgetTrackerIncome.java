@@ -25,10 +25,6 @@ import java.util.List;
 
 public class NewBudgetTrackerIncome extends AppCompatActivity {
 
-//    public static final String REPLY_INCOME_DATE = "reply_income_date";
-//    public static final String REPLY_INCOME_CATEGORY = "reply_income_category";
-//    public static final String REPLY_INCOME_AMOUNT = "reply_income_amount";
-
     private EditText enterIncomeDate;
     private EditText enterIncomeCategory;
     private EditText enterIncomeAmount;
