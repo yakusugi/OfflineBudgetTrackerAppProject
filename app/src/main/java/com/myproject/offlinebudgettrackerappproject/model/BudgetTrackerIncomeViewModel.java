@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeRepository;
 
@@ -30,6 +31,10 @@ public class BudgetTrackerIncomeViewModel extends AndroidViewModel {
         incomeCategoryLists = incomeRepository.queryIncomeCategory(incomeCategory);
         return incomeCategoryLists;
     }
+
+    public LiveData<BudgetTrackerIncome> getBudgetTrackerIncomeId(int id) {return incomeRepository.getBudgetTrackerIncomeId(id);}
+    public static void updateBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {incomeRepository.updateBudgetTrackerIncome(budgetTrackerIncome);}
+    public static void deleteBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {incomeRepository.deleteBudgetTrackerIncome(budgetTrackerIncome);}
 
 
 }

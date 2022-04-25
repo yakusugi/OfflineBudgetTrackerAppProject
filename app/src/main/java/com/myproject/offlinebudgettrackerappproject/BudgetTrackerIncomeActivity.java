@@ -1,7 +1,10 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -23,6 +26,7 @@ public class BudgetTrackerIncomeActivity extends AppCompatActivity {
     private List<BudgetTrackerIncome> budgetTrackerIncome;
     BudgetTrackerIncomeViewModel budgetTrackerIncomeViewModel;
     private ListView incomeCategoryListView;
+    public static final String BUDGET_TRACKER_INCOME_ID = "budget_income_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,21 @@ public class BudgetTrackerIncomeActivity extends AppCompatActivity {
 
                 incomeListViewAdapter = new IncomeListViewAdapter(BudgetTrackerIncomeActivity.this, viewModelIncomeCategoryLists);
                 incomeCategoryListView.setAdapter(incomeListViewAdapter);
+
+                incomeCategoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String date = adapterView.getItemAtPosition(position).toString();
+                        List<BudgetTrackerIncome> incomeListItems = viewModelIncomeCategoryLists;
+                        int intId = (int) id;
+                        BudgetTrackerIncome incomeItemId = incomeListItems.get(intId);
+                        Intent incomeActivityIntent = new Intent(BudgetTrackerIncomeActivity.this, NewBudgetTrackerIncome.class);
+                        incomeActivityIntent.putExtra(BUDGET_TRACKER_INCOME_ID, incomeItemId.getId());
+                        startActivity(incomeActivityIntent);
+
+                        Log.d("TAG", "onItemClick: " + date);
+                    }
+                });
 
             }
 

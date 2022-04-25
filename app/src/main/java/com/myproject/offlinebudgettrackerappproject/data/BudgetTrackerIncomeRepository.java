@@ -36,4 +36,16 @@ public class BudgetTrackerIncomeRepository {
             budgetTrackerIncomeDao.insert(budgetTrackerIncome);
         });
     }
+
+    public LiveData<BudgetTrackerIncome> getBudgetTrackerIncomeId(int id) {
+        return budgetTrackerIncomeDao.getBudgetTrackerIncomeId(id);
+    }
+
+    public void updateBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerIncomeDao.updateBudgetTrackerIncome(budgetTrackerIncome));
+    }
+
+    public void deleteBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerIncomeDao.deleteBudgetTrackerIncome(budgetTrackerIncome));
+    }
 }
