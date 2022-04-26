@@ -34,6 +34,13 @@ public class BudgetTracker {
         this.price = price;
     }
 
+    public BudgetTracker(@NonNull String storeName, String date1, String date2) {
+        this.id = id;
+        this.storeName = storeName;
+        this.date = date1;
+        this.date = date2;
+    }
+
     public int getId() {
         return id;
     }

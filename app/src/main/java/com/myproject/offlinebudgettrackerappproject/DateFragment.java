@@ -1,22 +1,31 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myproject.offlinebudgettrackerappproject.adapter.DateListViewAdapter;
+import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -27,6 +36,12 @@ import java.util.List;
 public class DateFragment extends Fragment {
 
     BudgetTrackerViewModel budgetTrackerViewModel;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
+    private ListView dateListView;
+    private List<BudgetTracker> budgetTrackerList;
+    ActivityMainBinding activityMainBinding;
+    public static final String DATE_FRAGMENT_ID = "date_fragment_id";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,16 +87,29 @@ public class DateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_date, container, false);
-        EditText enterDateForQuery1 = (EditText) view.findViewById(R.id.date_search_txt1);
-        EditText enterDateForQuery2 = (EditText) view.findViewById(R.id.date_search_txt2);
-        Button dateSearchQueryBtn = (Button) view.findViewById(R.id.btn_date_search);
+        radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
+        dateListView = (ListView) view.findViewById(R.id.date_listview);
+        DateListViewAdapter dateListViewAdapter;
+
+        EditText radioSearchName = (EditText) view.findViewById(R.id.radio_search_name);
+        EditText radioSearchDateFrom = (EditText) view.findViewById(R.id.radio_search_date_from_txt);
+        EditText radioSearchDateTo = (EditText) view.findViewById(R.id.radio_search_date_to_txt);
+        Button radioSearchBtn = (Button) view.findViewById(R.id.radio_search_btn);
+        TextView searchCalcResultTxt = (TextView) view.findViewById(R.id.radio_search_calc_result_txt);
+
+        BaseAdapter adapter = new DateListViewAdapter(getActivity(), budgetTrackerList);
+
+        dateListViewAdapter = new DateListViewAdapter(getActivity(), 1);
+        dateListView.setAdapter(dateListViewAdapter);
+
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        enterDateForQuery1.setOnClickListener(new View.OnClickListener() {
+        radioSearchDateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -90,14 +118,14 @@ public class DateFragment extends Fragment {
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         month = month + 1;
                         String date = year + "-" + month + "-" + dayOfMonth;
-                        enterDateForQuery1.setText(date);
+                        radioSearchDateFrom.setText(date);
                     }
-                }, year,month, day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
 
-        enterDateForQuery2.setOnClickListener(new View.OnClickListener() {
+        radioSearchDateTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -106,49 +134,108 @@ public class DateFragment extends Fragment {
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         month = month + 1;
                         String date = year + "-" + month + "-" + dayOfMonth;
-                        enterDateForQuery2.setText(date);
+                        radioSearchDateTo.setText(date);
                     }
-                }, year,month, day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
 
 
-        dateSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            DateListViewAdapter dateListViewAdapter;
+            List<BudgetTracker> radioStoreNameLists;
+            List<BudgetTracker> radioProductNameLists;
+            List<BudgetTracker> radioProductTypeLists;
+            String date1;
+            String date2;
+            BudgetTracker budgetTracker;
+            String calcSumStr;
+
             @Override
-            public void onClick(View view) {
-                BudgetTracker budgetTracker;
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_store_name:
+                        String storeName = radioSearchName.getText().toString();
+                        date1 = radioSearchDateFrom.getText().toString();
+                        date2 = radioSearchDateTo.getText().toString();
+                        budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                        budgetTracker = new BudgetTracker(storeName, date1, date2);
+                        radioSearchBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                radioStoreNameLists = budgetTrackerViewModel.getRadioStoreNameLists(storeName, date1, date2);
+                                dateListViewAdapter = new DateListViewAdapter(getActivity(), radioStoreNameLists);
+                                dateListView.setAdapter(dateListViewAdapter);
+                                calcSumStr = String.valueOf(budgetTrackerViewModel.getDateStoreSum(storeName, date1, date2));
+                                searchCalcResultTxt.setText(calcSumStr);
 
-                String date1 = enterDateForQuery1.getText().toString();
-                String date2 = enterDateForQuery2.getText().toString();
-                budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-//                budgetTrackerViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(
-//                        this.getApplication()).create(CanteensViewModel.class);
+                            }
+                        });
 
-                budgetTracker = new BudgetTracker();
-//                budgetTracker.setStoreName(productName);
+                        break;
+                    case R.id.radio_product_name:
+                        String productName = radioSearchName.getText().toString();
+                        date1 = radioSearchDateFrom.getText().toString();
+                        date2 = radioSearchDateTo.getText().toString();
+                        budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                        budgetTracker = new BudgetTracker(productName, date1, date2);
+                        radioSearchBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                radioProductNameLists = budgetTrackerViewModel.getRadioProductNameLists(productName, date1, date2);
+                                dateListViewAdapter = new DateListViewAdapter(getActivity(), radioProductNameLists);
+                                dateListView.setAdapter(dateListViewAdapter);
+                                calcSumStr = String.valueOf(budgetTrackerViewModel.getDateProductNameSum(productName, date1, date2));
+                                searchCalcResultTxt.setText(calcSumStr);
 
-//                budgetTrackerViewModel.getStoreNameLists(storeName);
+                            }
+                        });
+                        break;
+                    case R.id.radio_product_type:
+                        String productType = radioSearchName.getText().toString();
+                        date1 = radioSearchDateFrom.getText().toString();
+                        date2 = radioSearchDateTo.getText().toString();
+                        budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                        budgetTracker = new BudgetTracker(productType, date1, date2);
+                        radioSearchBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                radioProductTypeLists = budgetTrackerViewModel.getRadioProductTypeLists(productType, date1, date2);
+                                dateListViewAdapter = new DateListViewAdapter(getActivity(), radioProductTypeLists);
+                                dateListView.setAdapter(dateListViewAdapter);
+                                calcSumStr = String.valueOf(budgetTrackerViewModel.getDateProductTypeSum(productType, date1, date2));
+                                searchCalcResultTxt.setText(calcSumStr);
 
-                List<BudgetTracker> viewModelStoreNameLists = budgetTrackerViewModel.getDateLists(date1, date2);
-
-                Log.d("TAG", "onClick: " + enterDateForQuery1.getText().toString());
-                Log.d("TAG", "onClick: " + enterDateForQuery2.getText().toString());
-
-                for(BudgetTracker budgetTrackerList : viewModelStoreNameLists) {
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getId());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getDate().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getStoreName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductName().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getProductType().toString());
-                    Log.d("TAG", "onClick: " + budgetTrackerList.getPrice());
+                            }
+                        });
+                        break;
                 }
 
-//                Log.d("TAG", "onClick: " + list);
+                //              Todo  2022/04/10 Tapped modified
+                dateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String date = adapterView.getItemAtPosition(position).toString();
+                        List<BudgetTracker> budgetListItems = radioStoreNameLists;
+                        int intId = (int) id;
+                        BudgetTracker dateItemId = budgetListItems.get(intId);
+                        Intent dateFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
+                        dateFragmentIntent.putExtra(DATE_FRAGMENT_ID, dateItemId.getId());
+                        startActivity(dateFragmentIntent);
 
+                        Log.d("TAG", "onItemClick: " + date);
+                    }
+                });
             }
         });
 
         return view;
+    }
+
+    public void checkButton(View v) {
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = (RadioButton) v.findViewById(radioId);
+//        Toast.makeText(this, "Selected Radio Button: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
 }

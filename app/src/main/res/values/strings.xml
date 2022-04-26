@@ -23,4 +23,5 @@
     <string name="bank_query_hint">Search by bank name</string>
     <string name="income_query_hint">Search by income source</string>
     <string name="bank_qurey_hint">Search by bank name</string>
+    <string name="radio_search_name">Enter a search word</string>
 </resources>

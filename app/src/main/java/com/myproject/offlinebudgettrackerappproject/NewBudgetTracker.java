@@ -34,6 +34,7 @@ public class NewBudgetTracker extends AppCompatActivity {
     private Button deleteButton;
     private int shopFragmentIntentId = 0;
     private int productFragmentIntentId = 0;
+    private int dateFragmentIntentId = 0;
     boolean isEdit = false;
     LiveData<List<BudgetTracker>> viewModelStoreNameLists;
 
@@ -123,6 +124,7 @@ public class NewBudgetTracker extends AppCompatActivity {
             });
             isEdit = true;
         }
+
 //  Get intent from ProductFragment
         Intent productFragmentGetIntent = getIntent();
         Bundle productFragmentGetIntentBundle = productFragmentGetIntent.getExtras();
@@ -145,15 +147,37 @@ public class NewBudgetTracker extends AppCompatActivity {
             isEdit = true;
         }
 
+        //  Get intent from DateFragment
+        Intent dateFragmentGetIntent = getIntent();
+        Bundle dateFragmentGetIntentBundle = dateFragmentGetIntent.getExtras();
+        if (dateFragmentGetIntentBundle != null) {
+            dateFragmentIntentId = getIntent().getIntExtra(DateFragment.DATE_FRAGMENT_ID, 0);
+            Log.d("TAG", "dateFragment: " + dateFragmentIntentId);
+            //observe only works when using LiveData
+            budgetTrackerViewModel.getBudgetTrackerId(dateFragmentIntentId).observe(this, new Observer<BudgetTracker>() {
+                @Override
+                public void onChanged(BudgetTracker budgetTracker) {
+                    if (budgetTracker != null) {
+                        enterDate.setText(budgetTracker.getDate());
+                        enterStoreName.setText(budgetTracker.getStoreName());
+                        enterProductName.setText(budgetTracker.getProductName());
+                        enterProductType.setText(budgetTracker.getProductType());
+                        enterPrice.setText(String.valueOf(budgetTracker.getPrice()));
+                    }
+                }
+            });
+            isEdit = true;
+        }
 
 
         //Delete button
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0) {
+                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0 || dateFragmentIntentId != 0) {
                     int idStore = shopFragmentIntentId;
                     int idProduct = productFragmentIntentId;
+                    int idDate = dateFragmentIntentId;
                     String date = enterDate.getText().toString();
                     String storeName = enterStoreName.getText().toString();
                     String productName = enterProductName.getText().toString();
@@ -168,6 +192,8 @@ public class NewBudgetTracker extends AppCompatActivity {
                             budgetTracker.setId(idStore);
                         } else if (productFragmentIntentId != 0) {
                             budgetTracker.setId(idProduct);
+                        } else if (dateFragmentIntentId != 0) {
+                            budgetTracker.setId(idDate);
                         }
 
                         budgetTracker.setDate(date);
@@ -187,9 +213,10 @@ public class NewBudgetTracker extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0) {
+                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0 || dateFragmentIntentId != 0) {
                     int idStore = shopFragmentIntentId;
                     int idProduct = productFragmentIntentId;
+                    int idDate = dateFragmentIntentId;
                     String date = enterDate.getText().toString();
                     String storeName = enterStoreName.getText().toString();
                     String productName = enterProductName.getText().toString();
@@ -204,6 +231,8 @@ public class NewBudgetTracker extends AppCompatActivity {
                             budgetTracker.setId(idStore);
                         } else if (productFragmentIntentId != 0) {
                             budgetTracker.setId(idProduct);
+                        } else if (dateFragmentIntentId != 0) {
+                            budgetTracker.setId(idDate);
                         }
                         budgetTracker.setDate(date);
                         budgetTracker.setStoreName(storeName);

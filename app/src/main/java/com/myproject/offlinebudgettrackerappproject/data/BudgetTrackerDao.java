@@ -47,4 +47,22 @@ public interface BudgetTrackerDao {
 
     @Delete
     void deleteBudgetTracker(BudgetTracker budgetTracker);
+
+    @Query("SELECT * FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%' and date >= :date1 and date <= :date2")
+    List<BudgetTracker> getRadioStoreNameLists(String storeName, String date1, String date2);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%' and date >= :date1 and date <= :date2")
+    int getDateStoreSum(String storeName, String date1, String date2);
+
+    @Query("SELECT * FROM budget_tracker_table WHERE product_name LIKE '%' || :productName|| '%' and date >= :date1 and date <= :date2")
+    List<BudgetTracker> getRadioProductNameLists(String productName, String date1, String date2);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_table WHERE product_name LIKE '%' || :productName|| '%' and date >= :date1 and date <= :date2")
+    int getDateProductNameSum(String productName, String date1, String date2);
+
+    @Query("SELECT * FROM budget_tracker_table WHERE product_type LIKE '%' || :productType|| '%' and date >= :date1 and date <= :date2")
+    List<BudgetTracker> getRadioProductTypeLists(String productType, String date1, String date2);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_table WHERE product_type LIKE '%' || :productType|| '%' and date >= :date1 and date <= :date2")
+    int getDateProductTypeSum(String productType, String date1, String date2);
 }

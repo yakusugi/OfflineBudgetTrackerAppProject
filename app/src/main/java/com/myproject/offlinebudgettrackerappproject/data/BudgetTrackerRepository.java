@@ -17,6 +17,12 @@ public class BudgetTrackerRepository {
     private List<BudgetTracker> productTypeLists;
     private int productTypeSum;
     private List<BudgetTracker> dateLists;
+    private List<BudgetTracker> radioStoreNameLists;
+    private int dateStoreSum;
+    private List<BudgetTracker> radioProductNameLists;
+    private int dateProductNameSum;
+    private List<BudgetTracker> radioProductTypeLists;
+    private int dateProductTypeSum;
 
     public BudgetTrackerRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -66,6 +72,38 @@ public class BudgetTrackerRepository {
     public void deleteBudgetTracker(BudgetTracker budgetTracker) {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerDao.deleteBudgetTracker(budgetTracker));
     }
+
+    public List<BudgetTracker> getRadioStoreNameLists(String storeName, String date1, String date2) {
+        radioStoreNameLists = budgetTrackerDao.getRadioStoreNameLists(storeName, date1, date2);
+        return radioStoreNameLists;
+    }
+
+    public int getDateStoreSum(String storeName, String date1, String date2) {
+        dateStoreSum = budgetTrackerDao.getDateStoreSum(storeName, date1, date2);
+        return dateStoreSum;
+    }
+
+    public List<BudgetTracker> getRadioProductNameLists(String productName, String date1, String date2) {
+        radioProductNameLists = budgetTrackerDao.getRadioProductNameLists(productName, date1, date2);
+        return radioProductNameLists;
+    }
+
+    public int getDateProductNameSum(String storeName, String date1, String date2) {
+        dateProductNameSum = budgetTrackerDao.getDateProductNameSum(storeName, date1, date2);
+        return dateProductNameSum;
+    }
+
+    public List<BudgetTracker> getRadioProductTypeLists(String productType, String date1, String date2) {
+        radioProductTypeLists = budgetTrackerDao.getRadioProductTypeLists(productType, date1, date2);
+        return radioProductTypeLists;
+    }
+
+    public int getDateProductTypeSum(String productType, String date1, String date2) {
+        dateProductTypeSum = budgetTrackerDao.getDateProductTypeSum(productType, date1, date2);
+        return dateProductTypeSum;
+    }
+
+
 
 
 }

@@ -129,9 +129,9 @@ public class ProductFragment extends Fragment {
                         List<BudgetTracker> budgetListItems = viewModelProductNameLists;
                         int intId = (int) id;
                         BudgetTracker productItemId = budgetListItems.get(intId);
-                        Intent shopFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
-                        shopFragmentIntent.putExtra(PRODUCT_FRAGMENT_ID, productItemId.getId());
-                        startActivity(shopFragmentIntent);
+                        Intent productFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
+                        productFragmentIntent.putExtra(PRODUCT_FRAGMENT_ID, productItemId.getId());
+                        startActivity(productFragmentIntent);
 
                         Log.d("TAG", "onItemClick: " + date);
                     }

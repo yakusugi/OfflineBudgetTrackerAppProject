@@ -18,6 +18,12 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public List<BudgetTracker> productTypeLists;
     public int productTypeSum;
     public List<BudgetTracker> dateLists;
+    public List<BudgetTracker> radioStoreNameLists;
+    public int dateStoreSum;
+    public List<BudgetTracker> radioProductNameLists;
+    public int dateProductNameSum;
+    public List<BudgetTracker> radioProductTypeLists;
+    public int dateProductTypeSum;
 
     public BudgetTrackerViewModel(@NonNull Application application) {
         super(application);
@@ -62,4 +68,34 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public LiveData<BudgetTracker> getBudgetTrackerId(int id) {return repository.getBudgetTrackerId(id);}
     public static void updateBudgetTracker(BudgetTracker budgetTracker) {repository.updateBudgetTracker(budgetTracker);}
     public static void deleteBudgetTracker(BudgetTracker budgetTracker) {repository.deleteBudgetTracker(budgetTracker);}
+
+    public List<BudgetTracker> getRadioStoreNameLists(String storeName, String date1, String date2) {
+        radioStoreNameLists = repository.getRadioStoreNameLists(storeName, date1, date2);
+        return radioStoreNameLists;
+    }
+
+    public int getDateStoreSum(String storeName, String date1, String date2) {
+        dateStoreSum = repository.getDateStoreSum(storeName, date1, date2);
+        return dateStoreSum;
+    }
+
+    public List<BudgetTracker> getRadioProductNameLists(String productName, String date1, String date2) {
+        radioProductNameLists = repository.getRadioProductNameLists(productName, date1, date2);
+        return radioProductNameLists;
+    }
+
+    public int getDateProductNameSum(String productName, String date1, String date2) {
+        dateProductNameSum = repository.getDateProductNameSum(productName, date1, date2);
+        return dateProductNameSum;
+    }
+
+    public List<BudgetTracker> getRadioProductTypeLists(String productType, String date1, String date2) {
+        radioProductTypeLists = repository.getRadioProductTypeLists(productType, date1, date2);
+        return radioProductTypeLists;
+    }
+
+    public int getDateProductTypeSum(String productType, String date1, String date2) {
+        dateProductTypeSum = repository.getDateProductTypeSum(productType, date1, date2);
+        return dateProductTypeSum;
+    }
 }
