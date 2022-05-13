@@ -156,6 +156,7 @@ public class DateFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio_store_name:
+                        Log.d("TAG", "onCheckedChanged: store chosen");
                         String storeName = radioSearchName.getText().toString();
                         date1 = radioSearchDateFrom.getText().toString();
                         date2 = radioSearchDateTo.getText().toString();
@@ -164,6 +165,7 @@ public class DateFragment extends Fragment {
                         radioSearchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                Log.d("TAG", "onClick: date button clicked");
                                 radioStoreNameLists = budgetTrackerViewModel.getRadioStoreNameLists(storeName, date1, date2);
                                 dateListViewAdapter = new DateListViewAdapter(getActivity(), radioStoreNameLists);
                                 dateListView.setAdapter(dateListViewAdapter);
@@ -175,6 +177,7 @@ public class DateFragment extends Fragment {
 
                         break;
                     case R.id.radio_product_name:
+                        Log.d("TAG", "onCheckedChanged: product name chosen");
                         String productName = radioSearchName.getText().toString();
                         date1 = radioSearchDateFrom.getText().toString();
                         date2 = radioSearchDateTo.getText().toString();
@@ -193,6 +196,7 @@ public class DateFragment extends Fragment {
                         });
                         break;
                     case R.id.radio_product_type:
+                        Log.d("TAG", "onCheckedChanged: product type chosen");
                         String productType = radioSearchName.getText().toString();
                         date1 = radioSearchDateFrom.getText().toString();
                         date2 = radioSearchDateTo.getText().toString();
@@ -233,9 +237,4 @@ public class DateFragment extends Fragment {
         return view;
     }
 
-    public void checkButton(View v) {
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = (RadioButton) v.findViewById(radioId);
-//        Toast.makeText(this, "Selected Radio Button: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
-    }
 }

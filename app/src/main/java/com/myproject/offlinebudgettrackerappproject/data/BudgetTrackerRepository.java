@@ -23,6 +23,7 @@ public class BudgetTrackerRepository {
     private int dateProductNameSum;
     private List<BudgetTracker> radioProductTypeLists;
     private int dateProductTypeSum;
+    private List<BudgetTracker> radioStoreSearchHomeLists;
 
     public BudgetTrackerRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -102,6 +103,13 @@ public class BudgetTrackerRepository {
         dateProductTypeSum = budgetTrackerDao.getDateProductTypeSum(productType, date1, date2);
         return dateProductTypeSum;
     }
+
+//    public List<BudgetTracker> getRadioStoreSearchHomeLists(String storeName, String date1, String date2) {
+//        radioStoreSearchHomeLists = budgetTrackerDao.getRadioStoreSearchHomeLists(storeName, date1, date2);
+//        return radioStoreSearchHomeLists;
+//    }
+
+
 
 
 

@@ -1,18 +1,31 @@
 package com.myproject.offlinebudgettrackerappproject;
 
-import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.icu.util.Calendar;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAliasViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
+
+import org.eazegraph.lib.charts.PieChart;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +35,17 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel
 public class HomeFragment extends Fragment {
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
-
+    private BudgetTrackerAliasViewModel budgetTrackerAliasViewModel;
+    PieChart homePieChart;
+    RadioGroup radioHomeGroup;
+    RadioButton radioHomeButton;
+    EditText radioSearchHomeName;
+    EditText radioSearchDateHomeFrom;
+    EditText radioSearchDateHomeTo;
+    TextView searchCalcResultHomeTxt;
+    Button radioSearchHomeBtn;
+    ActivityMainBinding activityMainBinding;
+    List<BudgetTrackerAlias> homeRadioList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,14 +97,122 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)                                                                {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.home_recycler_view);
-        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        homePieChart = (PieChart) view.findViewById(R.id.pie_chart);
+        radioHomeGroup = (RadioGroup) view.findViewById(R.id.home_radio_group);
+        radioSearchHomeName = (EditText) view.findViewById(R.id.home_radio_search_name);
+        radioSearchDateHomeFrom = (EditText) view.findViewById(R.id.home_radio_search_date_from_txt);
+        radioSearchDateHomeTo = (EditText) view.findViewById(R.id.home_radio_search_date_to_txt);
+        searchCalcResultHomeTxt = (TextView) view.findViewById(R.id.home_radio_search_calc_result_txt);
+        radioSearchHomeBtn = (Button) view.findViewById(R.id.home_radio_search_btn);
+//        radioSearchHomeBtn.setOnClickListener((View.OnClickListener) getActivity());
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onClick: Alias Button Clicked");
+                int radioId = radioHomeGroup.getCheckedRadioButtonId();
+                if (radioId == R.id.home_radio_store_name) {
+                    Log.d("TAG", "onClick: Alias Button Clicked 222");
+                }
+            }
+        });
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        radioSearchDateHomeFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        String date = year + "-" + month + "-" + dayOfMonth;
+                        radioSearchDateHomeFrom.setText(date);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        radioSearchDateHomeTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        String date = year + "-" + month + "-" + dayOfMonth;
+                        radioSearchDateHomeTo.setText(date);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        radioHomeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            List<BudgetTracker> radioStoreNameLists;
+            List<BudgetTracker> radioProductNameLists;
+            List<BudgetTracker> radioProductTypeLists;
+            String storeName;
+            String date1;
+            String date2;
+            BudgetTracker budgetTracker;
+            String calcSumStr;
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
+                switch (checkId) {
+                    case R.id.home_radio_store_name:
+                        Log.d("TAG", "onCheckedChanged: store chosen");
+                        storeName = radioSearchHomeName.getText().toString();
+                        date1 = radioSearchDateHomeFrom.getText().toString();
+                        date2 = radioSearchDateHomeTo.getText().toString();
+                        radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("TAG", "onClick: Alias Button Clicked 111");
+                                BudgetTrackerAliasViewModel.insert(date1, date2, storeName);
+
+                                budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
+                                homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
+
+                                for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
+                                    Log.d("TAG", "onClick: " + budgetTrackerAlias.getProductTypeAlias());
+                                }
+
+                            }
+                        });
+                        break;
+                    case R.id.home_radio_product_name:
+                        Log.d("TAG", "onCheckedChanged: product name chosen");
+                        storeName = radioSearchHomeName.getText().toString();
+                        date1 = radioSearchDateHomeFrom.getText().toString();
+                        date2 = radioSearchDateHomeTo.getText().toString();
+                        budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
+                        budgetTracker = new BudgetTracker(storeName, date1, date2);
+                        radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("TAG", "onClick: Alias Button Clicked");
+                                BudgetTrackerAliasViewModel.insert(date1, date2, storeName);
+
+                            }
+                        });
+                        break;
+                }
+            }
+        });
+
+        return view;
 
     }
 }

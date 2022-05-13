@@ -9,22 +9,26 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerAliasDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeDao;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class}, version = 3, exportSchema = false
+@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class}, version = 6, exportSchema = false
 )
 public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerDao budgetTrackerDao();
     public abstract BudgetTrackerIncomeDao budgetTrackerIncomeDao();
     public abstract BudgetTrackerBankDao budgetTrackerBankDao();
+    public abstract BudgetTrackerAliasDao budgetTrackerAliasDao();
+
     public static final int NUMBER_OF_THREADS = 4;
 
     private static volatile BudgetTrackerDatabase INSTANCE;
@@ -41,6 +45,11 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                             .allowMainThreadQueries()
                             .addMigrations(MIGRATION_1_2)
                             .addMigrations(MIGRATION_2_3)
+                            .addMigrations(MIGRATION_3_4)
+                            .addMigrations(MIGRATION_4_5)
+                            .addMigrations(MIGRATION_5_6)
+                            .addMigrations(MIGRATION_6_5)
+                            .addMigrations(MIGRATION_5_6)
                             .build();
                 }
             }
@@ -87,4 +96,45 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                     "bank_balance INTEGER NOT NULL)");
         }
     };
+
+    public static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_table_alias (" +
+                    "product_type_alias TEXT," +
+                    "store_name_alias TEXT," +
+                    "product_type_percentage TEXT)");
+        }
+    };
+
+    public static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("DROP TABLE budget_tracker_table_alias");
+        }
+    };
+
+
+
+    public static final Migration MIGRATION_6_5 = new Migration(6, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("DROP TABLE budget_tracker_table_alias");
+        }
+    };
+
+    public static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_table_alias (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "date_alias TEXT," +
+                    "store_name_alias TEXT," +
+                    "product_name_alias TEXT," +
+                    "product_type_alias TEXT," +
+                    "price_alias INTEGER NOT NULL," +
+                    "product_type_percentage REAL NOT NULL)");
+        }
+    };
+
 }

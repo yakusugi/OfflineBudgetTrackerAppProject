@@ -88,4 +88,5 @@ public class BudgetTracker {
     public void setPrice(int price) {
         this.price = price;
     }
+
 }
