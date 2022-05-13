@@ -63,9 +63,8 @@ dependencies {
 // Circle Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-//    PieChart
-    implementation 'com.github.blackfizz:eazegraph:1.2.2@aar'
-    implementation 'com.nineoldandroids:library:2.4.0'
+//  Pie Chat MP Android Chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
 }

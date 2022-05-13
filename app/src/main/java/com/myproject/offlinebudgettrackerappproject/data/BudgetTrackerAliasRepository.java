@@ -28,4 +28,10 @@ public class BudgetTrackerAliasRepository {
         return budgetTrackerAliasList;
     }
 
+    public void deleteAllAlias() {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerAliasDao.deleteAllAlias();
+        });
+    }
+
 }

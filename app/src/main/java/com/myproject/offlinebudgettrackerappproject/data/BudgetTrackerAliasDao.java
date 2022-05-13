@@ -19,4 +19,7 @@ public interface BudgetTrackerAliasDao {
     @Query("SELECT * FROM budget_tracker_table_alias")
     List<BudgetTrackerAlias> getAllBudgetTrackerAliasList();
 
+    @Query("DELETE FROM budget_tracker_table_alias")
+    void deleteAllAlias();
+
 }

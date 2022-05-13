@@ -17,14 +17,18 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAliasViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
-import org.eazegraph.lib.charts.PieChart;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +40,6 @@ public class HomeFragment extends Fragment {
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
     private BudgetTrackerAliasViewModel budgetTrackerAliasViewModel;
-    PieChart homePieChart;
     RadioGroup radioHomeGroup;
     RadioButton radioHomeButton;
     EditText radioSearchHomeName;
@@ -46,6 +49,7 @@ public class HomeFragment extends Fragment {
     Button radioSearchHomeBtn;
     ActivityMainBinding activityMainBinding;
     List<BudgetTrackerAlias> homeRadioList;
+    PieChart pieChart;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,7 +104,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        homePieChart = (PieChart) view.findViewById(R.id.pie_chart);
         radioHomeGroup = (RadioGroup) view.findViewById(R.id.home_radio_group);
         radioSearchHomeName = (EditText) view.findViewById(R.id.home_radio_search_name);
         radioSearchDateHomeFrom = (EditText) view.findViewById(R.id.home_radio_search_date_from_txt);
@@ -109,6 +112,9 @@ public class HomeFragment extends Fragment {
         radioSearchHomeBtn = (Button) view.findViewById(R.id.home_radio_search_btn);
 //        radioSearchHomeBtn.setOnClickListener((View.OnClickListener) getActivity());
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        pieChart = (PieChart) view.findViewById(R.id.pie_chart);
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
         radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,15 +186,24 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Log.d("TAG", "onClick: Alias Button Clicked 111");
+                                BudgetTrackerAliasViewModel.deleteAllAlias();
                                 BudgetTrackerAliasViewModel.insert(date1, date2, storeName);
 
                                 budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
                                 homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
 
                                 for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
-                                    Log.d("TAG", "onClick: " + budgetTrackerAlias.getProductTypeAlias());
+                                    float value = (float) (budgetTrackerAlias.getProductTypePercentage());
+                                    String productType = budgetTrackerAlias.getProductTypeAlias();
+                                    PieEntry pieEntry = new PieEntry(value, productType);
+                                    pieEntries.add(pieEntry);
                                 }
 
+                                PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
+                                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                                pieChart.setData(new PieData(pieDataSet));
+                                pieChart.animateXY(5000, 5000);
+                                pieChart.getDescription().setEnabled(false);
                             }
                         });
                         break;

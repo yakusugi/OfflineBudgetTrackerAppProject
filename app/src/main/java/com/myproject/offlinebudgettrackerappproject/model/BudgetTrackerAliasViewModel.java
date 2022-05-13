@@ -27,4 +27,8 @@ public class BudgetTrackerAliasViewModel extends AndroidViewModel {
         budgetTrackerAliasList = repository.getAllBudgetTrackerAliasList();
         return budgetTrackerAliasList;
     }
+
+    public static void deleteAllAlias() {
+        repository.deleteAllAlias();
+    }
 }
