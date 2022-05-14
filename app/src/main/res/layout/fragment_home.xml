@@ -101,9 +101,10 @@
         android:id="@+id/home_radio_search_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Analise"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/home_radio_search_calc_result_txt" />
 
 

@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,6 +114,7 @@ public class HomeFragment extends Fragment {
 //        radioSearchHomeBtn.setOnClickListener((View.OnClickListener) getActivity());
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
+        budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
 
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
@@ -189,7 +191,6 @@ public class HomeFragment extends Fragment {
                                 BudgetTrackerAliasViewModel.deleteAllAlias();
                                 BudgetTrackerAliasViewModel.insert(date1, date2, storeName);
 
-                                budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
                                 homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
 
                                 for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
@@ -201,8 +202,10 @@ public class HomeFragment extends Fragment {
 
                                 PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
                                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                                pieDataSet.setValueTextSize(20f);
                                 pieChart.setData(new PieData(pieDataSet));
                                 pieChart.animateXY(5000, 5000);
+                                pieChart.setEntryLabelColor(Color.BLACK);
                                 pieChart.getDescription().setEnabled(false);
                             }
                         });
