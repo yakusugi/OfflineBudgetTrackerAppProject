@@ -29,6 +29,12 @@ public class BudgetTrackerAliasRepository {
         });
     }
 
+    public void insertProductType(String date1, String date2, String productType) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerAliasDao.insertProductName(date1, date2, productType);
+        });
+    }
+
     public List<BudgetTrackerAlias> getAllBudgetTrackerAliasList() {
         budgetTrackerAliasList = budgetTrackerAliasDao.getAllBudgetTrackerAliasList();
         return budgetTrackerAliasList;

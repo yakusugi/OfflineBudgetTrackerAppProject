@@ -27,6 +27,10 @@ public class BudgetTrackerAliasViewModel extends AndroidViewModel {
         repository.insertProductName(date1, date2, productName);
     }
 
+    public static void insertProductType(String date1, String date2, String productType) {
+        repository.insertProductType(date1, date2, productType);
+    }
+
     public List<BudgetTrackerAlias> getAllBudgetTrackerAliasList() {
         budgetTrackerAliasList = repository.getAllBudgetTrackerAliasList();
         return budgetTrackerAliasList;
