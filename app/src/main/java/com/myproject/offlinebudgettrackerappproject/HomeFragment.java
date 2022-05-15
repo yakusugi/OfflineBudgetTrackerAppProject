@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
     ActivityMainBinding activityMainBinding;
     List<BudgetTrackerAlias> homeRadioList;
     PieChart pieChart;
+    ArrayList<PieEntry> pieEntries;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -116,7 +117,7 @@ public class HomeFragment extends Fragment {
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
         budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
 
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        pieEntries = new ArrayList<>();
 
         radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,13 +167,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+
         radioHomeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            List<BudgetTracker> radioStoreNameLists;
-            List<BudgetTracker> radioProductNameLists;
-            List<BudgetTracker> radioProductTypeLists;
             String storeName;
-            String date1;
-            String date2;
+            String productName;
+            String dateFrom;
+            String dateTo;
             BudgetTracker budgetTracker;
             String calcSumStr;
 
@@ -182,47 +183,30 @@ public class HomeFragment extends Fragment {
                     case R.id.home_radio_store_name:
                         Log.d("TAG", "onCheckedChanged: store chosen");
                         storeName = radioSearchHomeName.getText().toString();
-                        date1 = radioSearchDateHomeFrom.getText().toString();
-                        date2 = radioSearchDateHomeTo.getText().toString();
+                        dateFrom = radioSearchDateHomeFrom.getText().toString();
+                        dateTo = radioSearchDateHomeTo.getText().toString();
                         radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Log.d("TAG", "onClick: Alias Button Clicked 111");
-                                BudgetTrackerAliasViewModel.deleteAllAlias();
-                                BudgetTrackerAliasViewModel.insert(date1, date2, storeName);
-
-                                homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
-
-                                for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
-                                    float value = (float) (budgetTrackerAlias.getProductTypePercentage());
-                                    String productType = budgetTrackerAlias.getProductTypeAlias();
-                                    PieEntry pieEntry = new PieEntry(value, productType);
-                                    pieEntries.add(pieEntry);
-                                }
-
-                                PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
-                                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                                pieDataSet.setValueTextSize(20f);
-                                pieChart.setData(new PieData(pieDataSet));
-                                pieChart.animateXY(5000, 5000);
-                                pieChart.setEntryLabelColor(Color.BLACK);
-                                pieChart.getDescription().setEnabled(false);
+                                deleteAliasTable();
+                                insertStoreDataAlias(dateFrom, dateTo, storeName);
+                                storePieChartShow();
                             }
                         });
                         break;
                     case R.id.home_radio_product_name:
                         Log.d("TAG", "onCheckedChanged: product name chosen");
-                        storeName = radioSearchHomeName.getText().toString();
-                        date1 = radioSearchDateHomeFrom.getText().toString();
-                        date2 = radioSearchDateHomeTo.getText().toString();
-                        budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
-                        budgetTracker = new BudgetTracker(storeName, date1, date2);
+                        productName = radioSearchHomeName.getText().toString();
+                        dateFrom = radioSearchDateHomeFrom.getText().toString();
+                        dateTo = radioSearchDateHomeTo.getText().toString();
                         radioSearchHomeBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Log.d("TAG", "onClick: Alias Button Clicked");
-                                BudgetTrackerAliasViewModel.insert(date1, date2, storeName);
-
+                                deleteAliasTable();
+                                insertProductNameDataAlias(dateFrom, dateTo, productName);
+                                productNamePieChartShow();
                             }
                         });
                         break;
@@ -232,5 +216,55 @@ public class HomeFragment extends Fragment {
 
         return view;
 
+    }
+
+    private void deleteAliasTable() {
+        BudgetTrackerAliasViewModel.deleteAllAlias();
+    }
+
+    private void insertStoreDataAlias(String dateFrom, String dateTo, String storeName) {
+        BudgetTrackerAliasViewModel.insert(dateFrom, dateTo, storeName);
+    }
+
+    private void storePieChartShow() {
+        homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
+
+        for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
+            float value = (float) (budgetTrackerAlias.getProductTypePercentage());
+            String productType = budgetTrackerAlias.getProductTypeAlias();
+            PieEntry pieEntry = new PieEntry(value, productType);
+            pieEntries.add(pieEntry);
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Percentage");
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieDataSet.setValueTextSize(20f);
+        pieChart.setData(new PieData(pieDataSet));
+        pieChart.animateXY(5000, 5000);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.getDescription().setEnabled(false);
+    }
+
+    private void insertProductNameDataAlias(String dateFrom, String dateTo, String productName) {
+        BudgetTrackerAliasViewModel.insertProductName(dateFrom, dateTo, productName);
+    }
+
+    private void productNamePieChartShow() {
+        homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
+
+        for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
+            float value = (float) (budgetTrackerAlias.getProductTypePercentage());
+            String storeName = budgetTrackerAlias.getStoreNameAlias();
+            PieEntry pieEntry = new PieEntry(value, storeName);
+            pieEntries.add(pieEntry);
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Percentage");
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieDataSet.setValueTextSize(20f);
+        pieChart.setData(new PieData(pieDataSet));
+        pieChart.animateXY(5000, 5000);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.getDescription().setEnabled(false);
     }
 }
