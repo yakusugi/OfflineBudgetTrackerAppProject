@@ -167,8 +167,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
         radioHomeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             String storeName;
             String productName;
@@ -252,7 +250,7 @@ public class HomeFragment extends Fragment {
             pieEntries.add(pieEntry);
         }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Percentage");
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
         pieChart.setData(new PieData(pieDataSet));
@@ -275,7 +273,7 @@ public class HomeFragment extends Fragment {
             pieEntries.add(pieEntry);
         }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Percentage");
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Store Percentage");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
         pieChart.setData(new PieData(pieDataSet));
@@ -285,7 +283,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void insertProductTypeDataAlias(String dateFrom, String dateTo, String productType) {
-        BudgetTrackerAliasViewModel.insertProductName(dateFrom, dateTo, productType);
+        BudgetTrackerAliasViewModel.insertProductType(dateFrom, dateTo, productType);
     }
 
     private void productTypePieChartShow() {
@@ -298,7 +296,7 @@ public class HomeFragment extends Fragment {
             pieEntries.add(pieEntry);
         }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Percentage");
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Store Percentage");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
         pieChart.setData(new PieData(pieDataSet));

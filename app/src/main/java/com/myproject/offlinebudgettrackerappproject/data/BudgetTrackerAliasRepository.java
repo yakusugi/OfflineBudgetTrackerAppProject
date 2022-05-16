@@ -31,7 +31,7 @@ public class BudgetTrackerAliasRepository {
 
     public void insertProductType(String date1, String date2, String productType) {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
-            budgetTrackerAliasDao.insertProductName(date1, date2, productType);
+            budgetTrackerAliasDao.insertProductType(date1, date2, productType);
         });
     }
 
