@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.util.BudgetTrackerDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetTrackerBankRepository {
@@ -14,6 +15,7 @@ public class BudgetTrackerBankRepository {
     private BudgetTrackerBankDao budgetTrackerBankDao;
     private List<String> repositoryBankNames;
     private List<BudgetTrackerBank> repositoryBankList;
+    private ArrayList<BudgetTrackerBank> repositoryArrayBankList;
     private List<BudgetTrackerBank> bankNameLists;
 
     public BudgetTrackerBankRepository(Application application) {
@@ -30,7 +32,7 @@ public class BudgetTrackerBankRepository {
     }
 
     public List<BudgetTrackerBank> getBankRepositoryBankList() {
-
+        budgetTrackerBankDao.getBankBalanceList();
         return repositoryBankList;
     }
 

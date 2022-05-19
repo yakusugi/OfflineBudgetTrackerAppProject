@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetTrackerBankViewModel extends AndroidViewModel {
@@ -15,6 +16,7 @@ public class BudgetTrackerBankViewModel extends AndroidViewModel {
     public static BudgetTrackerBankRepository bankRepository;
     private List<String> bankNames;
     private List<BudgetTrackerBank> bankList;
+    private ArrayList<BudgetTrackerBank> bankArrayList;
     private List<BudgetTrackerBank> bankNameLists;
 
     public BudgetTrackerBankViewModel(@NonNull Application application) {
@@ -31,7 +33,7 @@ public class BudgetTrackerBankViewModel extends AndroidViewModel {
     }
 
     public List<BudgetTrackerBank> getBankViewModelBankList() {
-
+        bankRepository.getBankRepositoryBankList();
         return bankList;
     }
 

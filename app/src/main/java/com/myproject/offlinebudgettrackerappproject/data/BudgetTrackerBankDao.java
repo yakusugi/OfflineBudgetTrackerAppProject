@@ -21,8 +21,8 @@ public interface BudgetTrackerBankDao {
     @Query("DELETE FROM budget_tracker_bank_table")
     void deleteAll();
 
-    @Query("SELECT bank_balance FROM budget_tracker_bank_table")
-    int getBankBalanceLists();
+    @Query("SELECT * FROM budget_tracker_bank_table")
+    List<BudgetTrackerBank> getBankBalanceList();
 
     @Query("SELECT bank_name FROM budget_tracker_bank_table")
     List<String> getBankNames();

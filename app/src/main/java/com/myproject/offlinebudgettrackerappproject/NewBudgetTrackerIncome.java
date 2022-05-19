@@ -6,24 +6,28 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myproject.offlinebudgettrackerappproject.adapter.IncomeSpinnerAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomeViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class NewBudgetTrackerIncome extends AppCompatActivity {
+public class NewBudgetTrackerIncome extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText enterIncomeDate;
     private EditText enterIncomeCategory;
@@ -38,9 +42,15 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
     boolean isEdit = false;
     private Button updateIncomeButton;
     private Button deleteIncomeButton;
+    private ArrayList<BudgetTrackerBank> bankArrayList;
+    private Spinner incomeSpinner;
 
     public NewBudgetTrackerIncome() {
 
+    }
+
+    public ArrayList<BudgetTrackerBank> getBankArrayList() {
+        return bankArrayList;
     }
 
     @Override
@@ -54,6 +64,7 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
         saveButtonBudgetTrackerIncome = findViewById(R.id.save_button_budget_tracker_income);
         updateIncomeButton = findViewById(R.id.income_update_btn);
         deleteIncomeButton = findViewById(R.id.income_delete_btn);
+        incomeSpinner = (Spinner) findViewById(R.id.income_spinner);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -80,22 +91,29 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
                 .getApplication())
                 .create(BudgetTrackerIncomeViewModel.class);
 
+        budgetTrackerBankViewModel = new ViewModelProvider.AndroidViewModelFactory(NewBudgetTrackerIncome.this
+                .getApplication())
+                .create(BudgetTrackerBankViewModel.class);
+
 //        TODO: another button press action to confirm there is at least one data in bank table
-//        bankList = new List<>();
-//        bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
+        bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
+        ArrayList<BudgetTrackerBank> bankArrayList = new ArrayList<BudgetTrackerBank>(bankList);
 
-//        for(BudgetTrackerBank budgetTrackerBankList : bankList) {
-//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getId());
-//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankName().toString());
-//            Log.d("TAG", "onClick: " + budgetTrackerBankList.getBankBalance());
-//        }
+        IncomeSpinnerAdapter bankSpinnerAdapter = new IncomeSpinnerAdapter(this, R.layout.income_spinner_adapter,
+                bankArrayList);
+        incomeSpinner.setAdapter(bankSpinnerAdapter);
 
-//        List<String> bankNames = budgetTrackerBankViewModel.getBankViewModelBankNames();
-//        Log.d("TAG", "onCreate: " + bankNames);
 
-//        for (String bankName : bankNames) {
-//            Log.d("TAG", "onCreate: " + bankName);
-//        }
+        for(BudgetTrackerBank budgetTrackerBankList : bankArrayList) {
+            Log.d("arrayTag", "onClick: " + budgetTrackerBankList.getId());
+            Log.d("arrayTag", "onClick: " + budgetTrackerBankList.getBankName().toString());
+            Log.d("arrayTag", "onClick: " + budgetTrackerBankList.getBankBalance());
+
+            if (budgetTrackerBankList != null) {
+
+            }
+        }
+
 
         saveButtonBudgetTrackerIncome.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
@@ -202,6 +220,18 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
             updateIncomeButton.setVisibility(View.GONE);
             deleteIncomeButton.setVisibility(View.GONE);
         }
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        String text = adapterView.getItemAtPosition(position).toString();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Log.d("TAG_Spinner", "onItemSelected: " + text);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 }
