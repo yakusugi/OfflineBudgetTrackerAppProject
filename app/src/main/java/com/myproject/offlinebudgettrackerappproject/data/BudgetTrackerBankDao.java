@@ -36,6 +36,9 @@ public interface BudgetTrackerBankDao {
     @Query("SELECT * FROM budget_tracker_bank_table WHERE budget_tracker_bank_table.id == :id")
     LiveData<BudgetTrackerBank> getBudgetTrackerBankId(int id);
 
+    @Query("UPDATE BUDGET_TRACKER_BANK_TABLE SET bank_balance = bank_balance + :incomeNum WHERE bank_name = :bankName")
+    void update(int incomeNum, String bankName);
+
     @Update
     void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank);
 

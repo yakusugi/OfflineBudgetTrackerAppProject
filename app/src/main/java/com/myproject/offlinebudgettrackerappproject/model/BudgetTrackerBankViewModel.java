@@ -47,7 +47,13 @@ public class BudgetTrackerBankViewModel extends AndroidViewModel {
     }
 
     public LiveData<BudgetTrackerBank> getBudgetTrackerBankId(int id) {return bankRepository.getBudgetTrackerBankId(id);}
+
+    public void update(int incomeNum, String bankName) {
+        bankRepository.update(incomeNum, bankName);
+    }
+
     public static void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {bankRepository.updateBudgetTrackerBank(budgetTrackerBank);}
+
     public static void deleteBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {bankRepository.deleteBudgetTrackerBank(budgetTrackerBank);}
 
 

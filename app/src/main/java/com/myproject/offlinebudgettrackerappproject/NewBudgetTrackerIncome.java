@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class NewBudgetTrackerIncome extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class NewBudgetTrackerIncome extends AppCompatActivity {
 
     private EditText enterIncomeDate;
     private EditText enterIncomeCategory;
@@ -44,6 +44,7 @@ public class NewBudgetTrackerIncome extends AppCompatActivity implements Adapter
     private Button deleteIncomeButton;
     private ArrayList<BudgetTrackerBank> bankArrayList;
     private Spinner incomeSpinner;
+    private String spinnerText;
 
     public NewBudgetTrackerIncome() {
 
@@ -97,23 +98,26 @@ public class NewBudgetTrackerIncome extends AppCompatActivity implements Adapter
 
 //        TODO: another button press action to confirm there is at least one data in bank table
         bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
+
         ArrayList<BudgetTrackerBank> bankArrayList = new ArrayList<BudgetTrackerBank>(bankList);
 
         IncomeSpinnerAdapter bankSpinnerAdapter = new IncomeSpinnerAdapter(this, R.layout.income_spinner_adapter,
                 bankArrayList);
+
         incomeSpinner.setAdapter(bankSpinnerAdapter);
-
-
-        for(BudgetTrackerBank budgetTrackerBankList : bankArrayList) {
-            Log.d("arrayTag", "onClick: " + budgetTrackerBankList.getId());
-            Log.d("arrayTag", "onClick: " + budgetTrackerBankList.getBankName().toString());
-            Log.d("arrayTag", "onClick: " + budgetTrackerBankList.getBankBalance());
-
-            if (budgetTrackerBankList != null) {
-
+        incomeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                BudgetTrackerBank budgetTrackerBank = (BudgetTrackerBank) incomeSpinner.getSelectedItem();
+                spinnerText = budgetTrackerBank.getBankName();
+                Log.d("TAG_Spinner", "onItemSelected: " + spinnerText);
             }
-        }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText = null;
+            }
+        });
 
         saveButtonBudgetTrackerIncome.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
@@ -127,6 +131,13 @@ public class NewBudgetTrackerIncome extends AppCompatActivity implements Adapter
 
                 BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome(incomeDate, incomeCategory, incomeAmount);
                 budgetTrackerIncomeViewModel.insert(budgetTrackerIncome);
+                if (spinnerText != null) {
+                    int incomeNum = budgetTrackerIncome.getAmount();
+                    budgetTrackerBankViewModel.update(incomeNum, spinnerText);
+                } else {
+                    //Todo Need to make this a snackbar
+                    Toast.makeText(this, "Insert a bank record", Toast.LENGTH_SHORT).show();
+                }
 
 //                replyIntent.putExtra(REPLY_INCOME_DATE, incomeDate);
 //                replyIntent.putExtra(REPLY_INCOME_CATEGORY, incomeCategory);
@@ -220,18 +231,6 @@ public class NewBudgetTrackerIncome extends AppCompatActivity implements Adapter
             updateIncomeButton.setVisibility(View.GONE);
             deleteIncomeButton.setVisibility(View.GONE);
         }
-
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        String text = adapterView.getItemAtPosition(position).toString();
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-        Log.d("TAG_Spinner", "onItemSelected: " + text);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 }
