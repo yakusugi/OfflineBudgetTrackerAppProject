@@ -51,8 +51,12 @@ public class BudgetTrackerBankRepository {
         return budgetTrackerBankDao.getBudgetTrackerBankId(id);
     }
 
-    public void update(int incomeNum, String bankName) {
-        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.update(incomeNum, bankName));
+    public void updateAddition(int incomeNum, String bankName) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.updateAddition(incomeNum, bankName));
+    }
+
+    public void updateSubtraction(int spendingNum, String bankName) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.updateSubtraction(spendingNum, bankName));
     }
 
     public void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {

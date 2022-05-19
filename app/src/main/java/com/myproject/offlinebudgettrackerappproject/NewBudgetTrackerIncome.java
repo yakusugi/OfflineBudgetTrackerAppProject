@@ -131,9 +131,10 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
 
                 BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome(incomeDate, incomeCategory, incomeAmount);
                 budgetTrackerIncomeViewModel.insert(budgetTrackerIncome);
+                //updating bank record
                 if (spinnerText != null) {
                     int incomeNum = budgetTrackerIncome.getAmount();
-                    budgetTrackerBankViewModel.update(incomeNum, spinnerText);
+                    budgetTrackerBankViewModel.updateAddition(incomeNum, spinnerText);
                 } else {
                     //Todo Need to make this a snackbar
                     Toast.makeText(this, "Insert a bank record", Toast.LENGTH_SHORT).show();

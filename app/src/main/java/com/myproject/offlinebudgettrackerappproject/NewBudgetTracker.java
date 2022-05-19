@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -16,9 +19,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.myproject.offlinebudgettrackerappproject.adapter.IncomeSpinnerAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -37,8 +44,17 @@ public class NewBudgetTracker extends AppCompatActivity {
     private int dateFragmentIntentId = 0;
     boolean isEdit = false;
     LiveData<List<BudgetTracker>> viewModelStoreNameLists;
+    private ArrayList<BudgetTrackerBank> bankArrayList;
+    private List<BudgetTrackerBank> bankList;
+    private Spinner budgetTrackerSpinner;
+    private String spinnerText;
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
+    private BudgetTrackerBankViewModel budgetTrackerBankViewModel;
+
+    public ArrayList<BudgetTrackerBank> getBankArrayList() {
+        return bankArrayList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +69,7 @@ public class NewBudgetTracker extends AppCompatActivity {
         saveInfoButton = findViewById(R.id.saveIndoButton);
         updateButton = findViewById(R.id.update_btn);
         deleteButton = findViewById(R.id.delete_btn);
+        budgetTrackerSpinner = (Spinner) findViewById(R.id.budget_tracker_spinner);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -79,6 +96,32 @@ public class NewBudgetTracker extends AppCompatActivity {
                 .getApplication())
                 .create(BudgetTrackerViewModel.class);
 
+        budgetTrackerBankViewModel = new ViewModelProvider.AndroidViewModelFactory(NewBudgetTracker.this
+                .getApplication())
+                .create(BudgetTrackerBankViewModel.class);
+
+        //        TODO: another button press action to confirm there is at least one data in bank table
+        bankList = budgetTrackerBankViewModel.getBankViewModelBankList();
+        bankArrayList = new ArrayList<BudgetTrackerBank>(bankList);
+
+        IncomeSpinnerAdapter bankSpinnerAdapter = new IncomeSpinnerAdapter(this, R.layout.income_spinner_adapter,
+                bankArrayList);
+
+        budgetTrackerSpinner.setAdapter(bankSpinnerAdapter);
+        budgetTrackerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                BudgetTrackerBank budgetTrackerBank = (BudgetTrackerBank) budgetTrackerSpinner.getSelectedItem();
+                spinnerText = budgetTrackerBank.getBankName();
+                Log.d("TAG_Spinner", "onItemSelected: " + spinnerText);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText = null;
+            }
+        });
+
         saveInfoButton.setOnClickListener(view -> {
 
             if (!TextUtils.isEmpty(enterDate.getText())
@@ -94,6 +137,14 @@ public class NewBudgetTracker extends AppCompatActivity {
 
                 BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
                 budgetTrackerViewModel.insert(budgetTracker);
+                //updating bank record
+                if (spinnerText != null) {
+                    int spendingNum = budgetTracker.getPrice();
+                    budgetTrackerBankViewModel.updateSubtraction(spendingNum, spinnerText);
+                } else {
+                    //Todo Need to make this a snackbar
+                    Toast.makeText(this, "Insert a bank record", Toast.LENGTH_SHORT).show();
+                }
 
             }
 //            else {
