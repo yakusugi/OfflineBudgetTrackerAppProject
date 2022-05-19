@@ -108,6 +108,7 @@
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/budget_tracker_spinner" />
 
     <Button
@@ -119,6 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/update_btn"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/saveIndoButton" />
 
     <Button
@@ -130,6 +132,7 @@
         app:layout_constraintEnd_toStartOf="@+id/delete_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/saveIndoButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

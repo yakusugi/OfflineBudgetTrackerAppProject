@@ -84,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/enter_date_to"
         android:inputType="date"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,6 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/enter_date_from"
         android:inputType="date"
         android:minHeight="48dp"
         app:layout_constraintEnd_toStartOf="@+id/radio_search_date_to_txt"
@@ -110,9 +112,10 @@
         android:id="@+id/radio_search_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/radio_search_date_from_txt" />
 
     <TextView

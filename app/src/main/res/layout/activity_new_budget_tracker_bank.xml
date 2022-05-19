@@ -50,9 +50,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Button"
+        android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/enter_bank_balance" />
 
     <Button
@@ -64,6 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bank_update_btn"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/save_button_budget_tracker_bank" />
 
     <Button
@@ -75,6 +77,7 @@
         app:layout_constraintEnd_toStartOf="@+id/bank_delete_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/save_button_budget_tracker_bank" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
