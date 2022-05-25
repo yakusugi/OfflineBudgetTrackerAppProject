@@ -24,7 +24,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
+<!--        android:windowSoftInputMode="adjustResize"-->
         <activity
             android:name=".NewBudgetTracker"
             android:exported="true">
