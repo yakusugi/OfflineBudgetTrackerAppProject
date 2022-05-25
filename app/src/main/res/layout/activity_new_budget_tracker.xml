@@ -23,6 +23,7 @@
         android:ems="10"
         android:hint="@string/new_budget_tracker_date_hint"
         android:inputType="text"
+        android:focusableInTouchMode="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

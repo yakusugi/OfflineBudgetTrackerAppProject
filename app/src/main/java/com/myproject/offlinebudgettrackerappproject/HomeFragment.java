@@ -253,6 +253,8 @@ public class HomeFragment extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
+        pieChart.notifyDataSetChanged();
+        pieChart.invalidate();
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateXY(5000, 5000);
         pieChart.setEntryLabelColor(Color.BLACK);
