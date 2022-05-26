@@ -145,39 +145,4 @@ public class MainActivity extends AppCompatActivity {
         activity.startActivity(intent);
     }
 
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == NEW_BUDGET_TRACKER_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            assert data != null;
-//            String date = data.getStringExtra(NewBudgetTracker.REPLY_DATE);
-//            String storeName = data.getStringExtra(NewBudgetTracker.REPLY_STORE_NAME);
-//            String productName = data.getStringExtra(NewBudgetTracker.REPLY_PRODUCT_NAME);
-//            String productType = data.getStringExtra(NewBudgetTracker.REPLY_PRODUCT_TYPE);
-//            int price = Integer.parseInt(data.getStringExtra(NewBudgetTracker.PRICE));
-//
-//            BudgetTracker budgetTracker = new BudgetTracker(date, storeName, productName, productType, price);
-//            BudgetTrackerViewModel.insert(budgetTracker);
-//        } else if (requestCode == NEW_BUDGET_TRACKER_INCOME_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            assert data != null;
-//            String incomeDate = data.getStringExtra(NewBudgetTrackerIncome.REPLY_INCOME_DATE);
-//            String incomeCategory = data.getStringExtra(NewBudgetTrackerIncome.REPLY_INCOME_CATEGORY);
-//            int incomeAmount = Integer.parseInt(data.getStringExtra(NewBudgetTrackerIncome.REPLY_INCOME_AMOUNT));
-//
-//            BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome(incomeDate, incomeCategory, incomeAmount);
-//            BudgetTrackerIncomeViewModel.insert(budgetTrackerIncome);
-//        } else if (requestCode == NEW_BUDGET_TRACKER_BANK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            assert data != null;
-//            String bankName = data.getStringExtra(NewBudgetTrackerBank.REPLY_BANK_NAME);
-//            int bankBalance = Integer.parseInt(data.getStringExtra(NewBudgetTrackerBank.REPLY_BANK_BALANCE));
-//
-//            BudgetTrackerBank budgetTrackerBank = new BudgetTrackerBank(bankName, bankBalance);
-//            BudgetTrackerBankViewModel.insert(budgetTrackerBank);
-//        }
-//
-//    }
-
-
-
 }

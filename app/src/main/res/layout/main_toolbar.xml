@@ -19,7 +19,7 @@
             android:contentDescription="TODO"
             android:onClick="ClickMenu"
             android:src="@drawable/ic_menu"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
         <TextView
             android:layout_width="0dp"
