@@ -11,9 +11,11 @@
         android:theme="@style/Theme.OfflineBudgetTrackerAppProject">
         <activity
             android:name=".BudgetTrackerBankActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".BudgetTrackerIncomeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".NewBudgetTrackerBank"
@@ -39,7 +41,8 @@
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

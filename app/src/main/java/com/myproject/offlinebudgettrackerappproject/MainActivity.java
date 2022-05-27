@@ -91,15 +91,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_shop:
                         fragment = new ShopFragment();
-                        fabMenu.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.nav_product:
                         fragment = new ProductFragment();
-                        fabMenu.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.nav_date:
                         fragment = new DateFragment();
-                        fabMenu.setVisibility(View.INVISIBLE);
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();

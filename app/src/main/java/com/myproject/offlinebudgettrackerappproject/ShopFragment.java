@@ -119,6 +119,7 @@ public class ShopFragment extends Fragment {
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
                 storeListView.setAdapter(storeListViewAdapter);
+                storeListViewAdapter.notifyDataSetChanged();
 
 //              Todo  2022/04/10 Tapped modified
                 storeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
