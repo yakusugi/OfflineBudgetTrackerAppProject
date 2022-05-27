@@ -25,4 +25,7 @@ public interface BudgetTrackerAliasDao {
     @Query("DELETE FROM budget_tracker_table_alias")
     void deleteAllAlias();
 
+    @Query("DELETE FROM sqlite_sequence where name = 'budget_tracker_table_alias'")
+    void deleteSequence();
+
 }

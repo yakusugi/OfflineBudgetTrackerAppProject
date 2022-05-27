@@ -46,4 +46,10 @@ public class BudgetTrackerAliasRepository {
         });
     }
 
+    public void deleteSequence() {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerAliasDao.deleteSequence();
+        });
+    }
+
 }

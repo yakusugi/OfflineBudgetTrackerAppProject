@@ -39,4 +39,8 @@ public class BudgetTrackerAliasViewModel extends AndroidViewModel {
     public static void deleteAllAlias() {
         repository.deleteAllAlias();
     }
+
+    public static void deleteSequence() {
+        repository.deleteSequence();
+    }
 }

@@ -186,6 +186,7 @@ public class HomeFragment extends Fragment {
                             public void onClick(View view) {
                                 Log.d("TAG", "onClick: Alias Button Clicked 111");
                                 deleteAliasTable();
+                                deleteSequence();
                                 insertStoreDataAlias(dateFrom, dateTo, storeName);
                                 storePieChartShow();
                             }
@@ -201,6 +202,7 @@ public class HomeFragment extends Fragment {
                             public void onClick(View view) {
                                 Log.d("TAG", "onClick: Alias Button Clicked");
                                 deleteAliasTable();
+                                deleteSequence();
                                 insertProductNameDataAlias(dateFrom, dateTo, productName);
                                 productNamePieChartShow();
                             }
@@ -216,6 +218,7 @@ public class HomeFragment extends Fragment {
                             public void onClick(View view) {
                                 Log.d("TAG", "onClick: Alias Button Clicked");
                                 deleteAliasTable();
+                                deleteSequence();
                                 insertProductTypeDataAlias(dateFrom, dateTo, productType);
                                 productTypePieChartShow();
                             }
@@ -231,6 +234,10 @@ public class HomeFragment extends Fragment {
 
     private void deleteAliasTable() {
         BudgetTrackerAliasViewModel.deleteAllAlias();
+    }
+
+    private void deleteSequence() {
+        BudgetTrackerAliasViewModel.deleteSequence();
     }
 
     private void insertStoreDataAlias(String dateFrom, String dateTo, String storeName) {
