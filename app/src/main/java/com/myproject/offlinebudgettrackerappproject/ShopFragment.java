@@ -118,8 +118,9 @@ public class ShopFragment extends Fragment {
                 viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
-                storeListView.setAdapter(storeListViewAdapter);
                 storeListViewAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+                storeListView.setAdapter(storeListViewAdapter);
 
 //              Todo  2022/04/10 Tapped modified
                 storeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
