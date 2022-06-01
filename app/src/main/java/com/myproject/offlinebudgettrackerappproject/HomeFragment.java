@@ -167,6 +167,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //デフォルトでstore nameが選択背れている状態での検索処理
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onClick: Alias Button Clicked 111");
+                String storeName = searchName.getText().toString();
+                String dateFrom = dateFromText.getText().toString();
+                String dateTo = dateToText.getText().toString();
+                deleteAliasTable();
+                deleteSequence();
+                insertStoreDataAlias(dateFrom, dateTo, storeName);
+                storePieChartShow();
+            }
+        });
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             String storeName;
             String productName;
@@ -180,14 +195,12 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
                 switch (checkId) {
                     case R.id.home_radio_store_name:
-                        Log.d("TAG", "onCheckedChanged: store name chosen");
-                        storeName = searchName.getText().toString();
-                        dateFrom = dateFromText.getText().toString();
-                        dateTo = dateToText.getText().toString();
                         searchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.d("TAG", "onClick: Alias Button Clicked 111");
+                                storeName = searchName.getText().toString();
+                                dateFrom = dateFromText.getText().toString();
+                                dateTo = dateToText.getText().toString();
                                 deleteAliasTable();
                                 deleteSequence();
                                 insertStoreDataAlias(dateFrom, dateTo, storeName);
@@ -196,14 +209,12 @@ public class HomeFragment extends Fragment {
                         });
                         break;
                     case R.id.home_radio_product_name:
-                        Log.d("TAG", "onCheckedChanged: product name chosen");
-                        productName = searchName.getText().toString();
-                        dateFrom = dateFromText.getText().toString();
-                        dateTo = dateToText.getText().toString();
                         searchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.d("TAG", "onClick: Alias Button Clicked");
+                                productName = searchName.getText().toString();
+                                dateFrom = dateFromText.getText().toString();
+                                dateTo = dateToText.getText().toString();
                                 deleteAliasTable();
                                 deleteSequence();
                                 insertProductNameDataAlias(dateFrom, dateTo, productName);
@@ -212,14 +223,12 @@ public class HomeFragment extends Fragment {
                         });
                         break;
                     case R.id.home_radio_product_type:
-                        Log.d("TAG", "onCheckedChanged: product name chosen");
-                        productType = searchName.getText().toString();
-                        dateFrom = dateFromText.getText().toString();
-                        dateTo = dateToText.getText().toString();
                         searchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.d("TAG", "onClick: Alias Button Clicked");
+                                productType = searchName.getText().toString();
+                                dateFrom = dateFromText.getText().toString();
+                                dateTo = dateToText.getText().toString();
                                 deleteAliasTable();
                                 deleteSequence();
                                 insertProductTypeDataAlias(dateFrom, dateTo, productType);
@@ -249,7 +258,7 @@ public class HomeFragment extends Fragment {
 
     private void storePieChartShow() {
         homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
-
+        pieEntries = new ArrayList<PieEntry>();
         for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
             float value = (float) (budgetTrackerAlias.getProductTypePercentage());
             String productType = budgetTrackerAlias.getProductTypeAlias();
@@ -274,7 +283,7 @@ public class HomeFragment extends Fragment {
 
     private void productNamePieChartShow() {
         homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
-
+        pieEntries = new ArrayList<PieEntry>();
         for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
             float value = (float) (budgetTrackerAlias.getProductTypePercentage());
             String storeName = budgetTrackerAlias.getStoreNameAlias();
@@ -297,7 +306,7 @@ public class HomeFragment extends Fragment {
 
     private void productTypePieChartShow() {
         homeRadioList = budgetTrackerAliasViewModel.getAllBudgetTrackerAliasList();
-
+        pieEntries = new ArrayList<PieEntry>();
         for (BudgetTrackerAlias budgetTrackerAlias : homeRadioList) {
             float value = (float) (budgetTrackerAlias.getProductTypePercentage());
             String storeName = budgetTrackerAlias.getStoreNameAlias();

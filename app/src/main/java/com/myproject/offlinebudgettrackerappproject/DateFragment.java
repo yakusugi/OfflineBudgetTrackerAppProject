@@ -141,6 +141,22 @@ public class DateFragment extends Fragment {
             }
         });
 
+        radioSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String storeName = radioSearchName.getText().toString();
+                String date1 = radioSearchDateFrom.getText().toString();
+                String date2 = radioSearchDateTo.getText().toString();
+                budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                List<BudgetTracker> radioStoreNameLists = budgetTrackerViewModel.getRadioStoreNameLists(storeName, date1, date2);
+                DateListViewAdapter dateListViewAdapter = new DateListViewAdapter(getActivity(), radioStoreNameLists);
+                dateListView.setAdapter(dateListViewAdapter);
+                String calcSumStr = String.valueOf(budgetTrackerViewModel.getDateStoreSum(storeName, date1, date2));
+                searchCalcResultTxt.setText(calcSumStr);
+
+            }
+        });
+
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             DateListViewAdapter dateListViewAdapter;
