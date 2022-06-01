@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
     private BudgetTrackerViewModel budgetTrackerViewModel;
     private BudgetTrackerAliasViewModel budgetTrackerAliasViewModel;
     RadioGroup radioGroup;
+    RadioButton radioStoreButton;
     EditText searchName;
     EditText dateFromText;
     EditText dateToText;
@@ -105,6 +107,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         radioGroup = (RadioGroup) view.findViewById(R.id.home_radio_group);
+        radioStoreButton = (RadioButton) view.findViewById(R.id.home_radio_store_name);
         searchName = (EditText) view.findViewById(R.id.home_radio_search_name);
         dateFromText = (EditText) view.findViewById(R.id.home_radio_search_date_from_txt);
         dateToText = (EditText) view.findViewById(R.id.home_radio_search_date_to_txt);
@@ -177,7 +180,7 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
                 switch (checkId) {
                     case R.id.home_radio_store_name:
-                        Log.d("TAG", "onCheckedChanged: store chosen");
+                        Log.d("TAG", "onCheckedChanged: store name chosen");
                         storeName = searchName.getText().toString();
                         dateFrom = dateFromText.getText().toString();
                         dateTo = dateToText.getText().toString();

@@ -156,16 +156,14 @@ public class DateFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio_store_name:
-                        Log.d("TAG", "onCheckedChanged: store chosen");
-                        String storeName = radioSearchName.getText().toString();
-                        date1 = radioSearchDateFrom.getText().toString();
-                        date2 = radioSearchDateTo.getText().toString();
-                        budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-                        budgetTracker = new BudgetTracker(storeName, date1, date2);
                         radioSearchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.d("TAG", "onClick: date button clicked");
+                                String storeName = radioSearchName.getText().toString();
+                                date1 = radioSearchDateFrom.getText().toString();
+                                date2 = radioSearchDateTo.getText().toString();
+                                budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                                budgetTracker = new BudgetTracker(storeName, date1, date2);
                                 radioStoreNameLists = budgetTrackerViewModel.getRadioStoreNameLists(storeName, date1, date2);
                                 dateListViewAdapter = new DateListViewAdapter(getActivity(), radioStoreNameLists);
                                 dateListView.setAdapter(dateListViewAdapter);
@@ -177,15 +175,14 @@ public class DateFragment extends Fragment {
 
                         break;
                     case R.id.radio_product_name:
-                        Log.d("TAG", "onCheckedChanged: product name chosen");
-                        String productName = radioSearchName.getText().toString();
-                        date1 = radioSearchDateFrom.getText().toString();
-                        date2 = radioSearchDateTo.getText().toString();
-                        budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-                        budgetTracker = new BudgetTracker(productName, date1, date2);
                         radioSearchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                String productName = radioSearchName.getText().toString();
+                                date1 = radioSearchDateFrom.getText().toString();
+                                date2 = radioSearchDateTo.getText().toString();
+                                budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                                budgetTracker = new BudgetTracker(productName, date1, date2);
                                 radioProductNameLists = budgetTrackerViewModel.getRadioProductNameLists(productName, date1, date2);
                                 dateListViewAdapter = new DateListViewAdapter(getActivity(), radioProductNameLists);
                                 dateListView.setAdapter(dateListViewAdapter);
@@ -196,15 +193,14 @@ public class DateFragment extends Fragment {
                         });
                         break;
                     case R.id.radio_product_type:
-                        Log.d("TAG", "onCheckedChanged: product type chosen");
-                        String productType = radioSearchName.getText().toString();
-                        date1 = radioSearchDateFrom.getText().toString();
-                        date2 = radioSearchDateTo.getText().toString();
-                        budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-                        budgetTracker = new BudgetTracker(productType, date1, date2);
                         radioSearchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                String productType = radioSearchName.getText().toString();
+                                date1 = radioSearchDateFrom.getText().toString();
+                                date2 = radioSearchDateTo.getText().toString();
+                                budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
+                                budgetTracker = new BudgetTracker(productType, date1, date2);
                                 radioProductTypeLists = budgetTrackerViewModel.getRadioProductTypeLists(productType, date1, date2);
                                 dateListViewAdapter = new DateListViewAdapter(getActivity(), radioProductTypeLists);
                                 dateListView.setAdapter(dateListViewAdapter);
