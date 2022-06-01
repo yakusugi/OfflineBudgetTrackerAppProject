@@ -70,9 +70,11 @@
 
     <ListView
         android:id="@+id/product_listview"
-        android:layout_width="409dp"
-        android:layout_height="492dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_type_sum_result_txt"
+        android:scrollbarSize="@dimen/_40ssp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

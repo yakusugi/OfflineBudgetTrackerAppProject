@@ -60,12 +60,13 @@
 
     <ListView
         android:id="@+id/store_listview"
-        android:layout_width="409dp"
-        android:layout_height="518dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_store_search"
         tools:listitem="@layout/store_list_item"
+        android:scrollbarSize="@dimen/_40ssp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
