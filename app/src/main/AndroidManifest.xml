@@ -10,13 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OfflineBudgetTrackerAppProject">
         <activity
-            android:name=".BudgetTrackerBankActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".BudgetTrackerIncomeActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".BudgetTrackerSettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".BudgetTrackerBankActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".BudgetTrackerIncomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".NewBudgetTrackerBank"
             android:exported="false" />
@@ -26,8 +32,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
-<!--        android:windowSoftInputMode="adjustResize"-->
+            android:windowSoftInputMode="adjustPan" /> <!-- android:windowSoftInputMode="adjustResize" -->
         <activity
             android:name=".NewBudgetTracker"
             android:exported="true">

@@ -7,11 +7,15 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_calendar.xml" value="0.114" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_menu.xml" value="0.124" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_money.xml" value="0.114" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_search.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_settings.xml" value="0.114" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/item_selector.xml" value="0.1" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_about.xml" value="0.259375" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_bank.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_income.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_settings.xml" value="0.259375" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_main.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker_bank.xml" value="0.2635416666666667" />
@@ -24,6 +28,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_tracker_shop_row.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_tracker_store_row.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budgettracker_home_row.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/currency_spinner_adopter.xml" value="0.259375" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/date_list_item.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_date.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_home.xml" value="0.2594871794871795" />
@@ -39,6 +44,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/bottom_menu.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.259375" />
       </map>
     </option>
   </component>

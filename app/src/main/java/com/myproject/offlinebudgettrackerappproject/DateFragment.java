@@ -240,7 +240,7 @@ public class DateFragment extends Fragment {
                         dateFragmentIntent.putExtra(DATE_FRAGMENT_ID, dateItemId.getId());
                         startActivity(dateFragmentIntent);
 
-                        Log.d("TAG", "onItemClick: " + date);
+                        Log.d("TAG-June", "onItemClick June02: " + date);
                     }
                 });
             }

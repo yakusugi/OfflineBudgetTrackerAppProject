@@ -91,13 +91,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:onClick="ClickAboutUS">
+            android:onClick="ClickSettingsMenu"
+            >
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="About us"
+                android:text="Settings"
                 android:padding="12dp"
                 android:layout_marginStart="16dp"/>
 
@@ -105,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="48dp"
+                android:src="@drawable/ic_settings"
                 />
 
         </LinearLayout>
@@ -114,13 +116,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:onClick="ClickLogout">
+            android:onClick="ClickAboutMe">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Logout"
+                android:text="About"
                 android:padding="12dp"
                 android:layout_marginStart="16dp"/>
 
@@ -128,9 +130,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="48dp"
+                android:src="@drawable/ic_about"
                 />
-
-
 
         </LinearLayout>
 

@@ -36,6 +36,7 @@ public class ShopFragment extends Fragment {
     private ListView storeListView;
     private List<BudgetTracker> budgetTrackerList;
     List<BudgetTracker> viewModelStoreNameLists;
+    List<BudgetTracker> storeNameListsReset;
     ActivityMainBinding activityMainBinding;
 
 
@@ -114,7 +115,6 @@ public class ShopFragment extends Fragment {
                 budgetTracker = new BudgetTracker();
                 budgetTracker.setStoreName(storeName);
 
-
                 viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
@@ -134,13 +134,30 @@ public class ShopFragment extends Fragment {
                         shopFragmentIntent.putExtra(SHOP_FRAGMENT_ID, storeItemId.getId());
                         startActivity(shopFragmentIntent);
 
+                        StoreListViewAdapter adapter = new StoreListViewAdapter(getActivity(), budgetListItems);
+                        storeListView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+//                        //NewBudgetTrackerへ画面遷移後のSELECT文発行処理
+//                        storeNameListsReset = budgetTrackerViewModel.getStoreNameLists(storeName);
+//                        StoreListViewAdapter storeListViewAdapter;
+//                        storeListViewAdapter = new StoreListViewAdapter(getActivity(), storeNameListsReset);
+//                        BaseAdapter adapter = new StoreListViewAdapter(getActivity(), storeNameListsReset);
+//                        storeListView.setAdapter(storeListViewAdapter);
+
+
                         Log.d(TAG, "onItemClick: " + date);
                     }
                 });
 
-                Log.d("TAG", "onClick: " + enterStoreNameForQuery.getText().toString());
+                Log.d("TAG-June", "onClick: " + enterStoreNameForQuery.getText().toString());
 
             }
+
+//            public void refresh(List<BudgetTracker> budgetTrackerList){
+//                this.budgetTrackerList=budgetTrackerList;
+//                notifyDataSetChanged();
+//            }
 
         });
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/currency_title_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="About"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/english_text_view"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:text="Hello, future employers! My name is Yosuke and my English name is John. Nice to meet you and thank you so much for downloading this app. Since my enthusiasm towards Android has never waned, one of my dreams is to create my own Android app and release it on Google Play Store. And this is my very first portfolio. Ever since I became a programmer at the end of 2019, I've been programming in Java. So the entire backend system of this app is written in Java. To demonstrate my Java coding skills, I built the database system on Android Room. Since database is a crucial part of a program, I really do want you to  check DAO classes where I fully take advantage of my SQL coding skills that enables the system to retrieve interesting data. You may understand what I mean when you see how the PIE-CHART works on the home fragment. Anyways, thank you! Contact me: yosuke.ito.2022@protonmail.com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/japanese_text_view"
+        android:layout_width="350dp"
+        android:layout_height="310dp"
+        android:layout_marginTop="32dp"
+        android:text="初めまして、人事担当の方！私の名前は洋輔と申します。今回、このアプリを作成した経緯としましては、個人的にAndroidに昔から非常に興味があり、アプリをGPSでリリースすることが長年の夢でした。今回、念願かなってリリース出来ることになり、大変嬉しく思っております。本アプリを作成するにあたり、2点注目して頂きたい箇所がございます。一つ目は、DBをAndroid Roomで構築していること。そしてJavaで記述したシステム全体のコードです。特にDAOクラスに記述したSQL文を使い、面白いデータを取得する様にしています。特に、BudgetTrackerAliasDaoに記述したSQL文とそれに呼応するHomeFragmentのPieChat（円グラフ）の動きに着目してみてください。もし、私のスキルに興味がありましたら、こちらまでご連絡下さい：yosuke.ito.2022@protonmail.com"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/english_text_view"
+        app:layout_constraintVertical_bias="0.142" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

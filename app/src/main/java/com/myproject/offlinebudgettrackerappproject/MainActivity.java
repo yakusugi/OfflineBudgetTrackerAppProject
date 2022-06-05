@@ -121,6 +121,16 @@ public class MainActivity extends AppCompatActivity {
         redirectActivity(this,BudgetTrackerBankActivity.class);
     }
 
+    public void ClickSettingsMenu(View view) {
+        //open drawer
+        redirectActivity(this,BudgetTrackerSettingsActivity.class);
+    }
+
+    public void ClickAboutMe(View view) {
+        //open drawer
+        redirectActivity(this,AboutActivity.class);
+    }
+
     private static void openDrawer(DrawerLayout drawerLayout) {
         drawerLayout.openDrawer(GravityCompat.START);
     }

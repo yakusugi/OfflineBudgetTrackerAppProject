@@ -21,6 +21,7 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
 
     private static final Object INVALID_POSITION = -1;
     private LiveData<List<BudgetTracker>> budgetTrackerList;
+    private List<BudgetTracker> budgetTrackerRefreshList;
     private Context context;
     private View.OnClickListener listener;
 
@@ -70,6 +71,11 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
         storePriceRow.setText(String.valueOf(budgetTracker.getPrice()));
 
         return convertView;
+    }
+
+    public void refresh(List<BudgetTracker> budgetTrackerRefreshList){
+        this.budgetTrackerRefreshList.clear();
+        notifyDataSetChanged();
     }
 
 }
