@@ -49,13 +49,13 @@ public class Currency {
     public int getCurrencyImage() {
         switch (getId()) {
             case "0":
-                return R.drawable.dollar_symbol;
+                return R.drawable.ic_money;
             case "1":
-                return R.drawable.yen_sign;
+                return R.drawable.ic_yen;
             case "2":
-                return R.drawable.euro;
+                return R.drawable.ic_euro;
         }
-        return R.drawable.dollar_symbol;
+        return R.drawable.ic_money;
     }
 
     public static ArrayList<Currency> getCurrencyArrayList() {

@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -52,6 +53,8 @@ public class HomeFragment extends Fragment {
     List<BudgetTrackerAlias> homeRadioList;
     PieChart pieChart;
     ArrayList<PieEntry> pieEntries;
+    TextView currentCurrencyTv;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,9 +98,6 @@ public class HomeFragment extends Fragment {
                     .getActivity().getApplication())
                     .create(BudgetTrackerViewModel.class);
 
-//            budgetTrackerViewModel.getAllBudgetTrackerLists().observe(this, budgetTrackers -> {
-//                Log.d("TAG", "onCreate: " + budgetTrackers.get(0).getProductName());
-//            });
         }
     }
 
@@ -111,11 +111,24 @@ public class HomeFragment extends Fragment {
         searchName = (EditText) view.findViewById(R.id.home_radio_search_name);
         dateFromText = (EditText) view.findViewById(R.id.home_radio_search_date_from_txt);
         dateToText = (EditText) view.findViewById(R.id.home_radio_search_date_to_txt);
-        calcResultTxt = (TextView) view.findViewById(R.id.home_radio_search_calc_result_txt);
         searchBtn = (Button) view.findViewById(R.id.home_radio_search_btn);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         pieChart = (PieChart) view.findViewById(R.id.pie_chart);
         budgetTrackerAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerAliasViewModel.class);
+        currentCurrencyTv = (TextView) view.findViewById(R.id.currency_tv);
+        sharedPreferences = getActivity().getSharedPreferences("CURRENCY_SHARED",0);
+
+        //選択された通貨の設定
+        String currentCurrency = sharedPreferences.getString("CURRENCY", "");
+        String selectedCurrency = sharedPreferences.getString("SELECTED", "");
+        currentCurrencyTv.setText(currentCurrency);
+        if (selectedCurrency == "US_Dollars") {
+            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_money, 0, 0, 0);
+        } else if (selectedCurrency == "JAPANESE_YEN") {
+            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_yen, 0, 0, 0);
+        } else {
+            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_euro, 0, 0, 0);
+        }
 
         pieEntries = new ArrayList<>();
 

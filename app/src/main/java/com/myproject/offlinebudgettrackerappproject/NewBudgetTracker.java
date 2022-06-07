@@ -2,6 +2,7 @@ package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class NewBudgetTracker extends AppCompatActivity {
     private List<BudgetTrackerBank> bankList;
     private Spinner budgetTrackerSpinner;
     private String spinnerText;
+    SharedPreferences sharedPreferences;
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
     private BudgetTrackerBankViewModel budgetTrackerBankViewModel;
@@ -70,6 +72,22 @@ public class NewBudgetTracker extends AppCompatActivity {
         updateButton = findViewById(R.id.update_btn);
         deleteButton = findViewById(R.id.delete_btn);
         budgetTrackerSpinner = (Spinner) findViewById(R.id.budget_tracker_spinner);
+        sharedPreferences = getSharedPreferences("CURRENCY_SHARED", 0);
+
+
+        if (BudgetTrackerSettingsActivity.spinnerText == "Japanese Yen") {
+            Toast.makeText(this, "Japanese Yen Selected", Toast.LENGTH_SHORT).show();
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("Japanese Yen", 0); // 0 - for private mode
+            pref.getString("Japanese Yen", spinnerText); // getting String
+            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_yen, 0, 0, 0);
+        } else if (BudgetTrackerSettingsActivity.spinnerText == "Euro") {
+            Toast.makeText(this, "Euro Selected", Toast.LENGTH_SHORT).show();
+            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_euro, 0, 0, 0);
+        } else {
+            Toast.makeText(this, "USD Selected", Toast.LENGTH_SHORT).show();
+            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_money, 0, 0, 0);
+        }
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
