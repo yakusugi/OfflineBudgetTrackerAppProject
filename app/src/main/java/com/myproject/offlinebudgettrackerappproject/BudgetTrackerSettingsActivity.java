@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.CurrencySpinnerAdapter;
 
+import java.util.Vector;
+
 public class BudgetTrackerSettingsActivity extends AppCompatActivity {
 
     Spinner spinner;
@@ -26,6 +28,7 @@ public class BudgetTrackerSettingsActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String selectedCurrency;
     boolean currencyChecked;
+    String currencySymbolPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +59,13 @@ public class BudgetTrackerSettingsActivity extends AppCompatActivity {
                             selectedCurrency = spinnerText;
                             currencyChecked = currencyRemember.isChecked();
                             currentCurrency = "US_Dollars";
+                            currencySymbolPath = "res/drawable/ic_money.xml";
+                            Vector<Vector<Float>> data = new Vector<Vector<Float>>();
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("CURRENCY", selectedCurrency);
                             editor.putString("SELECTED", currentCurrency);
+                            editor.putString("SELECTED_CURRENCY_SYMBOL", currencySymbolPath);
                             editor.putBoolean("CHECKBOX", currencyChecked);
                             editor.apply();
                             Toast.makeText(BudgetTrackerSettingsActivity.this, "Currency Saved", Toast.LENGTH_SHORT).show();
@@ -76,10 +82,12 @@ public class BudgetTrackerSettingsActivity extends AppCompatActivity {
                             selectedCurrency = spinnerText;
                             currencyChecked = currencyRemember.isChecked();
                             currentCurrency = "JAPANESE_YEN";
+                            currencySymbolPath = "res/drawable/ic_yen.xml";
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("CURRENCY", selectedCurrency);
                             editor.putString("SELECTED", currentCurrency);
+                            editor.putString("SELECTED_CURRENCY_SYMBOL", currencySymbolPath);
                             editor.putBoolean("CHECKBOX", currencyChecked);
                             editor.apply();
                             Toast.makeText(BudgetTrackerSettingsActivity.this, "Currency Saved", Toast.LENGTH_SHORT).show();

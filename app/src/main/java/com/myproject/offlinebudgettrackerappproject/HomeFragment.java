@@ -30,6 +30,7 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAliasViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,11 +122,14 @@ public class HomeFragment extends Fragment {
         //選択された通貨の設定
         String currentCurrency = sharedPreferences.getString("CURRENCY", "");
         String selectedCurrency = sharedPreferences.getString("SELECTED", "");
+        String selectedCurrencyPath = sharedPreferences.getString("SELECTED_CURRENCY_SYMBOL", "");
+        File vectorAsset = new File(selectedCurrencyPath);
+
         currentCurrencyTv.setText(currentCurrency);
         if (selectedCurrency == "US_Dollars") {
-            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_money, 0, 0, 0);
+            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(Integer.parseInt(selectedCurrencyPath), 0, 0, 0);
         } else if (selectedCurrency == "JAPANESE_YEN") {
-            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_yen, 0, 0, 0);
+            currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(Integer.parseInt(selectedCurrencyPath), 0, 0, 0);
         } else {
             currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_euro, 0, 0, 0);
         }
