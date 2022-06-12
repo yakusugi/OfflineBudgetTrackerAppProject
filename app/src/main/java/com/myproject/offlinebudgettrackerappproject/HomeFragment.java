@@ -125,6 +125,7 @@ public class HomeFragment extends Fragment {
         int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
         Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
 
+        currentCurrencyTv.setText(currentCurrency);
         currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         pieEntries = new ArrayList<>();
