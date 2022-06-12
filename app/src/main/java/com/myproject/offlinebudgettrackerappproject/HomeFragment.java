@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment {
 
         //選択された通貨の設定
         String currentCurrency = sharedPreferences.getString("CURRENCY", "");
-        int currentCurrencyNum = sharedPreferences.getInt("PREF_CURRENCY_VALUE", 0);
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
         Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
 
         currentCurrencyTv.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
