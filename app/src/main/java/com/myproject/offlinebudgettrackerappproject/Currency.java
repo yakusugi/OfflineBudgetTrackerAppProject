@@ -6,6 +6,10 @@ public class Currency {
 
     private static ArrayList<Currency> currencyArrayList = new ArrayList<>();
 
+    static {
+        initCurrencies();
+    }
+
     private String id;
     private String currency;
 

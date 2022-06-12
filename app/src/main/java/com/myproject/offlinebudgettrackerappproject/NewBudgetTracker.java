@@ -72,21 +72,16 @@ public class NewBudgetTracker extends AppCompatActivity {
         updateButton = findViewById(R.id.update_btn);
         deleteButton = findViewById(R.id.delete_btn);
         budgetTrackerSpinner = (Spinner) findViewById(R.id.budget_tracker_spinner);
-        sharedPreferences = getSharedPreferences("CURRENCY_SHARED", 0);
+        sharedPreferences = getSharedPreferences("CURRENCY_SHARED",0);
 
+        Integer selectedCurrencyNum = sharedPreferences.getInt("PREF_CURRENCY_VALUE", 0);
 
-        if (BudgetTrackerSettingsActivity.spinnerText == "Japanese Yen") {
-            Toast.makeText(this, "Japanese Yen Selected", Toast.LENGTH_SHORT).show();
-
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("Japanese Yen", 0); // 0 - for private mode
-            pref.getString("Japanese Yen", spinnerText); // getting String
-            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_yen, 0, 0, 0);
-        } else if (BudgetTrackerSettingsActivity.spinnerText == "Euro") {
-            Toast.makeText(this, "Euro Selected", Toast.LENGTH_SHORT).show();
-            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_euro, 0, 0, 0);
-        } else {
-            Toast.makeText(this, "USD Selected", Toast.LENGTH_SHORT).show();
+        if (selectedCurrencyNum.equals(0)) {
             enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_money, 0, 0, 0);
+        } else if (selectedCurrencyNum.equals(1)) {
+            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_yen, 0, 0, 0);
+        } else if (selectedCurrencyNum.equals(2)) {
+            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_euro, 0, 0, 0);
         }
 
         Calendar calendar = Calendar.getInstance();
