@@ -29,7 +29,7 @@ public class BudgetTrackerSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_tracker_settings);
-        Currency.initCurrencies();
+//        Currency.initCurrencies();
 
         spinner = (Spinner) findViewById(R.id.currency_spinner);
         currencyBtn = (Button) findViewById(R.id.currency_btn);

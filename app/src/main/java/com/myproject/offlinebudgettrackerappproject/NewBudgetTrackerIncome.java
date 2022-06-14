@@ -2,6 +2,7 @@ package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -46,6 +47,10 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
     private Spinner incomeSpinner;
     private String spinnerText;
 
+    SharedPreferences sharedPreferences;
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
+
     public NewBudgetTrackerIncome() {
 
     }
@@ -66,6 +71,14 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
         updateIncomeButton = findViewById(R.id.income_update_btn);
         deleteIncomeButton = findViewById(R.id.income_delete_btn);
         incomeSpinner = (Spinner) findViewById(R.id.income_spinner);
+
+        sharedPreferences = getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+
+        enterIncomeAmount.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);

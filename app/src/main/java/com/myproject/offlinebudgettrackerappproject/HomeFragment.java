@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
     TextView currentCurrencyTv;
     private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
+    private static final String PREF_CURRENCY_NAME = "CURRENCY";
     SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -121,7 +122,7 @@ public class HomeFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
 
         //選択された通貨の設定
-        String currentCurrency = sharedPreferences.getString("CURRENCY", "");
+        String currentCurrency = sharedPreferences.getString(PREF_CURRENCY_NAME, "");
         int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
         Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
 

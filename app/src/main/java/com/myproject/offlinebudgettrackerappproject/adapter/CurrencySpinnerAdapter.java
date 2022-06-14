@@ -42,12 +42,12 @@ public class CurrencySpinnerAdapter extends ArrayAdapter<Currency> {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.currency_spinner_adopter, parent, false);
         }
-
         Currency currency = getItem(position);
         TextView textView = (TextView) convertView.findViewById(R.id.currency_name_textview);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.currency_symbol);
         textView.setText(currency.getCurrency());
         imageView.setImageResource(currency.getCurrencyImage());
+
 
         return convertView;
     }

@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,10 @@ public class NewBudgetTrackerBank extends AppCompatActivity {
     private Button updateBankButton;
     private Button deleteBankButton;
 
+    SharedPreferences sharedPreferences;
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
+
 
     public NewBudgetTrackerBank() {
 
@@ -42,6 +47,14 @@ public class NewBudgetTrackerBank extends AppCompatActivity {
         saveButtonBudgetTrackerBank = findViewById(R.id.save_button_budget_tracker_bank);
         updateBankButton = findViewById(R.id.bank_update_btn);
         deleteBankButton = findViewById(R.id.bank_delete_btn);
+
+        sharedPreferences = getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+
+        enterBankBalance.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         budgetTrackerBankViewModel = new ViewModelProvider.AndroidViewModelFactory(NewBudgetTrackerBank.this
                 .getApplication())

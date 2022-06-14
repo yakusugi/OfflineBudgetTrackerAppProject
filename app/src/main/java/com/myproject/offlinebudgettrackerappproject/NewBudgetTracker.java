@@ -50,6 +50,8 @@ public class NewBudgetTracker extends AppCompatActivity {
     private Spinner budgetTrackerSpinner;
     private String spinnerText;
     SharedPreferences sharedPreferences;
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
     private BudgetTrackerBankViewModel budgetTrackerBankViewModel;
@@ -72,17 +74,13 @@ public class NewBudgetTracker extends AppCompatActivity {
         updateButton = findViewById(R.id.update_btn);
         deleteButton = findViewById(R.id.delete_btn);
         budgetTrackerSpinner = (Spinner) findViewById(R.id.budget_tracker_spinner);
-        sharedPreferences = getSharedPreferences("CURRENCY_SHARED",0);
+        sharedPreferences = getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
 
-        Integer selectedCurrencyNum = sharedPreferences.getInt("PREF_CURRENCY_VALUE", 0);
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
 
-        if (selectedCurrencyNum.equals(0)) {
-            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_money, 0, 0, 0);
-        } else if (selectedCurrencyNum.equals(1)) {
-            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_yen, 0, 0, 0);
-        } else if (selectedCurrencyNum.equals(2)) {
-            enterPrice.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_euro, 0, 0, 0);
-        }
+        enterPrice.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
