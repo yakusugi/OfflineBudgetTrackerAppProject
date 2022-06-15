@@ -42,6 +42,7 @@ public class DateFragment extends Fragment {
     private List<BudgetTracker> budgetTrackerList;
     ActivityMainBinding activityMainBinding;
     public static final String DATE_FRAGMENT_ID = "date_fragment_id";
+    List<BudgetTracker> radioStoreNameLists;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -148,12 +149,28 @@ public class DateFragment extends Fragment {
                 String date1 = radioSearchDateFrom.getText().toString();
                 String date2 = radioSearchDateTo.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
-                List<BudgetTracker> radioStoreNameLists = budgetTrackerViewModel.getRadioStoreNameLists(storeName, date1, date2);
+                radioStoreNameLists = budgetTrackerViewModel.getRadioStoreNameLists(storeName, date1, date2);
                 DateListViewAdapter dateListViewAdapter = new DateListViewAdapter(getActivity(), radioStoreNameLists);
                 dateListView.setAdapter(dateListViewAdapter);
                 String calcSumStr = String.valueOf(budgetTrackerViewModel.getDateStoreSum(storeName, date1, date2));
                 searchCalcResultTxt.setText(calcSumStr);
 
+            }
+        });
+
+        //              Todo  2022/04/10 Tapped modified
+        dateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String date = adapterView.getItemAtPosition(position).toString();
+                List<BudgetTracker> budgetListItems = radioStoreNameLists;
+                int intId = (int) id;
+                BudgetTracker dateItemId = budgetListItems.get(intId);
+                Intent dateFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
+                dateFragmentIntent.putExtra(DATE_FRAGMENT_ID, dateItemId.getId());
+                startActivity(dateFragmentIntent);
+
+                Log.d("TAG-June", "onItemClick June02: " + date);
             }
         });
 
@@ -228,21 +245,7 @@ public class DateFragment extends Fragment {
                         break;
                 }
 
-                //              Todo  2022/04/10 Tapped modified
-                dateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                        String date = adapterView.getItemAtPosition(position).toString();
-                        List<BudgetTracker> budgetListItems = radioStoreNameLists;
-                        int intId = (int) id;
-                        BudgetTracker dateItemId = budgetListItems.get(intId);
-                        Intent dateFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
-                        dateFragmentIntent.putExtra(DATE_FRAGMENT_ID, dateItemId.getId());
-                        startActivity(dateFragmentIntent);
 
-                        Log.d("TAG-June", "onItemClick June02: " + date);
-                    }
-                });
             }
         });
 
