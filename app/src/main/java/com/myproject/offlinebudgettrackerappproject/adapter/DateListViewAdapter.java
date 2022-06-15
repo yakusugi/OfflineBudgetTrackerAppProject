@@ -61,8 +61,9 @@ public class DateListViewAdapter extends ArrayAdapter<BudgetTracker> {
         TextView datePriceRow = convertView.findViewById(R.id.date_price_text_row);
 
         if (budgetTracker.getStoreName().equals("Google Store")) {
-            dateImageViewRow.setImageResource(R.drawable.search);
+
         }
+        dateImageViewRow.setImageResource(R.drawable.schedule);
         dateStoreNameRow.setText(budgetTracker.getStoreName());
         dateDateRow.setText(budgetTracker.getDate());
         dateProductRow.setText(budgetTracker.getProductName());

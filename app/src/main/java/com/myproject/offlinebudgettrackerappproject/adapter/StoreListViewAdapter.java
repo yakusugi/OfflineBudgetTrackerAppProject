@@ -61,9 +61,7 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
         TextView storeProductTypeRow = convertView.findViewById(R.id.store_product_type_text_row);
         TextView storePriceRow = convertView.findViewById(R.id.store_price_text_row);
 
-        if (budgetTracker.getStoreName().equals("Google Store")) {
-            storeImageViewRow.setImageResource(R.drawable.search);
-        }
+        storeImageViewRow.setImageResource(R.drawable.store);
         storeNameRow.setText(budgetTracker.getStoreName());
         storeDateRow.setText(budgetTracker.getDate());
         storeProductRow.setText(budgetTracker.getProductName());

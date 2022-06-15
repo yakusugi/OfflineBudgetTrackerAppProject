@@ -47,7 +47,6 @@ public class HomeFragment extends Fragment {
     EditText searchName;
     EditText dateFromText;
     EditText dateToText;
-    TextView calcResultTxt;
     Button searchBtn;
     ActivityMainBinding activityMainBinding;
     List<BudgetTrackerAlias> homeRadioList;
@@ -306,6 +305,8 @@ public class HomeFragment extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Store Percentage");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
+        pieChart.notifyDataSetChanged();
+        pieChart.invalidate();
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateXY(5000, 5000);
         pieChart.setEntryLabelColor(Color.BLACK);
@@ -329,6 +330,8 @@ public class HomeFragment extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Store Percentage");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextSize(20f);
+        pieChart.notifyDataSetChanged();
+        pieChart.invalidate();
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateXY(5000, 5000);
         pieChart.setEntryLabelColor(Color.BLACK);

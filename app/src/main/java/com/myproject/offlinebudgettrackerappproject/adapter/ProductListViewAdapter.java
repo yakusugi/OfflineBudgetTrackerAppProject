@@ -60,9 +60,7 @@ public class ProductListViewAdapter extends ArrayAdapter<BudgetTracker> {
         TextView productProductTypeRow = convertView.findViewById(R.id.product_product_type_text_row);
         TextView productPriceRow = convertView.findViewById(R.id.product_price_text_row);
 
-        if (budgetTracker.getProductType().equals("gadget")) {
-            productImageViewRow.setImageResource(R.drawable.gadget);
-        }
+        productImageViewRow.setImageResource(R.drawable.products);
         productStoreNameRow.setText(budgetTracker.getStoreName());
         productDateRow.setText(budgetTracker.getDate());
         productProductNameRow.setText(budgetTracker.getProductName());
