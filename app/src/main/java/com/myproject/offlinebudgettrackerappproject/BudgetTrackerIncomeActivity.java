@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,6 +28,7 @@ public class BudgetTrackerIncomeActivity extends AppCompatActivity {
     BudgetTrackerIncomeViewModel budgetTrackerIncomeViewModel;
     private ListView incomeCategoryListView;
     public static final String BUDGET_TRACKER_INCOME_ID = "budget_income_id";
+    String incomeCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class BudgetTrackerIncomeActivity extends AppCompatActivity {
                 IncomeListViewAdapter incomeListViewAdapter;
 //                RecyclerView recyclerView = null;
 
-                String incomeCategory = enterIncomeCategoryForQuery.getText().toString();
+                incomeCategory = enterIncomeCategoryForQuery.getText().toString();
                 budgetTrackerIncomeViewModel = new ViewModelProvider.AndroidViewModelFactory(BudgetTrackerIncomeActivity.this
                         .getApplication())
                         .create(BudgetTrackerIncomeViewModel.class);
@@ -71,7 +73,7 @@ public class BudgetTrackerIncomeActivity extends AppCompatActivity {
                         BudgetTrackerIncome incomeItemId = incomeListItems.get(intId);
                         Intent incomeActivityIntent = new Intent(BudgetTrackerIncomeActivity.this, NewBudgetTrackerIncome.class);
                         incomeActivityIntent.putExtra(BUDGET_TRACKER_INCOME_ID, incomeItemId.getId());
-                        startActivity(incomeActivityIntent);
+                        startActivityForResult(incomeActivityIntent, 1);
 
                         Log.d("TAG", "onItemClick: " + date);
                     }
@@ -82,5 +84,19 @@ public class BudgetTrackerIncomeActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                int result = data.getIntExtra("result", 0);
+                List<BudgetTrackerIncome> viewModelIncomeCategoryLists = budgetTrackerIncomeViewModel.getIncomeCategoryLists(incomeCategory);
+
+                incomeListViewAdapter = new IncomeListViewAdapter(BudgetTrackerIncomeActivity.this, viewModelIncomeCategoryLists);
+                incomeCategoryListView.setAdapter(incomeListViewAdapter);
+            }
+        }
     }
 }

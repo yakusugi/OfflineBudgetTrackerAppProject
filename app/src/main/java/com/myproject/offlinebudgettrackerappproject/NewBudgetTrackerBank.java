@@ -120,6 +120,7 @@ public class NewBudgetTrackerBank extends AppCompatActivity {
                         budgetTrackerbank.setBankName(bankName);
                         budgetTrackerbank.setBankBalance(bankBalance);
                         BudgetTrackerBankViewModel.deleteBudgetTrackerBank(budgetTrackerbank);
+                        setResult(RESULT_OK, budgetTrackerBankGetIntent);
                         finish();
                     }
                 }
@@ -143,6 +144,7 @@ public class NewBudgetTrackerBank extends AppCompatActivity {
                         budgetTrackerbank.setBankName(bankName);
                         budgetTrackerbank.setBankBalance(bankBalance);
                         BudgetTrackerBankViewModel.updateBudgetTrackerBank(budgetTrackerbank);
+                        setResult(RESULT_OK, budgetTrackerBankGetIntent);
                         finish();
                     }
                 }

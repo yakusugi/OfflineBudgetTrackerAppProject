@@ -52,6 +52,7 @@ public class NewBudgetTracker extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
+    public static final String NBT_TO_PF = "nbt_to_pf";
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
     private BudgetTrackerBankViewModel budgetTrackerBankViewModel;
@@ -265,6 +266,14 @@ public class NewBudgetTracker extends AppCompatActivity {
                         budgetTracker.setPrice(price);
                         BudgetTrackerViewModel.deleteBudgetTracker(budgetTracker);
                         budgetTrackerViewModel.getAllBudgetTrackerLists();
+                        if (shopFragmentIntentId != 0) {
+                            setResult(RESULT_OK, shopFragmentGetIntent);
+                        } else if (productFragmentIntentId != 0) {
+                            setResult(RESULT_OK, productFragmentGetIntent);
+                        } else if (dateFragmentIntentId != 0) {
+                            setResult(RESULT_OK, dateFragmentGetIntent);
+                        }
+
                         finish();
                     }
                 }
@@ -303,11 +312,13 @@ public class NewBudgetTracker extends AppCompatActivity {
                         budgetTracker.setPrice(price);
                         BudgetTrackerViewModel.updateBudgetTracker(budgetTracker);
 //                         Todo Automatic search after updated an item
-//                        viewModelStoreNameLists = budgetTrackerViewModel.getAllBudgetTrackerLists();
-//                        StoreListViewAdapter storeListViewAdapter;
-//
-//                        storeListViewAdapter = new StoreListViewAdapter(this, viewModelStoreNameLists);
-//                        storeListView.setAdapter(storeListViewAdapter);
+                        if (shopFragmentIntentId != 0) {
+                            setResult(RESULT_OK, shopFragmentGetIntent);
+                        } else if (productFragmentIntentId != 0) {
+                            setResult(RESULT_OK, productFragmentGetIntent);
+                        } else if (dateFragmentIntentId != 0) {
+                            setResult(RESULT_OK, dateFragmentGetIntent);
+                        }
                         finish();
                     }
                 }

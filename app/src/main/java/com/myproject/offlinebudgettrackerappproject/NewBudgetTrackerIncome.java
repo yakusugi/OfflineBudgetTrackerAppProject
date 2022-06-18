@@ -207,6 +207,7 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
                         budgetTrackerIncome.setCategory(incomeCategory);
                         budgetTrackerIncome.setAmount(incomeAmount);
                         budgetTrackerIncomeViewModel.deleteBudgetTrackerIncome(budgetTrackerIncome);
+                        setResult(RESULT_OK, budgetTrackerIncomeGetIntent);
                         finish();
                     }
                 }
@@ -232,6 +233,7 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
                         budgetTrackerIncome.setCategory(incomeCategory);
                         budgetTrackerIncome.setAmount(incomeAmount);
                         budgetTrackerIncomeViewModel.updateBudgetTrackerIncome(budgetTrackerIncome);
+                        setResult(RESULT_OK, budgetTrackerIncomeGetIntent);
                         finish();
                     }
                 }

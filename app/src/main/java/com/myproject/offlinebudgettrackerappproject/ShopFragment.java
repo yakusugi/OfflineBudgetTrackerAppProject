@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,6 +29,7 @@ import java.util.List;
  */
 public class ShopFragment extends Fragment {
 
+    private static final int RESULT_OK = -1;
     private static final String TAG = "Clicked";
     public static final String SHOP_FRAGMENT_ID = "shop_fragment_id";
     BudgetTrackerViewModel budgetTrackerViewModel;
@@ -38,6 +39,7 @@ public class ShopFragment extends Fragment {
     List<BudgetTracker> viewModelStoreNameLists;
     List<BudgetTracker> storeNameListsReset;
     ActivityMainBinding activityMainBinding;
+    String storeName;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -94,9 +96,10 @@ public class ShopFragment extends Fragment {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
 //      2022/02/11 追加
-        storeListViewAdapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
-
-        BaseAdapter adapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
+//        storeListViewAdapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
+//
+//
+//        BaseAdapter adapter = new StoreListViewAdapter(getActivity(), budgetTrackerList);
 
         storeListViewAdapter = new StoreListViewAdapter(getActivity(), 1);
         storeListView.setAdapter(storeListViewAdapter);
@@ -107,9 +110,9 @@ public class ShopFragment extends Fragment {
                 BudgetTracker budgetTracker;
 
                 //      2022/02/11 追加
-                StoreListViewAdapter storeListViewAdapter;
+//                final StoreListViewAdapter[] storeListViewAdapter = new StoreListViewAdapter[1];
 
-                String storeName = enterStoreNameForQuery.getText().toString();
+                storeName = enterStoreNameForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
 
                 budgetTracker = new BudgetTracker();
@@ -119,7 +122,6 @@ public class ShopFragment extends Fragment {
 
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
                 storeListViewAdapter.notifyDataSetChanged();
-                adapter.notifyDataSetChanged();
                 storeListView.setAdapter(storeListViewAdapter);
 
 //              Todo  2022/04/10 Tapped modified
@@ -132,19 +134,7 @@ public class ShopFragment extends Fragment {
                         BudgetTracker storeItemId = budgetListItems.get(intId);
                         Intent shopFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
                         shopFragmentIntent.putExtra(SHOP_FRAGMENT_ID, storeItemId.getId());
-                        startActivity(shopFragmentIntent);
-
-                        StoreListViewAdapter adapter = new StoreListViewAdapter(getActivity(), budgetListItems);
-                        storeListView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-
-//                        //NewBudgetTrackerへ画面遷移後のSELECT文発行処理
-//                        storeNameListsReset = budgetTrackerViewModel.getStoreNameLists(storeName);
-//                        StoreListViewAdapter storeListViewAdapter;
-//                        storeListViewAdapter = new StoreListViewAdapter(getActivity(), storeNameListsReset);
-//                        BaseAdapter adapter = new StoreListViewAdapter(getActivity(), storeNameListsReset);
-//                        storeListView.setAdapter(storeListViewAdapter);
-
+                        startActivityForResult(shopFragmentIntent, 1);
 
                         Log.d(TAG, "onItemClick: " + date);
                     }
@@ -162,8 +152,22 @@ public class ShopFragment extends Fragment {
         });
 
         return view;
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                int result = data.getIntExtra("result", 0);
+                viewModelStoreNameLists = budgetTrackerViewModel.getStoreNameLists(storeName);
+
+                storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
+                storeListViewAdapter.notifyDataSetChanged();
+                storeListView.setAdapter(storeListViewAdapter);
+            }
+        }
     }
 
 

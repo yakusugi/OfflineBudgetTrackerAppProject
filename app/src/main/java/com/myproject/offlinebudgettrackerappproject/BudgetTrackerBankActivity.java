@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,6 +28,7 @@ public class BudgetTrackerBankActivity extends AppCompatActivity {
     BudgetTrackerBankViewModel budgetTrackerBankViewModel;
     private ListView bankNameListView;
     public static final String BUDGET_TRACKER_BANK_ID = "budget_bank_id";
+    String bankName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class BudgetTrackerBankActivity extends AppCompatActivity {
                 BankNameListViewAdapter bankNameListViewAdapter;
 //                RecyclerView recyclerView = null;
 
-                String bankName = enterBankNameForQuery.getText().toString();
+                bankName = enterBankNameForQuery.getText().toString();
                 budgetTrackerBankViewModel = new ViewModelProvider.AndroidViewModelFactory(BudgetTrackerBankActivity.this
                         .getApplication())
                         .create(BudgetTrackerBankViewModel.class);
@@ -71,7 +73,7 @@ public class BudgetTrackerBankActivity extends AppCompatActivity {
                         BudgetTrackerBank bankItemId = bankListItems.get(intId);
                         Intent bankActivityIntent = new Intent(BudgetTrackerBankActivity.this, NewBudgetTrackerBank.class);
                         bankActivityIntent.putExtra(BUDGET_TRACKER_BANK_ID, bankItemId.getId());
-                        startActivity(bankActivityIntent);
+                        startActivityForResult(bankActivityIntent, 1);
 
                         Log.d("TAG", "onItemClick: " + date);
                     }
@@ -80,5 +82,20 @@ public class BudgetTrackerBankActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                int result = data.getIntExtra("result", 0);
+                List<BudgetTrackerBank> viewModelBankNameLists = budgetTrackerBankViewModel.getBankNameLists(bankName);
+
+                bankNameListViewAdapter = new BankNameListViewAdapter(BudgetTrackerBankActivity.this, viewModelBankNameLists);
+                bankNameListView.setAdapter(bankNameListViewAdapter);
+            }
+        }
     }
 }

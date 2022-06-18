@@ -38,6 +38,8 @@ public class StoreListViewAdapter extends ArrayAdapter<BudgetTracker> {
         super(context, num);
     }
 
+
+
     //When tapped
     public void setOnItemClickListener(View.OnClickListener listener) {
         this.listener = listener;

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -31,6 +32,7 @@ import java.util.List;
  */
 public class ProductFragment extends Fragment {
 
+    private static final int RESULT_OK = -1;
     BudgetTrackerViewModel budgetTrackerViewModel;
     private ProductListViewAdapter productListViewAdapter;
     public static final String PRODUCT_FRAGMENT_ID = "product_fragment_id";
@@ -39,6 +41,8 @@ public class ProductFragment extends Fragment {
     private List<BudgetTracker> budgetTracker;
     List<BudgetTracker> viewModelProductNameLists;
     ActivityMainBinding activityMainBinding;
+    private int newBudgetTrackerIntentId = 0;
+    String productType;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,9 +92,6 @@ public class ProductFragment extends Fragment {
         Button productSearchQueryBtn = (Button) view.findViewById(R.id.btn_product_search);
         productListView = (ListView) view.findViewById(R.id.product_listview);
         TextView productTypeSum = (TextView) view.findViewById(R.id.product_type_sum_result_txt);
-//        AutoCompleteTextView autoCompleteProductTextView  = (AutoCompleteTextView) view.findViewById(R.id.product_search_txt);
-//        ArrayAdapter<String> adapter;
-//        String [] strings = getResources().getStringArray(R.array.product_type_string_array);
 
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
@@ -98,6 +99,8 @@ public class ProductFragment extends Fragment {
 
         productListViewAdapter = new ProductListViewAdapter(getActivity(), 1);
         productListView.setAdapter(productListViewAdapter);
+
+
 
         productSearchQueryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +110,7 @@ public class ProductFragment extends Fragment {
                 //      2022/02/11 追加
                 ProductListViewAdapter productListViewAdapter;
 
-                String productType = enterProductTypeForQuery.getText().toString();
+                productType = enterProductTypeForQuery.getText().toString();
                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);
 
                 budgetTracker = new BudgetTracker();
@@ -131,9 +134,7 @@ public class ProductFragment extends Fragment {
                         BudgetTracker productItemId = budgetListItems.get(intId);
                         Intent productFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
                         productFragmentIntent.putExtra(PRODUCT_FRAGMENT_ID, productItemId.getId());
-                        startActivity(productFragmentIntent);
-
-                        Log.d("TAG", "onItemClick: " + date);
+                        startActivityForResult(productFragmentIntent, 1);
                     }
                 });
 
@@ -144,5 +145,20 @@ public class ProductFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                int result = data.getIntExtra("result", 0);
+                viewModelProductNameLists = budgetTrackerViewModel.getProductTypeLists(productType);
+
+                productListViewAdapter = new ProductListViewAdapter(getActivity(), viewModelProductNameLists);
+                productListView.setAdapter(productListViewAdapter);
+            }
+        }
     }
 }
