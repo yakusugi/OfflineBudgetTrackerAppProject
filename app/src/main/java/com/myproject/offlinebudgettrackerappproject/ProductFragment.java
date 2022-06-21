@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ import java.util.List;
  */
 public class ProductFragment extends Fragment {
 
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
     private static final int RESULT_OK = -1;
     BudgetTrackerViewModel budgetTrackerViewModel;
     private ProductListViewAdapter productListViewAdapter;
@@ -43,6 +46,7 @@ public class ProductFragment extends Fragment {
     ActivityMainBinding activityMainBinding;
     private int newBudgetTrackerIntentId = 0;
     String productType;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +103,13 @@ public class ProductFragment extends Fragment {
 
         productListViewAdapter = new ProductListViewAdapter(getActivity(), 1);
         productListView.setAdapter(productListViewAdapter);
+
+        sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+        productTypeSum.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
 
 

@@ -36,6 +36,9 @@ public interface BudgetTrackerDao {
     @Query("SELECT SUM(price) FROM budget_tracker_table WHERE product_type LIKE '%' || :productType|| '%'")
     int getProductSum(String productType);
 
+    @Query("SELECT SUM(price) FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%'")
+    int getStoreSum(String storeName);
+
     @Query("SELECT * FROM budget_tracker_table WHERE date >= :date1 and date <= :date2")
     List<BudgetTracker> getDateLists(String date1, String date2);
 

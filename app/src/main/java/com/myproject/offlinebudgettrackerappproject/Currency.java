@@ -47,6 +47,18 @@ public class Currency {
         Currency euro = new Currency("2", "Euro");
         currencyArrayList.add(euro);
 
+        Currency pound = new Currency("3", "British Pound");
+        currencyArrayList.add(pound);
+
+        Currency aus_dollar = new Currency("4", "Australian Dollars");
+        currencyArrayList.add(aus_dollar);
+
+        Currency nz_dollar = new Currency("5", "NZ Dollars");
+        currencyArrayList.add(nz_dollar);
+
+        Currency can_dollar = new Currency("6", "Canadian Dollars");
+        currencyArrayList.add(can_dollar);
+
 
     }
 
@@ -58,6 +70,14 @@ public class Currency {
                 return R.drawable.ic_yen;
             case "2":
                 return R.drawable.ic_euro;
+            case "3":
+                return R.drawable.ic_pound;
+            case "4":
+                return R.drawable.ic_money;
+            case "5":
+                return R.drawable.ic_money;
+            case "6":
+                return R.drawable.ic_money;
         }
         return R.drawable.ic_money;
     }

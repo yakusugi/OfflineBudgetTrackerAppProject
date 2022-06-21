@@ -16,6 +16,7 @@ public class BudgetTrackerRepository {
     private List<BudgetTracker> storeNameLists;
     private List<BudgetTracker> productTypeLists;
     private int productTypeSum;
+    private int storeNameSum;
     private List<BudgetTracker> dateLists;
     private List<BudgetTracker> radioStoreNameLists;
     private int dateStoreSum;
@@ -55,6 +56,11 @@ public class BudgetTrackerRepository {
     public int queryProductTypeSum(String productType) {
         productTypeSum = budgetTrackerDao.getProductSum(productType);
         return productTypeSum;
+    }
+
+    public int queryStoreNameSum(String storeName) {
+        storeNameSum = budgetTrackerDao.getStoreSum(storeName);
+        return storeNameSum;
     }
 
     public List<BudgetTracker> queryDate(String date1, String date2) {

@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,6 +31,8 @@ import java.util.List;
  */
 public class ShopFragment extends Fragment {
 
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
     private static final int RESULT_OK = -1;
     private static final String TAG = "Clicked";
     public static final String SHOP_FRAGMENT_ID = "shop_fragment_id";
@@ -40,6 +44,9 @@ public class ShopFragment extends Fragment {
     List<BudgetTracker> storeNameListsReset;
     ActivityMainBinding activityMainBinding;
     String storeName;
+    SharedPreferences sharedPreferences;
+    TextView totalTv;
+    String storeTypeSumStr;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,6 +98,16 @@ public class ShopFragment extends Fragment {
         EditText enterStoreNameForQuery = (EditText) view.findViewById(R.id.store_search_txt);
         Button storeSearchQueryBtn = (Button) view.findViewById(R.id.btn_store_search);
         storeListView = (ListView) view.findViewById(R.id.store_listview);
+        totalTv = (TextView) view.findViewById(R.id.store_name_sum_result_txt);
+        TextView storeNameSum = (TextView) view.findViewById(R.id.store_name_sum_result_txt);
+
+        sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+        totalTv.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
+
 
 //      2022/02/11 追加
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -123,6 +140,8 @@ public class ShopFragment extends Fragment {
                 storeListViewAdapter = new StoreListViewAdapter(getActivity(), viewModelStoreNameLists);
                 storeListViewAdapter.notifyDataSetChanged();
                 storeListView.setAdapter(storeListViewAdapter);
+                storeTypeSumStr = String.valueOf(budgetTrackerViewModel.getStoreNameSumSum(storeName));
+                storeNameSum.setText(storeTypeSumStr);
 
 //              Todo  2022/04/10 Tapped modified
                 storeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

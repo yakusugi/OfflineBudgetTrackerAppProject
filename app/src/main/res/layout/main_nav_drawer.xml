@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="48dp"
-                android:src="@drawable/ic_money"
+                android:src="@drawable/ic_bank_32"
                 />
 
         </LinearLayout>

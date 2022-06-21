@@ -17,6 +17,7 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public List<BudgetTracker> storeNameLists;
     public List<BudgetTracker> productTypeLists;
     public int productTypeSum;
+    public int storeNameSum;
     public List<BudgetTracker> dateLists;
     public List<BudgetTracker> radioStoreNameLists;
     public int dateStoreSum;
@@ -55,6 +56,11 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public int getProductTypeSum(String productType) {
         productTypeSum = repository.queryProductTypeSum(productType);
         return productTypeSum;
+    }
+
+    public int getStoreNameSumSum(String storeName) {
+        storeNameSum = repository.queryStoreNameSum(storeName);
+        return storeNameSum;
     }
 
     public List<BudgetTracker> getDateLists(String date1, String date2) {

@@ -2,6 +2,7 @@ package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,8 @@ import java.util.List;
  */
 public class DateFragment extends Fragment {
 
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
     private static final int RESULT_OK = -1;
     BudgetTrackerViewModel budgetTrackerViewModel;
     RadioGroup radioGroup;
@@ -48,6 +51,7 @@ public class DateFragment extends Fragment {
     String storeName;
     String date1;
     String date2;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -109,6 +113,13 @@ public class DateFragment extends Fragment {
         dateListView.setAdapter(dateListViewAdapter);
 
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+        searchCalcResultTxt.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);

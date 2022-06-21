@@ -63,13 +63,32 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/product_type_sum_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:text="Total"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_product_search"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
         android:id="@+id/product_type_sum_result_txt"
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:textStyle="bold"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_money"
+        android:textSize="25dp"
+        android:drawablePadding="12dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_product_search" />
+        app:layout_constraintTop_toBottomOf="@+id/product_type_sum_txt" />
 
     <ListView
         android:id="@+id/product_listview"
@@ -78,6 +97,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_type_sum_result_txt"
-        android:scrollbarSize="@dimen/_40ssp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
