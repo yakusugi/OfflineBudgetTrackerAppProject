@@ -76,15 +76,19 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setItemIconTintList(null);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new DashboardFragment()).commit();
 
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomNavigationView.setSelectedItemId(R.id.nav_dash);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
+                    case R.id.nav_dash:
+                        fragment = new DashboardFragment();
+                        fabMenu.setVisibility(View.VISIBLE);
+                        break;
                     case R.id.nav_home:
                         fragment = new HomeFragment();
                         fabMenu.setVisibility(View.VISIBLE);

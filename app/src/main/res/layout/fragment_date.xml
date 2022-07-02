@@ -61,9 +61,6 @@
             android:layout_height="wrap_content"
             android:text="Product type" />
 
-        <!--        </LinearLayout>-->
-
-
     </RadioGroup>
 
     <EditText
@@ -125,6 +122,7 @@
         android:id="@+id/radio_search_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -136,6 +134,7 @@
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:background="@drawable/custom_input"
+        android:layout_marginTop="8dp"
         android:drawableStart="@drawable/ic_money"
         android:textSize="25dp"
         android:drawablePadding="12dp"

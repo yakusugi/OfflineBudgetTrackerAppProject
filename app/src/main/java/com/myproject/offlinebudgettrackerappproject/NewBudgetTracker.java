@@ -43,6 +43,7 @@ public class NewBudgetTracker extends AppCompatActivity {
     private int shopFragmentIntentId = 0;
     private int productFragmentIntentId = 0;
     private int dateFragmentIntentId = 0;
+    private int replacedActivityIntentId = 0;
     boolean isEdit = false;
     LiveData<List<BudgetTracker>> viewModelStoreNameLists;
     private ArrayList<BudgetTrackerBank> bankArrayList;
@@ -53,6 +54,10 @@ public class NewBudgetTracker extends AppCompatActivity {
     private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
     public static final String NBT_TO_PF = "nbt_to_pf";
+    int idStore;
+    int idProduct;
+    int idDate;
+    int idReplace;
 
     private BudgetTrackerViewModel budgetTrackerViewModel;
     private BudgetTrackerBankViewModel budgetTrackerBankViewModel;
@@ -232,15 +237,38 @@ public class NewBudgetTracker extends AppCompatActivity {
             isEdit = true;
         }
 
+        //  Get intent from ReplacedActivity
+        Intent replacedActivityGetIntent = getIntent();
+        Bundle replacedActivityGetIntentBundle = replacedActivityGetIntent.getExtras();
+        if (replacedActivityGetIntentBundle != null) {
+            replacedActivityIntentId = getIntent().getIntExtra(ReplaceActivity.REPLACED_ACTIVITY_ID, 0);
+            Log.d("TAG", "replacedActivity: " + replacedActivityIntentId);
+            //observe only works when using LiveData
+            budgetTrackerViewModel.getBudgetTrackerId(replacedActivityIntentId).observe(this, new Observer<BudgetTracker>() {
+                @Override
+                public void onChanged(BudgetTracker budgetTracker) {
+                    if (budgetTracker != null) {
+                        enterDate.setText(budgetTracker.getDate());
+                        enterStoreName.setText(budgetTracker.getStoreName());
+                        enterProductName.setText(budgetTracker.getProductName());
+                        enterProductType.setText(budgetTracker.getProductType());
+                        enterPrice.setText(String.valueOf(budgetTracker.getPrice()));
+                    }
+                }
+            });
+            isEdit = true;
+        }
+
 
         //Delete button
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (shopFragmentIntentId != 0 || productFragmentIntentId != 0 || dateFragmentIntentId != 0) {
-                    int idStore = shopFragmentIntentId;
-                    int idProduct = productFragmentIntentId;
-                    int idDate = dateFragmentIntentId;
+                    idStore = shopFragmentIntentId;
+                    idProduct = productFragmentIntentId;
+                    idDate = dateFragmentIntentId;
+                    idReplace = replacedActivityIntentId;
                     String date = enterDate.getText().toString();
                     String storeName = enterStoreName.getText().toString();
                     String productName = enterProductName.getText().toString();
@@ -257,6 +285,8 @@ public class NewBudgetTracker extends AppCompatActivity {
                             budgetTracker.setId(idProduct);
                         } else if (dateFragmentIntentId != 0) {
                             budgetTracker.setId(idDate);
+                        } else if (replacedActivityIntentId != 0) {
+                            budgetTracker.setId(idReplace);
                         }
 
                         budgetTracker.setDate(date);
@@ -272,6 +302,8 @@ public class NewBudgetTracker extends AppCompatActivity {
                             setResult(RESULT_OK, productFragmentGetIntent);
                         } else if (dateFragmentIntentId != 0) {
                             setResult(RESULT_OK, dateFragmentGetIntent);
+                        } else if (replacedActivityIntentId != 0) {
+                            setResult(RESULT_OK, replacedActivityGetIntent);
                         }
 
                         finish();
@@ -285,9 +317,10 @@ public class NewBudgetTracker extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (shopFragmentIntentId != 0 || productFragmentIntentId != 0 || dateFragmentIntentId != 0) {
-                    int idStore = shopFragmentIntentId;
-                    int idProduct = productFragmentIntentId;
-                    int idDate = dateFragmentIntentId;
+                    idStore = shopFragmentIntentId;
+                    idProduct = productFragmentIntentId;
+                    idDate = dateFragmentIntentId;
+                    idReplace = replacedActivityIntentId;
                     String date = enterDate.getText().toString();
                     String storeName = enterStoreName.getText().toString();
                     String productName = enterProductName.getText().toString();
@@ -304,6 +337,8 @@ public class NewBudgetTracker extends AppCompatActivity {
                             budgetTracker.setId(idProduct);
                         } else if (dateFragmentIntentId != 0) {
                             budgetTracker.setId(idDate);
+                        } else if (replacedActivityIntentId != 0) {
+                            budgetTracker.setId(idReplace);
                         }
                         budgetTracker.setDate(date);
                         budgetTracker.setStoreName(storeName);
@@ -318,6 +353,8 @@ public class NewBudgetTracker extends AppCompatActivity {
                             setResult(RESULT_OK, productFragmentGetIntent);
                         } else if (dateFragmentIntentId != 0) {
                             setResult(RESULT_OK, dateFragmentGetIntent);
+                        } else if (replacedActivityIntentId != 0) {
+                            setResult(RESULT_OK, replacedActivityGetIntent);
                         }
                         finish();
                     }

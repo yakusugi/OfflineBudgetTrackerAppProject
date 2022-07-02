@@ -26,4 +26,7 @@
     <string name="radio_search_name">Enter a search word</string>
     <string name="enter_date_from">Enter date (from)</string>
     <string name="enter_date_to">Enter date (to)</string>
+    <string name="enter_word_from">Enter a word (from)</string>
+    <string name="enter_word">Enter a word</string>
+    <string name="replace_it_with">Replace it with...</string>
 </resources>

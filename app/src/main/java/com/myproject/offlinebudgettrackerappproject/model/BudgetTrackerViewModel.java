@@ -16,6 +16,7 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public final LiveData<List<BudgetTracker>> allBudgetTrackerLists;
     public List<BudgetTracker> storeNameLists;
     public List<BudgetTracker> productTypeLists;
+    public List<BudgetTracker> productNameList;
     public int productTypeSum;
     public int storeNameSum;
     public List<BudgetTracker> dateLists;
@@ -51,6 +52,11 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
     public List<BudgetTracker> getProductTypeLists(String productType) {
         productTypeLists = repository.queryProductType(productType);
         return productTypeLists;
+    }
+
+    public List<BudgetTracker> getProductNameList(String productName) {
+        productNameList = repository.queryProductName(productName);
+        return productNameList;
     }
 
     public int getProductTypeSum(String productType) {
@@ -106,10 +112,17 @@ public class BudgetTrackerViewModel extends AndroidViewModel {
         return dateProductTypeSum;
     }
 
-//    public List<BudgetTracker> getRadioStoreSearchHomeLists(String storeName, String date1, String date2) {
-//        radioStoreSearchHomeLists = repository.getRadioStoreSearchHomeLists(storeName, date1, date2);
-//        return radioStoreSearchHomeLists;
-//    }
+    public static void replaceStoreName(String storeNameFrom, String storeNameToe) {
+        repository.replaceStoreName(storeNameFrom, storeNameToe);
+    }
+
+    public static void replaceProductName(String productNameFrom, String productNameTo) {
+        repository.replaceProductName(productNameFrom, productNameTo);
+    }
+
+    public static void replaceProductType(String productTypeFrom, String productTypeTo) {
+        repository.replaceProductType(productTypeFrom, productTypeTo);
+    }
 
 
 }

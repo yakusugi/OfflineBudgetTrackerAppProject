@@ -15,6 +15,7 @@ public class BudgetTrackerRepository {
     private LiveData<List<BudgetTracker>> allBudgetTrackerLists;
     private List<BudgetTracker> storeNameLists;
     private List<BudgetTracker> productTypeLists;
+    private List<BudgetTracker> productNameList;
     private int productTypeSum;
     private int storeNameSum;
     private List<BudgetTracker> dateLists;
@@ -51,6 +52,11 @@ public class BudgetTrackerRepository {
     public List<BudgetTracker> queryProductType(String productType) {
         productTypeLists = budgetTrackerDao.getProductTypeLists(productType);
         return productTypeLists;
+    }
+
+    public List<BudgetTracker> queryProductName(String productName) {
+        productNameList = budgetTrackerDao.getProductNameList(productName);
+        return productNameList;
     }
 
     public int queryProductTypeSum(String productType) {
@@ -110,13 +116,23 @@ public class BudgetTrackerRepository {
         return dateProductTypeSum;
     }
 
-//    public List<BudgetTracker> getRadioStoreSearchHomeLists(String storeName, String date1, String date2) {
-//        radioStoreSearchHomeLists = budgetTrackerDao.getRadioStoreSearchHomeLists(storeName, date1, date2);
-//        return radioStoreSearchHomeLists;
-//    }
+    public void replaceStoreName(String storeNameFrom, String storeNameTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerDao.replaceStoreName(storeNameFrom, storeNameTo);
+        });
+    }
 
+    public void replaceProductName(String productNameFrom, String productNameTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerDao.replaceProductName(productNameFrom, productNameTo);
+        });
+    }
 
-
+    public void replaceProductType(String productTypeFrom, String productTypeTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerDao.replaceProductType(productTypeFrom, productTypeTo);
+        });
+    }
 
 
 

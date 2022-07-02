@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReplaceActivity"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/replace_title"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/title_replace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modify mistyped words"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/title_replace"
+            android:text="Your money, your life"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:src="@drawable/replace"
+            android:layout_width="62dp"
+            android:layout_height="62dp"/>
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/replace_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/replace_title"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:id="@+id/replace_radio_store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Store name"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/replace_radio_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product name" />
+
+        <RadioButton
+            android:id="@+id/replace_radio_product_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product type" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/text_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/replace_radio_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/replace_search_txt"
+            android:layout_width="180sp"
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/replace_search_with_txt"
+            android:layout_width="180sp"
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/replace_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Fix"
+        app:layout_constraintTop_toBottomOf="@+id/text_layout"
+        tools:ignore="MissingConstraints" />
+
+    <ListView
+        android:id="@+id/replaced_listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/replace_btn"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,14 +27,14 @@ public interface BudgetTrackerDao {
     @Query("SELECT * FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%'")
     List<BudgetTracker> getStoreNameLists(String storeName);
 
-//    @Query("SELECT SUM(price) FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%'")
-//    List<BudgetTracker> getStoreNameSum(String storeName);
-
     @Query("SELECT * FROM budget_tracker_table WHERE product_type LIKE '%' || :productType|| '%'")
     List<BudgetTracker> getProductTypeLists(String productType);
 
     @Query("SELECT SUM(price) FROM budget_tracker_table WHERE product_type LIKE '%' || :productType|| '%'")
     int getProductSum(String productType);
+
+    @Query("SELECT * FROM budget_tracker_table WHERE product_name LIKE '%' || :productName|| '%'")
+    List<BudgetTracker> getProductNameList(String productName);
 
     @Query("SELECT SUM(price) FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%'")
     int getStoreSum(String storeName);
@@ -69,11 +69,14 @@ public interface BudgetTrackerDao {
     @Query("SELECT SUM(price) FROM budget_tracker_table WHERE product_type LIKE '%' || :productType|| '%' and date >= :date1 and date <= :date2")
     int getDateProductTypeSum(String productType, String date1, String date2);
 
-//    @Query("select product_type, count(*) * 100.0 / (select count(*) from budget_tracker_table) as ProductTypePercentage from budget_tracker_table where store_name LIKE '%' || :storeName|| '%' and date >= :date1 and date <= :date2 group by product_type;")
-//    List<BudgetTracker> getRadioStoreSearchHomeLists(String storeName, String date1, String date2);
+    @Query("update budget_tracker_table set store_name = `replace`(store_name,:storeNameFrom,:storeNameTo) where store_name like :storeNameFrom || '%'")
+    void replaceStoreName(String storeNameFrom, String storeNameTo);
 
-//    @Query("select (select product_type from budget_tracker_table) as product_type_alias, count(*) * 100.0 / (select count(*) from budget_tracker_table) as product_type_percentage from budget_tracker_table_alias where store_name LIKE '%' || :storeName|| '%' and date >= :date1 and date <= :date2 group by product_type;")
-//    List<BudgetTrackerAlias> getRadioStoreSearchHomeAliasLists(String storeName, String date1, String date2);
+    @Query("update budget_tracker_table set product_name = `replace`(product_name,:productNameFrom,:productNameTo) where product_name like :productNameFrom || '%'")
+    void replaceProductName(String productNameFrom, String productNameTo);
+
+    @Query("update budget_tracker_table set product_type = `replace`(product_type,:productTypeFrom,:productTypeTo) where product_type like :productTypeFrom || '%'")
+    void replaceProductType(String productTypeFrom, String productTypeTo);
 
 
 }

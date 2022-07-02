@@ -196,6 +196,7 @@ public class DateFragment extends Fragment {
             List<BudgetTracker> radioStoreNameLists;
             List<BudgetTracker> radioProductNameLists;
             List<BudgetTracker> radioProductTypeLists;
+            String storeName;
             String date1;
             String date2;
             BudgetTracker budgetTracker;
@@ -208,7 +209,7 @@ public class DateFragment extends Fragment {
                         radioSearchBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String storeName = radioSearchName.getText().toString();
+                                storeName = radioSearchName.getText().toString();
                                 date1 = radioSearchDateFrom.getText().toString();
                                 date2 = radioSearchDateTo.getText().toString();
                                 budgetTrackerViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerViewModel.class);

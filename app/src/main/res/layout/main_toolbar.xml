@@ -21,17 +21,6 @@
             android:src="@drawable/ic_menu"
             tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Offline Budget Tracker"
-            android:textAlignment="center"
-            android:textColor="#636363"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
