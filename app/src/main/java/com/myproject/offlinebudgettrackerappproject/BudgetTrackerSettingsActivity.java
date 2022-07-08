@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.CurrencySpinnerAdapter;
+import com.myproject.offlinebudgettrackerappproject.model.Currency;
 
 public class BudgetTrackerSettingsActivity extends AppCompatActivity {
 

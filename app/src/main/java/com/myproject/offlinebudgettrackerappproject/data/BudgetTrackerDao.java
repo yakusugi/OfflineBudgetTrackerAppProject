@@ -22,7 +22,7 @@ public interface BudgetTrackerDao {
     void deleteAll();
 
     @Query("SELECT * FROM budget_tracker_table ORDER BY product_name ASC")
-    LiveData<List<BudgetTracker>> getAllBudgetTrackerLists();
+    LiveData<List<BudgetTracker>> getAllBudgetTrackerList();
 
     @Query("SELECT * FROM budget_tracker_table WHERE store_name LIKE '%' || :storeName|| '%'")
     List<BudgetTracker> getStoreNameLists(String storeName);

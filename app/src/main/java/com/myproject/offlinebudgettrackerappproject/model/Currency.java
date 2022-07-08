@@ -1,4 +1,6 @@
-package com.myproject.offlinebudgettrackerappproject;
+package com.myproject.offlinebudgettrackerappproject.model;
+
+import com.myproject.offlinebudgettrackerappproject.R;
 
 import java.util.ArrayList;
 

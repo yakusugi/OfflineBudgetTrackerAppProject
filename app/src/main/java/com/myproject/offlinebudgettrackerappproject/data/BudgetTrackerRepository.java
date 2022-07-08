@@ -31,7 +31,7 @@ public class BudgetTrackerRepository {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
         budgetTrackerDao = db.budgetTrackerDao();
 
-        allBudgetTrackerLists = budgetTrackerDao.getAllBudgetTrackerLists();
+        allBudgetTrackerLists = budgetTrackerDao.getAllBudgetTrackerList();
     }
 
     public LiveData<List<BudgetTracker>> getAllBudgetTrackerData() {

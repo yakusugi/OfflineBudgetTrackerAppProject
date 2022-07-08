@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.Currency;
 
 public class NewBudgetTrackerBank extends AppCompatActivity {
 

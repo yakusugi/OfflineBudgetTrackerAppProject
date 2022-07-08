@@ -29,6 +29,7 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAliasViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.Currency;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
  */
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
-    private CardView incomeCard, bankCard, settingsCard, aboutCard, replaceCard;
+    private CardView incomeCard, bankCard, settingsCard, aboutCard, replaceCard, spendingCard;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,12 +67,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         settingsCard = (CardView) view.findViewById(R.id.settings_card);
         aboutCard = (CardView) view.findViewById(R.id.about_card);
         replaceCard = (CardView) view.findViewById(R.id.replace_card);
+        spendingCard = (CardView) view.findViewById(R.id.spending_card);
 
         incomeCard.setOnClickListener(this);
         bankCard.setOnClickListener(this);
         settingsCard.setOnClickListener(this);
         aboutCard.setOnClickListener(this);
         replaceCard.setOnClickListener(this);
+        spendingCard.setOnClickListener(this);
 
         return view;
     }
@@ -81,6 +83,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void onClick(View view) {
         Intent i;
         switch (view.getId()) {
+            case R.id.spending_card:
+                i = new Intent(view.getContext(), SpendingTrackerActivity.class);
+                startActivity(i);
+                break;
             case R.id.income_card:
                 i = new Intent(view.getContext(), BudgetTrackerIncomeActivity.class);
                 startActivity(i);
