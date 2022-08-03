@@ -42,6 +42,7 @@ public class DateFragment extends Fragment {
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
     private static final int RESULT_OK = -1;
     BudgetTrackerViewModel budgetTrackerViewModel;
+    DateListViewAdapter dateListViewAdapter;
     RadioGroup radioGroup;
     RadioButton radioButton;
     private ListView dateListView;
@@ -100,7 +101,6 @@ public class DateFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_date, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
         dateListView = (ListView) view.findViewById(R.id.date_listview);
-        DateListViewAdapter dateListViewAdapter;
 
         EditText radioSearchName = (EditText) view.findViewById(R.id.radio_search_name);
         EditText radioSearchDateFrom = (EditText) view.findViewById(R.id.radio_search_date_from_txt);

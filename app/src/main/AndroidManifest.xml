@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OfflineBudgetTrackerAppProject">
         <activity
+            android:name=".AddBudgetTracker"
+            android:exported="false" />
+        <activity
             android:name=".SpendingTrackerActivity"
             android:exported="false" />
         <activity

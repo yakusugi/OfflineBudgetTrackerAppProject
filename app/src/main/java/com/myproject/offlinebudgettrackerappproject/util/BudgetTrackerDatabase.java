@@ -15,17 +15,21 @@ import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeTypeDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerProductTypeDao;
+import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingAliasDao;
+import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingDao;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomeType;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerProductType;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingAlias;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class}, version = 8, exportSchema = false
+@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class}, version = 10, exportSchema = false
 )
 public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerDao budgetTrackerDao();
@@ -34,6 +38,8 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerAliasDao budgetTrackerAliasDao();
     public abstract BudgetTrackerProductTypeDao budgetTrackerProductTypeDao();
     public abstract BudgetTrackerIncomeTypeDao budgetTrackerIncomeTypeDao();
+    public abstract BudgetTrackerSpendingDao budgetTrackerSpendingDao();
+    public abstract BudgetTrackerSpendingAliasDao budgetTrackerSpendingAliasDao();
 
     public static final int NUMBER_OF_THREADS = 4;
 
@@ -57,7 +63,9 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                             .addMigrations(MIGRATION_5_6)
                             .addMigrations(MIGRATION_6_7)
                             .addMigrations(MIGRATION_7_8)
-                            .addCallback(prePopulateProductIncomeType)
+                            .addMigrations(MIGRATION_8_9)
+                            .addMigrations(MIGRATION_9_10)
+                            .addCallback(sRoomDatabaseSpendingCallback)
                             .build();
                 }
             }
@@ -91,14 +99,11 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
 
                         //BudgetTrackerProductType Insert
                         BudgetTrackerProductType budgetTrackerProductType  = new BudgetTrackerProductType("App");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
                         budgetTrackerProductType  = new BudgetTrackerProductType("Book");
                         budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
                         budgetTrackerProductType  = new BudgetTrackerProductType("Book(Digital)");
                         budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
                         budgetTrackerProductType  = new BudgetTrackerProductType("Clothing");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Education");
                         budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
                         budgetTrackerProductType  = new BudgetTrackerProductType("Entertainment");
                         budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
@@ -136,6 +141,19 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                         budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
                         budgetTrackerIncomeType  = new BudgetTrackerIncomeType("Sold");
                         budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
+                    });
+                }
+            };
+
+    private static final RoomDatabase.Callback sRoomDatabaseSpendingCallback =
+            new RoomDatabase.Callback() {
+                @Override
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
+
+                    dataWritableExecutor.execute(() -> {
+                        BudgetTrackerSpendingDao budgetTrackerSpendingDao = INSTANCE.budgetTrackerSpendingDao();
+                        budgetTrackerSpendingDao.deleteAll();
                     });
                 }
             };
@@ -216,6 +234,38 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
             database.execSQL("CREATE TABLE budget_tracker_income_type_table (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     "income_type TEXT)");
+        }
+    };
+
+    public static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_spending_table (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "date TEXT," +
+                    "store_name TEXT," +
+                    "product_name TEXT," +
+                    "product_type TEXT," +
+                    "price REAL," +
+                    "is_tax INTEGER," +
+                    "tax_rate REAL," +
+                    "notes TEXT)");
+        }
+    };
+
+    public static final Migration MIGRATION_9_10 = new Migration(9, 10) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_spending_alias_table (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "date_alias TEXT," +
+                    "store_name_alias TEXT," +
+                    "product_name_alias TEXT," +
+                    "product_type_alias TEXT," +
+                    "price_alias REAL NOT NULL," +
+                    "is_tax_alias INTEGER," +
+                    "tax_rate_alias REAL," +
+                    "alias_percentage REAL NOT NULL)");
         }
     };
 

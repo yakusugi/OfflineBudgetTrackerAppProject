@@ -29,4 +29,6 @@
     <string name="enter_word_from">Enter a word (from)</string>
     <string name="enter_word">Enter a word</string>
     <string name="replace_it_with">Replace it with...</string>
+    <string name="new_budget_tracker_vat_hint">Enter VAT rate</string>
+    <string name="new_budget_tracker_notes_hint">Enter a note</string>
 </resources>

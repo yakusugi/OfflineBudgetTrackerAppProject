@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 //            Log.d("TAG", "onCreate: " + budgetTrackers.get(0).getProductName());
         });
 
+        //Floating action menu
         FloatingActionsMenu fabMenu = findViewById(R.id.add_budget_tracker_fab_menu);
         fabMenu.setOnClickListener(view -> {
             //            TODO: When the fab menu is pressed, change the image to wallet icon.
@@ -74,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        //Todo: July 9 2022 New Floating action button
+        FloatingActionButton floatingActionButton = findViewById(R.id.budget_tracker_fab);
+        floatingActionButton.setOnClickListener(view -> {
+            Intent intent4 = new Intent(MainActivity.this, AddBudgetTracker.class);
+            startActivity(intent4);
+//            startActivityForResult(intent3, NEW_BUDGET_TRACKER_BANK_ACTIVITY_REQUEST_CODE);
+
+        });
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setItemIconTintList(null);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new DashboardFragment()).commit();
@@ -89,15 +99,16 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new DashboardFragment();
                         fabMenu.setVisibility(View.VISIBLE);
                         break;
+                    case R.id.nav_stats:
+                        fragment = new StatsFragment();
+                        fabMenu.setVisibility(View.VISIBLE);
+                        break;
                     case R.id.nav_home:
                         fragment = new HomeFragment();
                         fabMenu.setVisibility(View.VISIBLE);
                         break;
                     case R.id.nav_shop:
                         fragment = new ShopFragment();
-                        break;
-                    case R.id.nav_product:
-                        fragment = new ProductFragment();
                         break;
                     case R.id.nav_date:
                         fragment = new DateFragment();
