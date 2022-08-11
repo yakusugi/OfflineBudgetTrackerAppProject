@@ -99,12 +99,12 @@ public class DateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_date, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
+        radioGroup = (RadioGroup) view.findViewById(R.id.spd_radio_group);
         dateListView = (ListView) view.findViewById(R.id.date_listview);
 
         EditText radioSearchName = (EditText) view.findViewById(R.id.radio_search_name);
         EditText radioSearchDateFrom = (EditText) view.findViewById(R.id.radio_search_date_from_txt);
-        EditText radioSearchDateTo = (EditText) view.findViewById(R.id.radio_search_date_to_txt);
+        EditText radioSearchDateTo = (EditText) view.findViewById(R.id.search_date_to_txt);
         Button radioSearchBtn = (Button) view.findViewById(R.id.radio_search_btn);
         TextView searchCalcResultTxt = (TextView) view.findViewById(R.id.radio_search_calc_result_txt);
 

@@ -7,8 +7,12 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingRepository;
 
+import java.util.List;
+
 public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public static BudgetTrackerSpendingRepository repository;
+    public List<BudgetTrackerSpending> radioSearchStoreNameLists;
+    private double searchStoreSum;
 
     public BudgetTrackerSpendingViewModel(@NonNull Application application) {
         super(application);
@@ -30,5 +34,15 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
 
     public static void insert(BudgetTrackerSpending budgetTrackerSpending) {
         repository.insert(budgetTrackerSpending);
+    }
+
+    public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
+        radioSearchStoreNameLists = repository.getSearchStoreNameLists(storeName, dateFrom, dateTo);
+        return radioSearchStoreNameLists;
+    }
+
+    public double getSearchStoreSum(String storeName, String dateFrom, String dateTo) {
+        searchStoreSum = repository.getSearchStoreSum(storeName, dateFrom, dateTo);
+        return searchStoreSum;
     }
 }

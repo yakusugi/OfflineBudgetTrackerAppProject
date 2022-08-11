@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StatsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SearchFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/stats_banner"
+            android:id="@+id/search_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -22,16 +22,16 @@
             tools:ignore="MissingConstraints">
 
             <TextView
-                android:id="@+id/title_stats"
+                android:id="@+id/title_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Stats"
+                android:text="Search"
                 android:textSize="22sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_stats"
+                android:layout_below="@+id/title_search"
                 android:layout_marginTop="6dp"
                 android:text="Your money, your life"
                 android:textSize="14sp" />
@@ -40,47 +40,37 @@
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/pie_chart_stats" />
+                android:src="@drawable/search_icon" />
 
         </RelativeLayout>
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/stats_pie_chart"
-            android:layout_width="300dp"
-            android:layout_height="299dp"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stats_banner" />
+
 
         <RadioGroup
-            android:id="@+id/stats_radio_group"
+            android:id="@+id/search_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stats_pie_chart"
             tools:ignore="MissingConstraints">
 
             <RadioButton
-                android:id="@+id/stats_radio_store_name"
+                android:id="@+id/search_radio_store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="Store name" />
 
             <RadioButton
-                android:id="@+id/stats_radio_product_name"
+                android:id="@+id/search_radio_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product name" />
 
             <RadioButton
-                android:id="@+id/stats_radio_product_type"
+                android:id="@+id/search_radio_product_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product type" />
@@ -88,7 +78,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/stats_search_name"
+            android:id="@+id/search_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -118,7 +108,7 @@
             <TableRow>
 
                 <EditText
-                    android:id="@+id/stats_search_date_from_txt"
+                    android:id="@+id/search_date_from_txt"
                     android:layout_width="180sp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -140,7 +130,7 @@
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <EditText
-                    android:id="@+id/stats_search_date_to_txt"
+                    android:id="@+id/search_date_to_txt"
                     android:layout_width="180sp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -167,12 +157,12 @@
         </TableLayout>
 
         <Button
-            android:id="@+id/stats_search_btn"
+            android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/rounded_corner"
-            android:text="Analise"
+            android:text="Search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -180,7 +170,32 @@
             android:layout_gravity="center_horizontal"
             />
 
+        <TextView
+            android:id="@+id/search_calc_result_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_money"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/calc_result_hint"
+            android:inputType="textPersonName"
+            android:minHeight="30dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ListView
+            android:id="@+id/search_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

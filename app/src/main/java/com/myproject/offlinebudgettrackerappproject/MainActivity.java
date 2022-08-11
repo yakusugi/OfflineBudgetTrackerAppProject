@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new StatsFragment();
                         fabMenu.setVisibility(View.VISIBLE);
                         break;
-                    case R.id.nav_home:
-                        fragment = new HomeFragment();
+                    case R.id.nav_search:
+                        fragment = new SearchFragment();
                         fabMenu.setVisibility(View.VISIBLE);
                         break;
                     case R.id.nav_shop:

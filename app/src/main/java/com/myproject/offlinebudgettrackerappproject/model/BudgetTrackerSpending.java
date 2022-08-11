@@ -51,6 +51,13 @@ public class BudgetTrackerSpending {
         this.notes = notes;
     }
 
+    public BudgetTrackerSpending(String searchKey, String dateFrom, String dateTo) {
+        this.id = id;
+        this.storeName = storeName;
+        this.date = dateFrom;
+        this.date = dateTo;
+    }
+
     public int getId() {
         return id;
     }

@@ -12,6 +12,8 @@ import java.util.List;
 public class BudgetTrackerSpendingRepository {
     private BudgetTrackerSpendingDao budgetTrackerSpendingDao;
     private LiveData<List<BudgetTrackerSpending>> allBudgetTrackerList;
+    private List<BudgetTrackerSpending> radioSearchStoreNameLists;
+    private double searchStoreSum;
 
     public BudgetTrackerSpendingRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -28,6 +30,16 @@ public class BudgetTrackerSpendingRepository {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
             budgetTrackerSpendingDao.insert(budgetTrackerSpending);
         });
+    }
+
+    public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
+        radioSearchStoreNameLists = budgetTrackerSpendingDao.getSearchStoreNameLists(storeName, dateFrom, dateTo);
+        return radioSearchStoreNameLists;
+    }
+
+    public double getSearchStoreSum(String storeName, String date1, String date2) {
+        searchStoreSum = budgetTrackerSpendingDao.getSearchStoreSum(storeName, date1, date2);
+        return searchStoreSum;
     }
 
 }

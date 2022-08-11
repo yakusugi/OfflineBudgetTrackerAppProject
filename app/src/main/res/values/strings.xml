@@ -31,4 +31,5 @@
     <string name="replace_it_with">Replace it with...</string>
     <string name="new_budget_tracker_vat_hint">Enter VAT rate</string>
     <string name="new_budget_tracker_notes_hint">Enter a note</string>
+    <string name="calc_result_hint">Calc Result</string>
 </resources>

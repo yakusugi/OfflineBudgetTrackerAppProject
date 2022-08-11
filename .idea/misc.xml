@@ -45,8 +45,10 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_date.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_home.xml" value="0.2594871794871795" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_product.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_search.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_searcj.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_shop.xml" value="0.25" />
-        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_stats.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_stats.xml" value="0.335" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/header_layout.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/income_list_item.xml" value="0.25" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/income_spinner_adapter.xml" value="0.25885416666666666" />
@@ -54,6 +56,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/main_toolbar.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/product_list_item.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/replaced_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/search_list_item.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/store_list_item.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/add_bottom_menu.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/bottom_menu.xml" value="0.2594871794871795" />
