@@ -161,7 +161,7 @@ public class StatsFragment extends Fragment {
 //                String notes = enterNotes.getText().toString();
 //                BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending(date, storeName, productName, productType, price, spdBool, vatRate, notes);
 //                budgetTrackerSpendingViewModel.insert(budgetTrackerSpending);
-                getActivity().finish();
+//                getActivity().finish();
             }
         });
 

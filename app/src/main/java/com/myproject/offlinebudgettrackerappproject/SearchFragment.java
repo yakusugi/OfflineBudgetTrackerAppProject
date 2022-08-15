@@ -166,10 +166,10 @@ public class SearchFragment extends Fragment {
                 if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_store_name) {
                     budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
                     budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
-                    searchStoreNameLists = budgetTrackerSpendingViewModel.getSearchStoreNameLists(storeName, dateFrom, dateTo);
+                    searchStoreNameLists = budgetTrackerSpendingViewModel.getSearchStoreNameLists(searchKey, dateFrom, dateTo);
                     searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchStoreNameLists);
                     searchListView.setAdapter(searchListViewAdapter);
-                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchStoreSum(storeName, dateFrom, dateTo));
+                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchStoreSum(searchKey, dateFrom, dateTo));
                     searchCalcResultTxt.setText(calcSumStr);
                 } else {
 //                    spdBool = true;
@@ -179,7 +179,7 @@ public class SearchFragment extends Fragment {
 //                String notes = enterNotes.getText().toString();
 //                BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending(date, storeName, productName, productType, price, spdBool, vatRate, notes);
 //                budgetTrackerSpendingViewModel.insert(budgetTrackerSpending);
-                getActivity().finish();
+//                getActivity().finish();
             }
         });
 
