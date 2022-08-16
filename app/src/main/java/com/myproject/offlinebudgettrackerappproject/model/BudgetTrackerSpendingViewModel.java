@@ -13,6 +13,9 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public static BudgetTrackerSpendingRepository repository;
     public List<BudgetTrackerSpending> radioSearchStoreNameLists;
     private double searchStoreSum;
+    public List<BudgetTrackerSpending> storeNameList;
+    public List<BudgetTrackerSpending> productNameList;
+    public List<BudgetTrackerSpending> productTypeList;
 
     public BudgetTrackerSpendingViewModel(@NonNull Application application) {
         super(application);
@@ -44,5 +47,32 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public double getSearchStoreSum(String storeName, String dateFrom, String dateTo) {
         searchStoreSum = repository.getSearchStoreSum(storeName, dateFrom, dateTo);
         return searchStoreSum;
+    }
+
+    public static void replaceStoreName(String storeNameFrom, String storeNameToe) {
+        repository.replaceStoreName(storeNameFrom, storeNameToe);
+    }
+
+    public List<BudgetTrackerSpending> getStoreNameList(String storeName) {
+        storeNameList = repository.getStoreName(storeName);
+        return storeNameList;
+    }
+
+    public static void replaceProductName(String productNameFrom, String productNameTo) {
+        repository.replaceProductName(productNameFrom, productNameTo);
+    }
+
+    public List<BudgetTrackerSpending> getProductNameList(String productName) {
+        productNameList = repository.getProductName(productName);
+        return productNameList;
+    }
+
+    public static void replaceProductType(String productTypeFrom, String productTypeTo) {
+        repository.replaceProductType(productTypeFrom, productTypeTo);
+    }
+
+    public List<BudgetTrackerSpending> getProductTypeList(String productType) {
+        productTypeList = repository.getProductType(productType);
+        return productTypeList;
     }
 }

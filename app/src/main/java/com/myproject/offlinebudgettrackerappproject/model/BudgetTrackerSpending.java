@@ -58,6 +58,9 @@ public class BudgetTrackerSpending {
         this.date = dateTo;
     }
 
+    public BudgetTrackerSpending(String searchWord, String replaceWith) {
+    }
+
     public int getId() {
         return id;
     }

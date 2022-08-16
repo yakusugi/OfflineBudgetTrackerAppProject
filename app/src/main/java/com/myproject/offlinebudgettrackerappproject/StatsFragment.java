@@ -98,7 +98,7 @@ public class StatsFragment extends Fragment {
         searchName = (EditText) view.findViewById(R.id.stats_search_name);
         dateFrom = (EditText) view.findViewById(R.id.stats_search_date_from_txt);
         dateTo = (EditText) view.findViewById(R.id.stats_search_date_to_txt);
-        searchBtn = (Button) view.findViewById(R.id.stats_search_btn);
+        searchBtn = (Button) view.findViewById(R.id.replacement_btn);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         pieChart = (PieChart) view.findViewById(R.id.stats_pie_chart);
         budgetTrackerSpendingAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingAliasViewModel.class);

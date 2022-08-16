@@ -96,7 +96,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 startActivity(i);
                 break;
             case R.id.replace_card:
-                i = new Intent(view.getContext(), ReplaceActivity.class);
+                i = new Intent(view.getContext(), SpendingReplacementActivity.class);
                 startActivity(i);
                 break;
             case R.id.settings_card:

@@ -14,6 +14,9 @@ public class BudgetTrackerSpendingRepository {
     private LiveData<List<BudgetTrackerSpending>> allBudgetTrackerList;
     private List<BudgetTrackerSpending> radioSearchStoreNameLists;
     private double searchStoreSum;
+    private List<BudgetTrackerSpending> storeNameList;
+    private List<BudgetTrackerSpending> productNameList;
+    private List<BudgetTrackerSpending> productTypeList;
 
     public BudgetTrackerSpendingRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -40,6 +43,39 @@ public class BudgetTrackerSpendingRepository {
     public double getSearchStoreSum(String storeName, String date1, String date2) {
         searchStoreSum = budgetTrackerSpendingDao.getSearchStoreSum(storeName, date1, date2);
         return searchStoreSum;
+    }
+
+    public void replaceStoreName(String storeNameFrom, String storeNameTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerSpendingDao.replaceStoreName(storeNameFrom, storeNameTo);
+        });
+    }
+
+    public List<BudgetTrackerSpending> getStoreName(String storeName) {
+        storeNameList = budgetTrackerSpendingDao.getStoreNameList(storeName);
+        return storeNameList;
+    }
+
+    public void replaceProductName(String productNameFrom, String productNameTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerSpendingDao.replaceProductName(productNameFrom, productNameTo);
+        });
+    }
+
+    public List<BudgetTrackerSpending> getProductName(String productName) {
+        productNameList = budgetTrackerSpendingDao.getProductNameList(productName);
+        return productNameList;
+    }
+
+    public void replaceProductType(String productTypeFrom, String productTypeTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerSpendingDao.replaceProductType(productTypeFrom, productTypeTo);
+        });
+    }
+
+    public List<BudgetTrackerSpending> getProductType(String productType) {
+        productTypeList = budgetTrackerSpendingDao.getProductTypeList(productType);
+        return productTypeList;
     }
 
 }
