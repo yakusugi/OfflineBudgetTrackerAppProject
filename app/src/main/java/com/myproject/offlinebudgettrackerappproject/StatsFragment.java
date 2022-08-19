@@ -158,15 +158,16 @@ public class StatsFragment extends Fragment {
                             deleteSequence(() ->
                                     insertStoreDataSpendingAlias(searchDateFrom, searchDateTo, searchKey, ()->storePieChartShow())));
 
-                } else {
-//                    spdBool = true;
-//                    vatRate = Double.parseDouble(enterVatRate.getText().toString());
-//                    price = price * vatRate;
+                } else if (radioGroup.getCheckedRadioButtonId() == R.id.stats_radio_product_name){
+                    deleteAliasSpendingTable(() ->
+                            deleteSequence(() ->
+                                    insertProductNameDataSpendingAlias(searchDateFrom, searchDateTo, searchKey, ()->productPieChartShow())));
+                } else if (radioGroup.getCheckedRadioButtonId() == R.id.stats_radio_product_type){
+                    deleteAliasSpendingTable(() ->
+                            deleteSequence(() ->
+                                    insertProductTypeDataSpendingAlias(searchDateFrom, searchDateTo, searchKey, ()->productTypePieChartShow())));
                 }
-//                String notes = enterNotes.getText().toString();
-//                BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending(date, storeName, productName, productType, price, spdBool, vatRate, notes);
-//                budgetTrackerSpendingViewModel.insert(budgetTrackerSpending);
-                //getActivity().finish();
+
             }
         });
 
@@ -183,6 +184,14 @@ public class StatsFragment extends Fragment {
 
     private void insertStoreDataSpendingAlias(String dateFrom, String dateTo, String storeName, Callback callback) {
         BudgetTrackerSpendingAliasViewModel.insertStoreName(dateFrom, dateTo, storeName, callback);
+    }
+
+    private void insertProductNameDataSpendingAlias(String dateFrom, String dateTo, String productName, Callback callback) {
+        BudgetTrackerSpendingAliasViewModel.insertProductName(dateFrom, dateTo, productName, callback);
+    }
+
+    private void insertProductTypeDataSpendingAlias(String dateFrom, String dateTo, String productType, Callback callback) {
+        BudgetTrackerSpendingAliasViewModel.insertProductType(dateFrom, dateTo, productType, callback);
     }
 
     private void storePieChartShow() {
@@ -203,6 +212,70 @@ public class StatsFragment extends Fragment {
                         }
 
                         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
+                        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                        pieDataSet.setValueTextSize(20f);
+                        pieChart.notifyDataSetChanged();
+                        pieChart.invalidate();
+                        pieChart.setData(new PieData(pieDataSet));
+                        pieChart.animateXY(5000, 5000);
+                        pieChart.setEntryLabelColor(Color.BLACK);
+                        pieChart.getDescription().setEnabled(false);
+                    });
+
+        });
+
+    }
+
+    private void productPieChartShow() {
+        budgetTrackerSpendingAliasViewModel.getAllBudgetTrackerSpendingAliasList((spendingAliasList) -> {
+            if (spendingAliasList == null) {
+                Log.e("", "Error");
+                return;
+            }
+
+            new Handler(Looper.getMainLooper())
+                    .post(() -> {
+                        pieEntries = new ArrayList<PieEntry>();
+                        for (BudgetTrackerSpendingAlias budgetTrackerSpendingAlias : (List<BudgetTrackerSpendingAlias>)spendingAliasList) {
+                            float value = (float) (budgetTrackerSpendingAlias.getAliasPercentage());
+                            String storeName = budgetTrackerSpendingAlias.getStoreNameAlias();
+                            PieEntry pieEntry = new PieEntry(value, storeName);
+                            pieEntries.add(pieEntry);
+                        }
+
+                        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Store Name Percentage");
+                        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                        pieDataSet.setValueTextSize(20f);
+                        pieChart.notifyDataSetChanged();
+                        pieChart.invalidate();
+                        pieChart.setData(new PieData(pieDataSet));
+                        pieChart.animateXY(5000, 5000);
+                        pieChart.setEntryLabelColor(Color.BLACK);
+                        pieChart.getDescription().setEnabled(false);
+                    });
+
+        });
+
+    }
+
+    private void productTypePieChartShow() {
+        budgetTrackerSpendingAliasViewModel.getAllBudgetTrackerSpendingAliasList((spendingAliasList) -> {
+            if (spendingAliasList == null) {
+                Log.e("", "Error");
+                return;
+            }
+
+            new Handler(Looper.getMainLooper())
+                    .post(() -> {
+                        pieEntries = new ArrayList<PieEntry>();
+                        for (BudgetTrackerSpendingAlias budgetTrackerSpendingAlias : (List<BudgetTrackerSpendingAlias>)spendingAliasList) {
+                            float value = (float) (budgetTrackerSpendingAlias.getAliasPercentage());
+                            String storeName = budgetTrackerSpendingAlias.getStoreNameAlias();
+                            PieEntry pieEntry = new PieEntry(value, storeName);
+                            pieEntries.add(pieEntry);
+                        }
+
+                        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Store Name Percentage");
                         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                         pieDataSet.setValueTextSize(20f);
                         pieChart.notifyDataSetChanged();

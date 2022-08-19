@@ -44,7 +44,7 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     }
     //  SearchFragment
     public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
-        radioSearchProductNameLists = repository.getSearchStoreNameLists(storeName, dateFrom, dateTo);
+        radioSearchStoreNameLists = repository.getSearchStoreNameLists(storeName, dateFrom, dateTo);
         return radioSearchStoreNameLists;
     }
 

@@ -31,6 +31,26 @@ public class BudgetTrackerSpendingAliasRepository {
         );
     }
 
+    public void insertProductName(String dateTo, String dateFrom, String productName, Callback callback) {
+        Log.d("noifuji", "BudgetTrackerSpendingAliasRepository.insertProductName start");
+        BudgetTrackerDatabase.dataWritableExecutor.execute(
+                new CallbackTask(() -> {
+                    budgetTrackerSpendingAliasDao.insertProductName(dateTo, dateFrom, productName);
+                    Log.d("noifuji", "BudgetTrackerSpendingAliasRepository.insertProductName end");
+                }, callback)
+        );
+    }
+
+    public void insertProductType(String dateTo, String dateFrom, String productType, Callback callback) {
+        Log.d("noifuji", "BudgetTrackerSpendingAliasRepository.insertProductType start");
+        BudgetTrackerDatabase.dataWritableExecutor.execute(
+                new CallbackTask(() -> {
+                    budgetTrackerSpendingAliasDao.insertProductType(dateTo, dateFrom, productType);
+                    Log.d("noifuji", "BudgetTrackerSpendingAliasRepository.insertProductType end");
+                }, callback)
+        );
+    }
+
     public void getAllBudgetTrackerSpendingAliasList(ListCallback callback) {
         BudgetTrackerDatabase.dataWritableExecutor.execute(
                 new ListCallbackTask(() -> {

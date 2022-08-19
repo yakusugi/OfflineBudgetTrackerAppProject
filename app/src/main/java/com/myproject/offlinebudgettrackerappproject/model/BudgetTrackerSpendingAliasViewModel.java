@@ -27,6 +27,18 @@ public class BudgetTrackerSpendingAliasViewModel extends AndroidViewModel {
         Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.insertStoreName end");
     }
 
+    public static void insertProductName(String dateTo, String dateFrom, String productName, Callback callback) {
+        Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.insertProductName start");
+        repository.insertProductName(dateTo, dateFrom, productName, callback);
+        Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.insertProductName end");
+    }
+
+    public static void insertProductType(String dateTo, String dateFrom, String productType, Callback callback) {
+        Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.insertProductType start");
+        repository.insertProductType(dateTo, dateFrom, productType, callback);
+        Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.insertProductType end");
+    }
+
     public void getAllBudgetTrackerSpendingAliasList(ListCallback callback) {
         Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.getAllBudgetTrackerSpendingAliasList start");
         repository.getAllBudgetTrackerSpendingAliasList(callback);
