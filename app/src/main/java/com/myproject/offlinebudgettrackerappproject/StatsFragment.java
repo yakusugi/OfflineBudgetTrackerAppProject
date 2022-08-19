@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBinding;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingAliasViewModel;
+import com.myproject.offlinebudgettrackerappproject.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +102,7 @@ public class StatsFragment extends Fragment {
         searchName = (EditText) view.findViewById(R.id.stats_search_name);
         dateFrom = (EditText) view.findViewById(R.id.stats_search_date_from_txt);
         dateTo = (EditText) view.findViewById(R.id.stats_search_date_to_txt);
-        searchBtn = (Button) view.findViewById(R.id.replacement_btn);
+        searchBtn = (Button) view.findViewById(R.id.stats_search_btn);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         pieChart = (PieChart) view.findViewById(R.id.stats_pie_chart);
         budgetTrackerSpendingAliasViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingAliasViewModel.class);
@@ -145,14 +149,15 @@ public class StatsFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("noifuji", "searchBtn.setOnClickListener.onClick");
                 String searchKey = searchName.getText().toString();
                 String searchDateFrom = dateFrom.getText().toString();
                 String searchDateTo = dateTo.getText().toString();
                 if (radioGroup.getCheckedRadioButtonId() == R.id.stats_radio_store_name) {
-                    deleteAliasSpendingTable();
-                    deleteSequence();
-                    insertStoreDataSpendingAlias(searchDateFrom, searchDateTo, searchKey);
-                    storePieChartShow();
+                    deleteAliasSpendingTable(() ->
+                            deleteSequence(() ->
+                                    insertStoreDataSpendingAlias(searchDateFrom, searchDateTo, searchKey, ()->storePieChartShow())));
+
                 } else {
 //                    spdBool = true;
 //                    vatRate = Double.parseDouble(enterVatRate.getText().toString());
@@ -161,43 +166,54 @@ public class StatsFragment extends Fragment {
 //                String notes = enterNotes.getText().toString();
 //                BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending(date, storeName, productName, productType, price, spdBool, vatRate, notes);
 //                budgetTrackerSpendingViewModel.insert(budgetTrackerSpending);
-//                getActivity().finish();
+                //getActivity().finish();
             }
         });
 
         return view;
     }
 
-    private void deleteAliasSpendingTable() {
-        BudgetTrackerSpendingAliasViewModel.deleteAllSpendingAlias();
+    private void deleteAliasSpendingTable(Callback callback) {
+        BudgetTrackerSpendingAliasViewModel.deleteAllSpendingAlias(callback);
     }
 
-    private void deleteSequence() {
-        BudgetTrackerSpendingAliasViewModel.deleteSequence();
+    private void deleteSequence(Callback callback) {
+        BudgetTrackerSpendingAliasViewModel.deleteSequence(callback);
     }
 
-    private void insertStoreDataSpendingAlias(String dateFrom, String dateTo, String storeName) {
-        BudgetTrackerSpendingAliasViewModel.insertStoreName(dateFrom, dateTo, storeName);
+    private void insertStoreDataSpendingAlias(String dateFrom, String dateTo, String storeName, Callback callback) {
+        BudgetTrackerSpendingAliasViewModel.insertStoreName(dateFrom, dateTo, storeName, callback);
     }
 
     private void storePieChartShow() {
-        spendingAliasList = budgetTrackerSpendingAliasViewModel.getAllBudgetTrackerSpendingAliasList();
-        pieEntries = new ArrayList<PieEntry>();
-        for (BudgetTrackerSpendingAlias budgetTrackerSpendingAlias : spendingAliasList) {
-            float value = (float) (budgetTrackerSpendingAlias.getAliasPercentage());
-            String productType = budgetTrackerSpendingAlias.getProductTypeAlias();
-            PieEntry pieEntry = new PieEntry(value, productType);
-            pieEntries.add(pieEntry);
-        }
+        budgetTrackerSpendingAliasViewModel.getAllBudgetTrackerSpendingAliasList((spendingAliasList) -> {
+            if (spendingAliasList == null) {
+                Log.e("", "Error");
+                return;
+            }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setValueTextSize(20f);
-        pieChart.notifyDataSetChanged();
-        pieChart.invalidate();
-        pieChart.setData(new PieData(pieDataSet));
-        pieChart.animateXY(5000, 5000);
-        pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.getDescription().setEnabled(false);
+            new Handler(Looper.getMainLooper())
+                    .post(() -> {
+                        pieEntries = new ArrayList<PieEntry>();
+                        for (BudgetTrackerSpendingAlias budgetTrackerSpendingAlias : (List<BudgetTrackerSpendingAlias>)spendingAliasList) {
+                            float value = (float) (budgetTrackerSpendingAlias.getAliasPercentage());
+                            String productType = budgetTrackerSpendingAlias.getProductTypeAlias();
+                            PieEntry pieEntry = new PieEntry(value, productType);
+                            pieEntries.add(pieEntry);
+                        }
+
+                        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Product Type Percentage");
+                        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                        pieDataSet.setValueTextSize(20f);
+                        pieChart.notifyDataSetChanged();
+                        pieChart.invalidate();
+                        pieChart.setData(new PieData(pieDataSet));
+                        pieChart.animateXY(5000, 5000);
+                        pieChart.setEntryLabelColor(Color.BLACK);
+                        pieChart.getDescription().setEnabled(false);
+                    });
+
+        });
+
     }
 }

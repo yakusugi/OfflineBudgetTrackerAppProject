@@ -38,6 +38,8 @@ public class SearchFragment extends Fragment {
     private static final int RESULT_OK = -1;
     BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel;
     List<BudgetTrackerSpending> searchStoreNameLists;
+    List<BudgetTrackerSpending> searchProductNameLists;
+    List<BudgetTrackerSpending> searchProductTypeLists;
     BudgetTrackerSpending budgetTrackerSpending;
     SearchListViewAdapter searchListViewAdapter;
     private ListView searchListView;
@@ -163,26 +165,34 @@ public class SearchFragment extends Fragment {
                 String searchKey = searchName.getText().toString();
                 String dateFrom = searchDateFrom.getText().toString();
                 String dateTo = searchDateTo.getText().toString();
+                budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
                 if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_store_name) {
-                    budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
                     budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
                     searchStoreNameLists = budgetTrackerSpendingViewModel.getSearchStoreNameLists(searchKey, dateFrom, dateTo);
                     searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchStoreNameLists);
                     searchListView.setAdapter(searchListViewAdapter);
                     calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchStoreSum(searchKey, dateFrom, dateTo));
                     searchCalcResultTxt.setText(calcSumStr);
-                } else {
-//                    spdBool = true;
-//                    vatRate = Double.parseDouble(enterVatRate.getText().toString());
-//                    price = price * vatRate;
+                } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_name) {
+                    budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
+                    searchProductNameLists = budgetTrackerSpendingViewModel.getSearchProductNameLists(searchKey, dateFrom, dateTo);
+                    searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchProductNameLists);
+                    searchListView.setAdapter(searchListViewAdapter);
+                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductSum(searchKey, dateFrom, dateTo));
+                    searchCalcResultTxt.setText(calcSumStr);
+                } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_type) {
+                    budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
+                    searchProductTypeLists = budgetTrackerSpendingViewModel.getSearchProductTypeLists(searchKey, dateFrom, dateTo);
+                    searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchProductTypeLists);
+                    searchListView.setAdapter(searchListViewAdapter);
+                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductTypeSum(searchKey, dateFrom, dateTo));
+                    searchCalcResultTxt.setText(calcSumStr);
                 }
-//                String notes = enterNotes.getText().toString();
-//                BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending(date, storeName, productName, productType, price, spdBool, vatRate, notes);
-//                budgetTrackerSpendingViewModel.insert(budgetTrackerSpending);
-//                getActivity().finish();
             }
         });
 
         return view;
     }
+
+
 }

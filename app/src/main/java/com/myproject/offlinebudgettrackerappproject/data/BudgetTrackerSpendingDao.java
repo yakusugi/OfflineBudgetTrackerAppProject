@@ -23,12 +23,26 @@ public interface BudgetTrackerSpendingDao {
     @Query("SELECT * FROM budget_tracker_spending_table ORDER BY product_name ASC")
     LiveData<List<BudgetTrackerSpending>> getAllBudgetTrackerSpendingList();
 
+    //SearchFragment
     @Query("SELECT * FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%' and date >= :dateFrom and date <= :dateTo")
     List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo);
 
     @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%' and date >= :dateFrom and date <= :dateTo")
     double getSearchStoreSum(String storeName, String dateFrom, String dateTo);
 
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE product_name LIKE '%' || :productName|| '%' and date >= :dateFrom and date <= :dateTo")
+    List<BudgetTrackerSpending> getSearchProductNameLists(String productName, String dateFrom, String dateTo);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE product_name LIKE '%' || :productName|| '%' and date >= :dateFrom and date <= :dateTo")
+    double getSearchProductSum(String productName, String dateFrom, String dateTo);
+
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE product_type LIKE '%' || :productType|| '%' and date >= :dateFrom and date <= :dateTo")
+    List<BudgetTrackerSpending> getSearchProductTypeLists(String productType, String dateFrom, String dateTo);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE product_type LIKE '%' || :productType|| '%' and date >= :dateFrom and date <= :dateTo")
+    double getSearchProductTypeSum(String productType, String dateFrom, String dateTo);
+
+    //ReplaceFragment
     @Query("update budget_tracker_spending_table set store_name = `replace`(store_name,:storeNameFrom,:storeNameTo) where store_name like :storeNameFrom || '%'")
     void replaceStoreName(String storeNameFrom, String storeNameTo);
 

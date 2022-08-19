@@ -12,7 +12,11 @@ import java.util.List;
 public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public static BudgetTrackerSpendingRepository repository;
     public List<BudgetTrackerSpending> radioSearchStoreNameLists;
+    public List<BudgetTrackerSpending> radioSearchProductNameLists;
+    public List<BudgetTrackerSpending> radioSearchProductTypeLists;
     private double searchStoreSum;
+    private double searchProductSum;
+    private double searchProductTypeSum;
     public List<BudgetTrackerSpending> storeNameList;
     public List<BudgetTrackerSpending> productNameList;
     public List<BudgetTrackerSpending> productTypeList;
@@ -38,9 +42,9 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public static void insert(BudgetTrackerSpending budgetTrackerSpending) {
         repository.insert(budgetTrackerSpending);
     }
-
+    //  SearchFragment
     public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
-        radioSearchStoreNameLists = repository.getSearchStoreNameLists(storeName, dateFrom, dateTo);
+        radioSearchProductNameLists = repository.getSearchStoreNameLists(storeName, dateFrom, dateTo);
         return radioSearchStoreNameLists;
     }
 
@@ -49,6 +53,27 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
         return searchStoreSum;
     }
 
+    public List<BudgetTrackerSpending> getSearchProductNameLists(String productName, String dateFrom, String dateTo) {
+        radioSearchProductNameLists = repository.getSearchProductNameLists(productName, dateFrom, dateTo);
+        return radioSearchProductNameLists;
+    }
+
+    public double getSearchProductSum(String productName, String dateFrom, String dateTo) {
+        searchProductSum = repository.getSearchProductSum(productName, dateFrom, dateTo);
+        return searchProductSum;
+    }
+
+    public List<BudgetTrackerSpending> getSearchProductTypeLists(String productType, String dateFrom, String dateTo) {
+        radioSearchProductTypeLists = repository.getSearchProductTypeLists(productType, dateFrom, dateTo);
+        return radioSearchProductTypeLists;
+    }
+
+    public double getSearchProductTypeSum(String productType, String dateFrom, String dateTo) {
+        searchProductTypeSum = repository.getSearchProductTypeSum(productType, dateFrom, dateTo);
+        return searchProductTypeSum;
+    }
+
+//  ReplaceFragment
     public static void replaceStoreName(String storeNameFrom, String storeNameToe) {
         repository.replaceStoreName(storeNameFrom, storeNameToe);
     }

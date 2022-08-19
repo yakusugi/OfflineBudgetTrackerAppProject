@@ -13,7 +13,11 @@ public class BudgetTrackerSpendingRepository {
     private BudgetTrackerSpendingDao budgetTrackerSpendingDao;
     private LiveData<List<BudgetTrackerSpending>> allBudgetTrackerList;
     private List<BudgetTrackerSpending> radioSearchStoreNameLists;
+    private List<BudgetTrackerSpending> radioSearchProductNameLists;
+    private List<BudgetTrackerSpending> radioSearchProductTypeLists;
     private double searchStoreSum;
+    private double searchProductSum;
+    private double searchProductTypeSum;
     private List<BudgetTrackerSpending> storeNameList;
     private List<BudgetTrackerSpending> productNameList;
     private List<BudgetTrackerSpending> productTypeList;
@@ -34,7 +38,7 @@ public class BudgetTrackerSpendingRepository {
             budgetTrackerSpendingDao.insert(budgetTrackerSpending);
         });
     }
-
+//  SearchFragment
     public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
         radioSearchStoreNameLists = budgetTrackerSpendingDao.getSearchStoreNameLists(storeName, dateFrom, dateTo);
         return radioSearchStoreNameLists;
@@ -45,6 +49,27 @@ public class BudgetTrackerSpendingRepository {
         return searchStoreSum;
     }
 
+    public List<BudgetTrackerSpending> getSearchProductNameLists(String productName, String dateFrom, String dateTo) {
+        radioSearchProductNameLists = budgetTrackerSpendingDao.getSearchProductNameLists(productName, dateFrom, dateTo);
+        return radioSearchProductNameLists;
+    }
+
+    public double getSearchProductSum(String productName, String date1, String date2) {
+        searchProductSum = budgetTrackerSpendingDao.getSearchProductSum(productName, date1, date2);
+        return searchProductSum;
+    }
+
+    public List<BudgetTrackerSpending> getSearchProductTypeLists(String productType, String dateFrom, String dateTo) {
+        radioSearchProductTypeLists = budgetTrackerSpendingDao.getSearchProductTypeLists(productType, dateFrom, dateTo);
+        return radioSearchProductTypeLists;
+    }
+
+    public double getSearchProductTypeSum(String productType, String date1, String date2) {
+        searchProductTypeSum = budgetTrackerSpendingDao.getSearchProductTypeSum(productType, date1, date2);
+        return searchProductTypeSum;
+    }
+
+    //  ReplaceFragment
     public void replaceStoreName(String storeNameFrom, String storeNameTo) {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
             budgetTrackerSpendingDao.replaceStoreName(storeNameFrom, storeNameTo);
