@@ -6,4 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".SpendingTrackerActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/spending_title"
+            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_spending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expense tracker"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_below="@+id/title_spending"
+                android:text="Your money, your life"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:src="@drawable/shopping_online"
+                android:layout_width="62dp"
+                android:layout_height="62dp"/>
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/spending_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

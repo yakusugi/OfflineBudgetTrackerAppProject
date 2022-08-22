@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingRepository;
 
@@ -20,24 +21,15 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public List<BudgetTrackerSpending> storeNameList;
     public List<BudgetTrackerSpending> productNameList;
     public List<BudgetTrackerSpending> productTypeList;
+    public LiveData<List<BudgetTrackerSpending>> allBudgetTrackerSpendingList;
 
     public BudgetTrackerSpendingViewModel(@NonNull Application application) {
         super(application);
         repository = new BudgetTrackerSpendingRepository(application);
+        allBudgetTrackerSpendingList = repository.getAllBudgetTrackerSpendingData();
     }
-//    public final LiveData<List<BudgetTrackerSpending>> allBudgetTrackerList;
-//    public final List<BudgetTrackerSpending> allBudgetTrackerSpdList;
 
-//    public BudgetTrackerSpendingViewModel(LiveData<List<BudgetTrackerSpending>> allBudgetTrackerList, List<BudgetTrackerSpending> allBudgetTrackerSpdList) {
-//        this.allBudgetTrackerList = allBudgetTrackerList;
-//        this.allBudgetTrackerSpdList = allBudgetTrackerSpdList;
-//    }
-
-//    public BudgetTrackerSpendingViewModel(List<BudgetTrackerSpending> allBudgetTrackerSpdList) {
-//        this.allBudgetTrackerSpdList = allBudgetTrackerSpdList;
-//    }
-
-
+    public LiveData<List<BudgetTrackerSpending>> getAllSpendingData() { return allBudgetTrackerSpendingList; }
 
     public static void insert(BudgetTrackerSpending budgetTrackerSpending) {
         repository.insert(budgetTrackerSpending);
@@ -100,4 +92,7 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
         productTypeList = repository.getProductType(productType);
         return productTypeList;
     }
+
+    //For getting ID for tapped item in a listview
+    public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {return repository.getBudgetTrackerSpendingId(id);}
 }

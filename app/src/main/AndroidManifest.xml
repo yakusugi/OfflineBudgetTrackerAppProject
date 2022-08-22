@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.myproject.offlinebudgettrackerappproject">
 
     <application
@@ -12,6 +13,8 @@
         <activity
             android:name=".SpendingReplacementActivity"
             android:exported="false" />
+        <activity android:name="AddSpendingFragment"
+            tools:ignore="Instantiatable"></activity>
         <activity
             android:name=".AddBudgetTracker"
             android:exported="false" />

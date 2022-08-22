@@ -1,12 +1,14 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -56,6 +58,7 @@ public class SearchFragment extends Fragment {
     String dateTo;
     SharedPreferences sharedPreferences;
     String calcSumStr;
+    public static final String SHOP_SEARCH_ID = "shop_search_id";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -173,6 +176,22 @@ public class SearchFragment extends Fragment {
                     searchListView.setAdapter(searchListViewAdapter);
                     calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchStoreSum(searchKey, dateFrom, dateTo));
                     searchCalcResultTxt.setText(calcSumStr);
+
+                    //              Todo  2022/08/22 Tapped modified
+                    searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                            String date = adapterView.getItemAtPosition(position).toString();
+                            List<BudgetTrackerSpending> budgetSpendingListItems = searchStoreNameLists;
+                            int intId = (int) id;
+                            BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
+                            Intent searchShopIntent = new Intent(getActivity(), AddSpendingFragment.class);
+                            searchShopIntent.putExtra(SHOP_SEARCH_ID, storeItemId.getId());
+                            startActivityForResult(searchShopIntent, 1);
+
+//                            Log.d(TAG, "onItemClick: " + date);
+                        }
+                    });
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_name) {
                     budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
                     searchProductNameLists = budgetTrackerSpendingViewModel.getSearchProductNameLists(searchKey, dateFrom, dateTo);

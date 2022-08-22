@@ -1,8 +1,10 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
@@ -38,6 +41,8 @@ public class AddSpendingFragment extends Fragment {
     boolean spdBool = false;
     Double vatRate;
     Double price;
+    private int searchShopIntentId = 0;
+    boolean isEdit = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -156,6 +161,30 @@ public class AddSpendingFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        Intent searchShopGetIntent = getActivity().getIntent();
+        Bundle searchShopGetIntentBundle = searchShopGetIntent.getExtras();
+        if (searchShopGetIntentBundle != null) {
+            searchShopIntentId = getActivity().getIntent().getIntExtra(SearchFragment.SHOP_SEARCH_ID, 0);
+            Log.d("TAG", "shopFragment: " + searchShopIntentId);
+            //observe only works when using LiveData
+            budgetTrackerSpendingViewModel.getBudgetTrackerSpendingId(searchShopIntentId).observe(getActivity(), new Observer<BudgetTrackerSpending>() {
+                @Override
+                public void onChanged(BudgetTrackerSpending budgetTrackerSpending) {
+                    if (budgetTrackerSpending != null) {
+                        enterDate.setText(budgetTrackerSpending.getDate());
+                        enterStoreName.setText(budgetTrackerSpending.getStoreName());
+                        enterProductName.setText(budgetTrackerSpending.getProductName());
+                        enterProductType.setText(budgetTrackerSpending.getProductType());
+                        enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
+                        enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
+                        enterNotes.setText(budgetTrackerSpending.getNotes());
+                    }
+                }
+
+            });
+            isEdit = true;
+        }
 
 
         return view;

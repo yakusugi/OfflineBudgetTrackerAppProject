@@ -103,4 +103,8 @@ public class BudgetTrackerSpendingRepository {
         return productTypeList;
     }
 
+    //For getting ID for tapped item in a listview
+    public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {
+        return budgetTrackerSpendingDao.getBudgetTrackerSpendingId(id);
+    }
 }

@@ -28,7 +28,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker_bank.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker_income.xml" value="0.25" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_replace.xml" value="0.2916666666666667" />
-        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_spending_replacement.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_spending_replacement.xml" value="0.25" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_spending_tracker.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_splash.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/bank_list_item.xml" value="0.2635416666666667" />
@@ -60,6 +60,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/replaced_list_item.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/search_list_item.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/spending_replacement_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/spending_tracker_list_item.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/store_list_item.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/add_bottom_menu.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/bottom_menu.xml" value="0.2594871794871795" />

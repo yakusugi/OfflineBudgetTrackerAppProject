@@ -20,7 +20,7 @@ public interface BudgetTrackerSpendingDao {
     @Query("DELETE FROM budget_tracker_spending_table")
     void deleteAll();
 
-    @Query("SELECT * FROM budget_tracker_spending_table ORDER BY product_name ASC")
+    @Query("SELECT * FROM budget_tracker_spending_table ORDER BY store_name ASC")
     LiveData<List<BudgetTrackerSpending>> getAllBudgetTrackerSpendingList();
 
     //SearchFragment
@@ -60,5 +60,9 @@ public interface BudgetTrackerSpendingDao {
 
     @Query("SELECT * FROM budget_tracker_spending_table WHERE product_type LIKE '%' || :productType|| '%'")
     List<BudgetTrackerSpending> getProductTypeList(String productType);
+
+    //For getting ID for tapped item in a listview
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE budget_tracker_spending_table.id == :id")
+    LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id);
 
 }

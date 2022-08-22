@@ -78,4 +78,5 @@ public class BudgetTrackerSpendingAliasRepository {
                     Log.d("noifuji", "BudgetTrackerSpendingAliasViewModel.deleteSequence end");
                 }, callback));
     }
+
 }
