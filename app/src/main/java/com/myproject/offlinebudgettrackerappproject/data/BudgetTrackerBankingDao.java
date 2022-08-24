@@ -1,5 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -17,6 +18,9 @@ public interface BudgetTrackerBankingDao {
 
     @Query("DELETE FROM budget_tracker_banking_table")
     void deleteAll();
+
+    @Query("SELECT * FROM budget_tracker_banking_table ORDER BY bank_name ASC")
+    LiveData<List<BudgetTrackerBanking>> getAllBudgetTrackerBankingList();
 
     @Query("SELECT * FROM budget_tracker_banking_table")
     List<BudgetTrackerBanking> getBankBalanceList();
