@@ -1,11 +1,19 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.Currency;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +21,19 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class AddBankFragment extends Fragment {
+
+    private EditText enterBankName;
+    private EditText enterBankBalance;
+    private Button saveButton;
+    private BudgetTrackerBankingViewModel budgetTrackerBankingViewModel;
+    private int budgetTrackerBankIntentId = 0;
+    boolean isEdit = false;
+    private Button updateBankButton;
+    private Button deleteBankButton;
+
+    SharedPreferences sharedPreferences;
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +78,42 @@ public class AddBankFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_bank, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_bank, container, false);
+
+        enterBankName = view.findViewById(R.id.bkg_enter_bank_name);
+        enterBankBalance = view.findViewById(R.id.bkg_enter_bank_balance);
+        saveButton = view.findViewById(R.id.bkg_save_button);
+        updateBankButton = view.findViewById(R.id.bkg_update_btn);
+        deleteBankButton = view.findViewById(R.id.bkg_delete_btn);
+
+        sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨の設定
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+
+        enterBankBalance.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
+
+        budgetTrackerBankingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerBankingViewModel.class);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String bankName = enterBankName.getText().toString();
+                Double bankBalance = Double.parseDouble(enterBankBalance.getText().toString());
+                BudgetTrackerBanking budgetTrackerBanking = new BudgetTrackerBanking(bankName, bankBalance);
+                budgetTrackerBankingViewModel.insert(budgetTrackerBanking);
+                getActivity().finish();
+            }
+        });
+
+        if (isEdit) {
+            saveButton.setVisibility(View.GONE);
+        } else {
+            updateBankButton.setVisibility(View.GONE);
+            deleteBankButton.setVisibility(View.GONE);
+        }
+
+        return view;
     }
 }

@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerAliasDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankDao;
+import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankingDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeTypeDao;
@@ -20,6 +21,7 @@ import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingDa
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomeType;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerProductType;
@@ -29,7 +31,7 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingA
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class}, version = 10, exportSchema = false
+@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class, BudgetTrackerBanking.class}, version = 11, exportSchema = false
 )
 public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerDao budgetTrackerDao();
@@ -40,6 +42,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerIncomeTypeDao budgetTrackerIncomeTypeDao();
     public abstract BudgetTrackerSpendingDao budgetTrackerSpendingDao();
     public abstract BudgetTrackerSpendingAliasDao budgetTrackerSpendingAliasDao();
+    public abstract BudgetTrackerBankingDao budgetTrackerBankingDao();
 
     public static final int NUMBER_OF_THREADS = 4;
 
@@ -65,6 +68,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                             .addMigrations(MIGRATION_7_8)
                             .addMigrations(MIGRATION_8_9)
                             .addMigrations(MIGRATION_9_10)
+                            .addMigrations(MIGRATION_10_11)
                             .addCallback(sRoomDatabaseSpendingCallback)
                             .build();
                 }
@@ -266,6 +270,16 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                     "is_tax_alias INTEGER," +
                     "tax_rate_alias REAL," +
                     "alias_percentage REAL NOT NULL)");
+        }
+    };
+
+    public static final Migration MIGRATION_10_11 = new Migration(10, 11) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_banking_table (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "bank_name TEXT," +
+                    "bank_balance REAL NOT NULL)");
         }
     };
 

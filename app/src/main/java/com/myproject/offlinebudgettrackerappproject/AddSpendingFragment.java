@@ -187,6 +187,8 @@ public class AddSpendingFragment extends Fragment {
         }
 
 
+
+
         return view;
     }
 }
