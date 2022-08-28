@@ -8,19 +8,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myproject.offlinebudgettrackerappproject.adapter.BankNameSpinnerAdapter;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.Currency;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -43,6 +50,11 @@ public class AddSpendingFragment extends Fragment {
     Double price;
     private int searchShopIntentId = 0;
     boolean isEdit = false;
+    private List<BudgetTrackerBanking> bankList;
+    private BudgetTrackerBankingViewModel budgetTrackerBankingViewModel;
+    private ArrayList<BudgetTrackerBanking> bankArrayList;
+    private Spinner budgetTrackerSpinner;
+    private String spinnerText;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +111,7 @@ public class AddSpendingFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.spd_radio_group);
         saveButton = (Button) view.findViewById(R.id.spd_save_button);
         sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+        budgetTrackerSpinner = (Spinner) view.findViewById(R.id.spd_budget_tracker_spinner);
 
         //選択された通貨表示
         int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
@@ -131,6 +144,7 @@ public class AddSpendingFragment extends Fragment {
         List<BudgetTrackerSpending> budgetTrackerSpending = null;
 
         budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
+        budgetTrackerBankingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerBankingViewModel.class);
 
 //        todo: July 27th, 2022: Gray out VAT EditText (It disables when yes is chosen)
         if (radioGroup.getCheckedRadioButtonId() == R.id.spd_no) {
@@ -138,6 +152,28 @@ public class AddSpendingFragment extends Fragment {
         } else if (radioGroup.getCheckedRadioButtonId() == R.id.spd_yes) {
             enterVatRate.setEnabled(true);
         }
+
+        //        TODO: another button press action to confirm there is at least one data in bank table
+        bankList = budgetTrackerBankingViewModel.getBankViewModelBankList();
+        bankArrayList = new ArrayList<BudgetTrackerBanking>(bankList);
+
+        BankNameSpinnerAdapter bankNameSpinnerAdapter = new BankNameSpinnerAdapter(getActivity(), R.layout.income_spinner_adapter,
+                bankArrayList);
+
+        budgetTrackerSpinner.setAdapter(bankNameSpinnerAdapter);
+        budgetTrackerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                BudgetTrackerBanking budgetTrackerBanking = (BudgetTrackerBanking) budgetTrackerSpinner.getSelectedItem();
+                spinnerText = budgetTrackerBanking.getBankName();
+                Log.d("TAG_Spinner", "onItemSelected: " + spinnerText);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText = null;
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +194,13 @@ public class AddSpendingFragment extends Fragment {
                 String notes = enterNotes.getText().toString();
                 BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending(date, storeName, productName, productType, price, spdBool, vatRate, notes);
                 budgetTrackerSpendingViewModel.insert(budgetTrackerSpending);
+                if (spinnerText != null) {
+                    double spendingNum = budgetTrackerSpending.getPrice();
+                    budgetTrackerBankingViewModel.updateSubtraction(spendingNum, spinnerText);
+                } else {
+                    //Todo Need to make this a snackbar
+                    Toast.makeText(getActivity(), "Insert a bank record", Toast.LENGTH_SHORT).show();
+                }
                 getActivity().finish();
             }
         });

@@ -44,24 +44,9 @@ public class BudgetTrackerBankingViewModel extends AndroidViewModel {
         bankRepository.insert(budgetTrackerBanking);
     }
 
-//    public List<BudgetTrackerBank> getBankNameLists(String bankName) {
-//        bankNameLists = bankRepository.queryBankName(bankName);
-//        return bankNameLists;
-//    }
-//
-//    public LiveData<BudgetTrackerBank> getBudgetTrackerBankId(int id) {return bankRepository.getBudgetTrackerBankId(id);}
-//
-//    public void updateAddition(int incomeNum, String bankName) {
-//        bankRepository.updateAddition(incomeNum, bankName);
-//    }
-//
-//    public void updateSubtraction(int spendingNum, String bankName) {
-//        bankRepository.updateSubtraction(spendingNum, bankName);
-//    }
-//
-//    public static void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {bankRepository.updateBudgetTrackerBank(budgetTrackerBank);}
-//
-//    public static void deleteBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {bankRepository.deleteBudgetTrackerBank(budgetTrackerBank);}
+    public void updateSubtraction(double spendingNum, String bankName) {
+        bankRepository.updateSubtraction(spendingNum, bankName);
+    }
 
 
 }

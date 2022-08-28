@@ -49,28 +49,8 @@ public class BudgetTrackerBankingRepository {
         });
     }
 
-//    public List<BudgetTrackerBank> queryBankName(String bankName) {
-//        bankNameLists = budgetTrackerBankDao.getBankNameLists(bankName);
-//        return bankNameLists;
-//    }
-//
-//    public LiveData<BudgetTrackerBank> getBudgetTrackerBankId(int id) {
-//        return budgetTrackerBankDao.getBudgetTrackerBankId(id);
-//    }
-//
-//    public void updateAddition(int incomeNum, String bankName) {
-//        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.updateAddition(incomeNum, bankName));
-//    }
-//
-//    public void updateSubtraction(int spendingNum, String bankName) {
-//        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.updateSubtraction(spendingNum, bankName));
-//    }
-//
-//    public void updateBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {
-//        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.updateBudgetTrackerBank(budgetTrackerBank));
-//    }
-//
-//    public void deleteBudgetTrackerBank(BudgetTrackerBank budgetTrackerBank) {
-//        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankDao.deleteBudgetTrackerBank(budgetTrackerBank));
-//    }
+    public void updateSubtraction(double spendingNum, String bankName) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankingDao.updateSubtraction(spendingNum, bankName));
+    }
+
 }
