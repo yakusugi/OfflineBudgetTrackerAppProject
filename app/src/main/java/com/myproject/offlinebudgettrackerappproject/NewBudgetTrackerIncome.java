@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.IncomeSpinnerAdapter;
@@ -168,79 +167,79 @@ public class NewBudgetTrackerIncome extends AppCompatActivity {
 
         });
 
-        //get intent from BudgetTrackerBankActivity
-        Intent budgetTrackerIncomeGetIntent = getIntent();
-        Bundle budgetTrackerIncomeGetIntentBundle = budgetTrackerIncomeGetIntent.getExtras();
-        if (budgetTrackerIncomeGetIntentBundle != null) {
-            budgetTrackerIncomeIntentId = getIntent().getIntExtra(BudgetTrackerIncomeActivity.BUDGET_TRACKER_INCOME_ID, 0);
-            Log.d("TAG", "incomeActivity: " + budgetTrackerIncomeIntentId);
-            //observe only works when using LiveData
-            budgetTrackerIncomeViewModel.getBudgetTrackerIncomeId(budgetTrackerIncomeIntentId).observe(this, new Observer<BudgetTrackerIncome>() {
-                @Override
-                public void onChanged(BudgetTrackerIncome budgetTrackerIncome) {
-                    if (budgetTrackerIncome != null) {
-                        enterIncomeDate.setText(budgetTrackerIncome.getDate());
-                        enterIncomeCategory.setText(String.valueOf(budgetTrackerIncome.getCategory()));
-                        enterIncomeAmount.setText(String.valueOf(budgetTrackerIncome.getAmount()));
-                    }
-                }
-            });
-            isEdit = true;
-        }
+//        //get intent from BudgetTrackerBankActivity
+//        Intent budgetTrackerIncomeGetIntent = getIntent();
+//        Bundle budgetTrackerIncomeGetIntentBundle = budgetTrackerIncomeGetIntent.getExtras();
+//        if (budgetTrackerIncomeGetIntentBundle != null) {
+//            budgetTrackerIncomeIntentId = getIntent().getIntExtra(BudgetTrackerIncomeActivity.BUDGET_TRACKER_INCOME_ID, 0);
+//            Log.d("TAG", "incomeActivity: " + budgetTrackerIncomeIntentId);
+//            //observe only works when using LiveData
+//            budgetTrackerIncomeViewModel.getBudgetTrackerIncomeId(budgetTrackerIncomeIntentId).observe(this, new Observer<BudgetTrackerIncome>() {
+//                @Override
+//                public void onChanged(BudgetTrackerIncome budgetTrackerIncome) {
+//                    if (budgetTrackerIncome != null) {
+//                        enterIncomeDate.setText(budgetTrackerIncome.getDate());
+//                        enterIncomeCategory.setText(String.valueOf(budgetTrackerIncome.getCategory()));
+//                        enterIncomeAmount.setText(String.valueOf(budgetTrackerIncome.getAmount()));
+//                    }
+//                }
+//            });
+//            isEdit = true;
+//        }
 
-        //Delete button
-        deleteIncomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (budgetTrackerIncomeIntentId != 0) {
-                    int idIncome = budgetTrackerIncomeIntentId;
-                    String incomeDate = enterIncomeDate.getText().toString();
-                    String incomeCategory = enterIncomeCategory.getText().toString();
-                    int incomeAmount = Integer.parseInt(enterIncomeAmount.getText().toString());
+//        //Delete button
+//        deleteIncomeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (budgetTrackerIncomeIntentId != 0) {
+//                    int idIncome = budgetTrackerIncomeIntentId;
+//                    String incomeDate = enterIncomeDate.getText().toString();
+//                    String incomeCategory = enterIncomeCategory.getText().toString();
+//                    int incomeAmount = Integer.parseInt(enterIncomeAmount.getText().toString());
+//
+//                    if (TextUtils.isEmpty(incomeDate) ||TextUtils.isEmpty(incomeCategory) || TextUtils.isEmpty(String.valueOf(incomeAmount))) {
+//                        Toast toast=Toast.makeText(getApplicationContext(),incomeCategory,Toast.LENGTH_SHORT);
+//                        toast.show();
+//                    } else {
+//                        BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome();
+//                        budgetTrackerIncome.setId(idIncome);
+//                        budgetTrackerIncome.setDate(incomeDate);
+//                        budgetTrackerIncome.setCategory(incomeCategory);
+//                        budgetTrackerIncome.setAmount(incomeAmount);
+//                        budgetTrackerIncomeViewModel.deleteBudgetTrackerIncome(budgetTrackerIncome);
+//                        setResult(RESULT_OK, budgetTrackerIncomeGetIntent);
+//                        finish();
+//                    }
+//                }
+//            }
+//        });
 
-                    if (TextUtils.isEmpty(incomeDate) ||TextUtils.isEmpty(incomeCategory) || TextUtils.isEmpty(String.valueOf(incomeAmount))) {
-                        Toast toast=Toast.makeText(getApplicationContext(),incomeCategory,Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome();
-                        budgetTrackerIncome.setId(idIncome);
-                        budgetTrackerIncome.setDate(incomeDate);
-                        budgetTrackerIncome.setCategory(incomeCategory);
-                        budgetTrackerIncome.setAmount(incomeAmount);
-                        budgetTrackerIncomeViewModel.deleteBudgetTrackerIncome(budgetTrackerIncome);
-                        setResult(RESULT_OK, budgetTrackerIncomeGetIntent);
-                        finish();
-                    }
-                }
-            }
-        });
-
-        //Update button
-        updateIncomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (budgetTrackerIncomeIntentId != 0) {
-                    int idIncome = budgetTrackerIncomeIntentId;
-                    String incomeDate = enterIncomeDate.getText().toString();
-                    String incomeCategory = enterIncomeCategory.getText().toString();
-                    int incomeAmount = Integer.parseInt(enterIncomeAmount.getText().toString());
-                    if (TextUtils.isEmpty(incomeDate) ||TextUtils.isEmpty(incomeCategory) || TextUtils.isEmpty(String.valueOf(incomeAmount))) {
-                        Toast toast=Toast.makeText(getApplicationContext(),incomeCategory,Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome();
-                        budgetTrackerIncome.setId(idIncome);
-                        budgetTrackerIncome.setDate(incomeDate);
-                        budgetTrackerIncome.setCategory(incomeCategory);
-                        budgetTrackerIncome.setAmount(incomeAmount);
-                        budgetTrackerIncomeViewModel.updateBudgetTrackerIncome(budgetTrackerIncome);
-                        setResult(RESULT_OK, budgetTrackerIncomeGetIntent);
-                        finish();
-                    }
-                }
-
-            }
-        });
+//        //Update button
+//        updateIncomeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (budgetTrackerIncomeIntentId != 0) {
+//                    int idIncome = budgetTrackerIncomeIntentId;
+//                    String incomeDate = enterIncomeDate.getText().toString();
+//                    String incomeCategory = enterIncomeCategory.getText().toString();
+//                    int incomeAmount = Integer.parseInt(enterIncomeAmount.getText().toString());
+//                    if (TextUtils.isEmpty(incomeDate) ||TextUtils.isEmpty(incomeCategory) || TextUtils.isEmpty(String.valueOf(incomeAmount))) {
+//                        Toast toast=Toast.makeText(getApplicationContext(),incomeCategory,Toast.LENGTH_SHORT);
+//                        toast.show();
+//                    } else {
+//                        BudgetTrackerIncome budgetTrackerIncome = new BudgetTrackerIncome();
+//                        budgetTrackerIncome.setId(idIncome);
+//                        budgetTrackerIncome.setDate(incomeDate);
+//                        budgetTrackerIncome.setCategory(incomeCategory);
+//                        budgetTrackerIncome.setAmount(incomeAmount);
+//                        budgetTrackerIncomeViewModel.updateBudgetTrackerIncome(budgetTrackerIncome);
+//                        setResult(RESULT_OK, budgetTrackerIncomeGetIntent);
+//                        finish();
+//                    }
+//                }
+//
+//            }
+//        });
 
         if (isEdit) {
             saveButtonBudgetTrackerIncome.setVisibility(View.GONE);

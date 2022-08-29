@@ -110,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_shop:
                         fragment = new ShopFragment();
                         break;
-                    case R.id.nav_date:
-                        fragment = new DateFragment();
+                    case R.id.nav_converter:
+                        fragment = new ConverterFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).commit();
@@ -124,16 +124,6 @@ public class MainActivity extends AppCompatActivity {
     public void ClickMenu(View view) {
         //open drawer
         openDrawer(drawerLayout);
-    }
-
-    public void ClickIncomeCategory(View view) {
-        //open drawer
-        redirectActivity(this,BudgetTrackerIncomeActivity.class);
-    }
-
-    public void ClickBankName(View view) {
-        //open drawer
-        redirectActivity(this,BudgetTrackerBankActivity.class);
     }
 
     public void ClickSettingsMenu(View view) {

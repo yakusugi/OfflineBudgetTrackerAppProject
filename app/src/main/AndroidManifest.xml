@@ -29,22 +29,11 @@
             android:name=".SpendingTrackerActivity"
             android:exported="false" />
         <activity
-            android:name=".ReplaceActivity"
-            android:exported="false" />
-        <activity
             android:name=".AboutActivity"
             android:exported="false" />
         <activity
             android:name=".BudgetTrackerSettingsActivity"
             android:exported="false" />
-        <activity
-            android:name=".BudgetTrackerBankActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".BudgetTrackerIncomeActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".NewBudgetTrackerBank"
             android:exported="false" />

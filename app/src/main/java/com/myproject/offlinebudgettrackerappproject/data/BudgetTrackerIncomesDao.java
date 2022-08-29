@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomes;
 
 import java.util.List;
@@ -28,11 +27,11 @@ public interface BudgetTrackerIncomesDao {
     @Query("SELECT amount FROM budget_tracker_incomes_table")
     int getAmountLists();
 
-    @Query("SELECT * FROM budget_tracker_incomes_table WHERE category LIKE '%' || :category|| '%'")
-    List<BudgetTrackerIncome> getIncomesCategoryLists(String category);
+//    @Query("SELECT * FROM budget_tracker_incomes_table WHERE category LIKE '%' || :category|| '%'")
+//    List<BudgetTrackerIncome> getIncomesCategoryLists(String category);
 
-    @Query("SELECT * FROM budget_tracker_incomes_table WHERE budget_tracker_incomes_table.id == :id")
-    LiveData<BudgetTrackerIncome> getBudgetTrackerIncomesId(int id);
+//    @Query("SELECT * FROM budget_tracker_incomes_table WHERE budget_tracker_incomes_table.id == :id")
+//    LiveData<BudgetTrackerIncome> getBudgetTrackerIncomesId(int id);
 
     @Update
     void updateBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes);
