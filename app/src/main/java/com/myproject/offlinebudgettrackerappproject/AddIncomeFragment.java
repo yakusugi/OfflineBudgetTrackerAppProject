@@ -1,11 +1,33 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.myproject.offlinebudgettrackerappproject.adapter.BankNameSpinnerAdapter;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomes;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomesViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
+import com.myproject.offlinebudgettrackerappproject.model.Currency;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +35,22 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class AddIncomeFragment extends Fragment {
+
+    EditText enterDate, enterCategory, enterAmount, enterNotes;
+    Button saveButton;
+    SharedPreferences sharedPreferences;
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
+    BudgetTrackerIncomesViewModel budgetTrackerIncomesViewModel;
+    boolean spdBool = false;
+    Double vatRate;
+    Double amount;
+    boolean isEdit = false;
+    private List<BudgetTrackerBanking> bankList;
+    private BudgetTrackerBankingViewModel budgetTrackerBankingViewModel;
+    private ArrayList<BudgetTrackerBanking> bankArrayList;
+    private Spinner budgetTrackerSpinner;
+    private String spinnerText;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +95,89 @@ public class AddIncomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_income, container, false);
+
+        enterDate = (EditText) view.findViewById(R.id.icm_enter_date);
+        enterCategory = (EditText) view.findViewById(R.id.icm_enter_category_name);
+        enterAmount = (EditText) view.findViewById(R.id.icm_enter_amount);
+        enterNotes = (EditText) view.findViewById(R.id.icm_notes);
+        saveButton = (Button) view.findViewById(R.id.icm_save_button);
+        sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+        budgetTrackerSpinner = (Spinner) view.findViewById(R.id.icm_budget_tracker_spinner);
+
+        //選択された通貨表示
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        enterDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        String date = year + "-" + month + "-" + dayOfMonth;
+                        enterDate.setText(date);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        List<BudgetTrackerSpending> budgetTrackerSpending = null;
+
+        budgetTrackerIncomesViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerIncomesViewModel.class);
+        budgetTrackerBankingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerBankingViewModel.class);
+
+        //        TODO: another button press action to confirm there is at least one data in bank table
+        bankList = budgetTrackerBankingViewModel.getBankViewModelBankList();
+        bankArrayList = new ArrayList<BudgetTrackerBanking>(bankList);
+
+        BankNameSpinnerAdapter bankNameSpinnerAdapter = new BankNameSpinnerAdapter(getActivity(), R.layout.income_spinner_adapter,
+                bankArrayList);
+
+        budgetTrackerSpinner.setAdapter(bankNameSpinnerAdapter);
+        budgetTrackerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                BudgetTrackerBanking budgetTrackerBanking = (BudgetTrackerBanking) budgetTrackerSpinner.getSelectedItem();
+                spinnerText = budgetTrackerBanking.getBankName();
+                Log.d("TAG_Spinner", "onItemSelected: " + spinnerText);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText = null;
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String date = enterDate.getText().toString();
+                String categoryName = enterCategory.getText().toString();
+                amount = Double.parseDouble(enterAmount.getText().toString());
+                String notes = enterNotes.getText().toString();
+                BudgetTrackerIncomes budgetTrackerIncomes = new BudgetTrackerIncomes(date, categoryName, amount, notes);
+                budgetTrackerIncomesViewModel.insert(budgetTrackerIncomes);
+                if (spinnerText != null) {
+                    double incomesNum = budgetTrackerIncomes.getAmount();
+                    budgetTrackerBankingViewModel.updateAddition(incomesNum, spinnerText);
+                } else {
+                    //Todo Need to make this a snackbar
+                    Toast.makeText(getActivity(), "Insert a bank record", Toast.LENGTH_SHORT).show();
+                }
+                getActivity().finish();
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_income, container, false);
+        return view;
     }
 }

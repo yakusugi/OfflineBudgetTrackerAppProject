@@ -48,5 +48,9 @@ public class BudgetTrackerBankingViewModel extends AndroidViewModel {
         bankRepository.updateSubtraction(spendingNum, bankName);
     }
 
+    public void updateAddition(double incomesNum, String bankName) {
+        bankRepository.updateAddition(incomesNum, bankName);
+    }
+
 
 }

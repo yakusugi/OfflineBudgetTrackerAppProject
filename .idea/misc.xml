@@ -20,6 +20,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_about.xml" value="0.259375" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_add_budget_tracker.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_add_incomes_fragment.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_bank.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_banking.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_income.xml" value="0.24791666666666667" />
@@ -43,6 +44,7 @@
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/date_list_item.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_bank.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_income.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_incomes.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_spending.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_date.xml" value="0.2594871794871795" />

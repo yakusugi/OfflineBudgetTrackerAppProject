@@ -34,5 +34,8 @@ public interface BudgetTrackerBankingDao {
     @Query("UPDATE budget_tracker_banking_table SET bank_balance = bank_balance - :spendingNum WHERE bank_name = :bankName")
     void updateSubtraction(double spendingNum, String bankName);
 
+    @Query("UPDATE budget_tracker_banking_table SET bank_balance = bank_balance + :incomesNum WHERE bank_name = :bankName")
+    void updateAddition(double incomesNum, String bankName);
+
 
 }

@@ -111,7 +111,7 @@ public class AddSpendingFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.spd_radio_group);
         saveButton = (Button) view.findViewById(R.id.spd_save_button);
         sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
-        budgetTrackerSpinner = (Spinner) view.findViewById(R.id.spd_budget_tracker_spinner);
+        budgetTrackerSpinner = (Spinner) view.findViewById(R.id.icm_budget_tracker_spinner);
 
         //選択された通貨表示
         int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);

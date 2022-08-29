@@ -216,7 +216,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Spinner
-        android:id="@+id/spd_budget_tracker_spinner"
+        android:id="@+id/icm_budget_tracker_spinner"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:gravity="center"
@@ -238,7 +238,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/rounded_corner"
-        app:layout_constraintTop_toBottomOf="@+id/spd_budget_tracker_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/icm_budget_tracker_spinner" />
 
     <Button
         android:id="@+id/spd_delete_btn"
