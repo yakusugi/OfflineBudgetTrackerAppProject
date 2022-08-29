@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OfflineBudgetTrackerAppProject">
         <activity
+            android:name=".BudgetTrackerIncomesActivity"
+            android:exported="false" />
+        <activity
             android:name=".BudgetTrackerBankingActivity"
             android:exported="false" />
         <activity

@@ -17,18 +17,18 @@ public class BudgetTrackerIncomesRepository {
     private List<BudgetTrackerIncomes> incomesCategoryList;
     private int productTypeSum;
     private List<BudgetTrackerSpending> dateLists;
+    private LiveData<List<BudgetTrackerIncomes>> allBudgetTrackerIncomesList;
 
     public BudgetTrackerIncomesRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
         budgetTrackerIncomesDao = db.budgetTrackerIncomesDao();
 
-//        allBudgetTrackerLists = budgetTrackerDao.getAllBudgetTrackerLists();
+        allBudgetTrackerIncomesList = budgetTrackerIncomesDao.getAllBudgetTrackerIncomesList();
     }
 
-//    public List<BudgetTrackerIncomes> queryIncomesCategory(String incomeCategory) {
-//        incomesCategoryList = budgetTrackerIncomesDao.getIncomeCategoryLists(incomeCategory);
-//        return incomeCategoryLists;
-//    }
+    public LiveData<List<BudgetTrackerIncomes>> getAllBudgetTrackerIncomesData() {
+        return allBudgetTrackerIncomesList;
+    }
 
 
     public void insert(BudgetTrackerIncomes budgetTrackerIncomes) {

@@ -88,7 +88,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 startActivity(i);
                 break;
             case R.id.income_card:
-                i = new Intent(view.getContext(), BudgetTrackerIncomeActivity.class);
+                i = new Intent(view.getContext(), BudgetTrackerIncomesActivity.class);
                 startActivity(i);
                 break;
             case R.id.bank_card:

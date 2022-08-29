@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomesRepository;
 
@@ -12,15 +13,16 @@ import java.util.List;
 public class BudgetTrackerIncomesViewModel extends AndroidViewModel {
 
     public List<BudgetTrackerIncomes> incomesCategoryLists;
-
     public static BudgetTrackerIncomesRepository incomesRepository;
+    public LiveData<List<BudgetTrackerIncomes>> allBudgetTrackerIncomesList;
 
     public BudgetTrackerIncomesViewModel(@NonNull Application application) {
         super(application);
         incomesRepository = new BudgetTrackerIncomesRepository(application);
-
+        allBudgetTrackerIncomesList = incomesRepository.getAllBudgetTrackerIncomesData();
     }
 
+    public LiveData<List<BudgetTrackerIncomes>> getAllIncomesData() { return allBudgetTrackerIncomesList; }
 
     public static void insert(BudgetTrackerIncomes budgetTrackerIncomes) {
         incomesRepository.insert(budgetTrackerIncomes);

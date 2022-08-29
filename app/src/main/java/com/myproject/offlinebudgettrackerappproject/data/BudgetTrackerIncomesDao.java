@@ -16,6 +16,9 @@ import java.util.List;
 @Dao
 public interface BudgetTrackerIncomesDao {
     //CRUD
+    @Query("SELECT * FROM budget_tracker_incomes_table ORDER BY category ASC")
+    LiveData<List<BudgetTrackerIncomes>> getAllBudgetTrackerIncomesList();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(BudgetTrackerIncomes budgetTrackerIncomes);
 
