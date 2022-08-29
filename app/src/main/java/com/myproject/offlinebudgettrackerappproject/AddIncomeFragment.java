@@ -109,6 +109,8 @@ public class AddIncomeFragment extends Fragment {
         int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
         Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
 
+        enterAmount.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
