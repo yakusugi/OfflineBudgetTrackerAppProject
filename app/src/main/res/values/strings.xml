@@ -33,4 +33,7 @@
     <string name="new_budget_tracker_notes_hint">Enter a note</string>
     <string name="calc_result_hint">Calc Result</string>
     <string name="replace_word_hint">Find a word...</string>
+    <string name="convert_hint">Converted result here</string>
+    <string name="converter_bank_balance">Bank balance</string>
+    <string name="converter_current_currency">Currenct currency</string>
 </resources>

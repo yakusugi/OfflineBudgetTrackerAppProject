@@ -3,12 +3,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ConverterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/converter_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="20dp"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_converter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Currency Converter"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_converter"
+                android:layout_marginTop="6dp"
+                android:text="Your money, your life"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/transfer" />
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/converter_table_row"
+            >
+
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/converter_bank_name_spinner"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:layout_marginTop="5dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_notes"
+                    tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/converter_bank_balance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_money"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="@string/converter_bank_balance"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_vat_rate"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/converter_current_currency_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="@string/converter_current_currency"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_vat_rate"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/converter_target_currency_spinner"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:layout_marginTop="5dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_notes"
+                    tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+            </TableRow>
+            <TableRow android:layout_marginTop="8dp">
+
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/search_calc_result_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_money"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/convert_hint"
+            android:inputType="textPersonName"
+            android:minHeight="30dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/convert_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"
+            android:text="Convert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stats_table_row"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
 
 </FrameLayout>

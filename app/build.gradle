@@ -69,5 +69,6 @@ dependencies {
     //  Card View
     implementation "androidx.cardview:cardview:1.0.0"
 
-
+    //  Currency Converter API
+    implementation "com.squareup.okhttp3:okhttp:4.10.0"
 }

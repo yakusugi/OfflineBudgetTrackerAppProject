@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/title_dash"
-                android:text="Budget Tracker"
+                android:text="Power Budget Tracker"
                 android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

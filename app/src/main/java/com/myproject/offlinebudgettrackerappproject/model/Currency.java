@@ -40,25 +40,25 @@ public class Currency {
     }
 
     public static void initCurrencies() {
-        Currency usd = new Currency("0", "US Dollars");
+        Currency usd = new Currency("0", "USD");
         currencyArrayList.add(usd);
 
-        Currency jpy = new Currency("1", "Japanese Yen");
+        Currency jpy = new Currency("1", "JPY");
         currencyArrayList.add(jpy);
 
         Currency euro = new Currency("2", "Euro");
         currencyArrayList.add(euro);
 
-        Currency pound = new Currency("3", "British Pound");
+        Currency pound = new Currency("3", "GBP");
         currencyArrayList.add(pound);
 
-        Currency aus_dollar = new Currency("4", "Australian Dollars");
+        Currency aus_dollar = new Currency("4", "AUD");
         currencyArrayList.add(aus_dollar);
 
-        Currency nz_dollar = new Currency("5", "NZ Dollars");
+        Currency nz_dollar = new Currency("5", "NZD");
         currencyArrayList.add(nz_dollar);
 
-        Currency can_dollar = new Currency("6", "Canadian Dollars");
+        Currency can_dollar = new Currency("6", "CAD");
         currencyArrayList.add(can_dollar);
 
 
@@ -82,6 +82,27 @@ public class Currency {
                 return R.drawable.ic_money;
         }
         return R.drawable.ic_money;
+    }
+
+    //added sep 4 2022
+    public String getCurrencyString() {
+        switch (getId()) {
+            case "0":
+                return "USD";
+            case "1":
+                return "JPY";
+            case "2":
+                return "EUR";
+            case "3":
+                return "GBP";
+            case "4":
+                return "AUD";
+            case "5":
+                return "NZD";
+            case "6":
+                return "CAD";
+        }
+        return "US Dollar";
     }
 
     public static ArrayList<Currency> getCurrencyArrayList() {

@@ -1,11 +1,29 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.myproject.offlinebudgettrackerappproject.adapter.BankNameSpinnerAdapter;
+import com.myproject.offlinebudgettrackerappproject.adapter.CurrencySpinnerAdapter;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.Currency;
+import com.myproject.offlinebudgettrackerappproject.util.CurrencyConverterAPIs;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +31,21 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class ConverterFragment extends Fragment {
+    private Spinner bankNameSpinner, targetCurrencySpinner;
+    TextView bankBalance, currentCurrency, convertedResult;
+    Button convertButton;
+    SharedPreferences sharedPreferences;
+    private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
+    private static final String PREF_CURRENCY_VALUE = "currencyValue";
+    private List<BudgetTrackerBanking> bankList;
+    private BudgetTrackerBankingViewModel budgetTrackerBankingViewModel;
+    private ArrayList<BudgetTrackerBanking> bankArrayList;
+    private String spinnerText;
+    private String spinnerTargetCurrencyText;
+    private Double bankBalanceNum;
+    public String targetCurrencyString;
+    public String currentCurrencyString;
+    private String convertedCalcResult;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +90,90 @@ public class ConverterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_converter, container, false);
+        View view = inflater.inflate(R.layout.fragment_converter, container, false);
+
+        bankNameSpinner = (Spinner) view.findViewById(R.id.converter_bank_name_spinner);
+        targetCurrencySpinner = (Spinner) view.findViewById(R.id.converter_target_currency_spinner);
+        bankBalance = (TextView) view.findViewById(R.id.converter_bank_balance_tv);
+        currentCurrency = (TextView) view.findViewById(R.id.converter_current_currency_spinner);
+        convertedResult = (TextView) view.findViewById(R.id.search_calc_result_txt);
+        convertButton = (Button) view.findViewById(R.id.convert_btn);
+        sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
+
+        //選択された通貨表示
+        int currentCurrencyNum = sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0);
+        Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
+
+        bankBalance.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
+        currentCurrency.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
+        currentCurrency.setText(currency.getCurrencyString());
+
+        budgetTrackerBankingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerBankingViewModel.class);
+        bankList = budgetTrackerBankingViewModel.getBankViewModelBankList();
+        bankArrayList = new ArrayList<BudgetTrackerBanking>(bankList);
+        BankNameSpinnerAdapter bankNameSpinnerAdapter = new BankNameSpinnerAdapter(getActivity(), R.layout.income_spinner_adapter,
+                bankArrayList);
+
+        bankNameSpinner.setAdapter(bankNameSpinnerAdapter);
+        bankNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                BudgetTrackerBanking budgetTrackerBanking = (BudgetTrackerBanking) bankNameSpinner.getSelectedItem();
+                spinnerText = budgetTrackerBanking.getBankName();
+                bankBalance.setText(String.valueOf(bankBalanceNum = budgetTrackerBanking.getBankBalance()));
+                Log.d("TAG_Spinner", "onItemSelected: " + spinnerText);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText = null;
+            }
+        });
+
+        CurrencySpinnerAdapter currencySpinnerAdapter = new CurrencySpinnerAdapter(getActivity(), R.layout.currency_spinner_adopter,
+                Currency.getCurrencyArrayList());
+        targetCurrencySpinner.setAdapter(currencySpinnerAdapter);
+
+        targetCurrencySpinner.setSelection(sharedPreferences.getInt(PREF_CURRENCY_VALUE, 0));
+        targetCurrencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                Currency currency = (Currency) targetCurrencySpinner.getSelectedItem();
+                spinnerTargetCurrencyText = currency.getCurrency();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText = null;
+            }
+        });
+
+        convertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Currency currency = (Currency) targetCurrencySpinner.getSelectedItem();
+                String currentCurrencyString = currentCurrency.getText().toString();
+                targetCurrencyString = currency.getCurrencyString();
+                Double bankBalanceNum = Double.parseDouble(bankBalance.getText().toString());
+
+                Log.d("TAG0904", "currentCurrency: " + currentCurrencyString);
+                Log.d("TAG0904", "targetCurrency: " + targetCurrencyString);
+                Log.d("TAG0904", "bankBalance: " + bankBalanceNum);
+
+                CurrencyConverterAPIs currencyConverterAPIs = new CurrencyConverterAPIs(getActivity());
+                try {
+                    convertedCalcResult = currencyConverterAPIs.currencyConverter(currentCurrencyString, targetCurrencyString, bankBalanceNum);
+//                    currencyConverterAPIs.currencyConverter(currentCurrencyString, targetCurrencyString, bankBalanceNum);
+                    convertedResult.setText(convertedCalcResult);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return view;
     }
+
+
 }
