@@ -1,7 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -49,6 +50,7 @@ public class AddSpendingFragment extends Fragment {
     Double vatRate;
     Double price;
     private int searchShopIntentId = 0;
+    private int searchShopId = 0;
     boolean isEdit = false;
     private List<BudgetTrackerBanking> bankList;
     private BudgetTrackerBankingViewModel budgetTrackerBankingViewModel;
@@ -205,32 +207,60 @@ public class AddSpendingFragment extends Fragment {
             }
         });
 
-        Intent searchShopGetIntent = getActivity().getIntent();
-        Bundle searchShopGetIntentBundle = searchShopGetIntent.getExtras();
-        if (searchShopGetIntentBundle != null) {
-            searchShopIntentId = getActivity().getIntent().getIntExtra(SearchFragment.SHOP_SEARCH_ID, 0);
-            Log.d("TAG", "shopFragment: " + searchShopIntentId);
-            //observe only works when using LiveData
-            budgetTrackerSpendingViewModel.getBudgetTrackerSpendingId(searchShopIntentId).observe(getActivity(), new Observer<BudgetTrackerSpending>() {
-                @Override
-                public void onChanged(BudgetTrackerSpending budgetTrackerSpending) {
-                    if (budgetTrackerSpending != null) {
-                        enterDate.setText(budgetTrackerSpending.getDate());
-                        enterStoreName.setText(budgetTrackerSpending.getStoreName());
-                        enterProductName.setText(budgetTrackerSpending.getProductName());
-                        enterProductType.setText(budgetTrackerSpending.getProductType());
-                        enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
-                        enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
-                        enterNotes.setText(budgetTrackerSpending.getNotes());
-                    }
+        //fragment to activity intent (failed)
+//        Intent searchShopGetIntent = getActivity().getIntent();
+//        Bundle searchShopGetIntentBundle = searchShopGetIntent.getExtras();
+//        if (searchShopGetIntentBundle != null) {
+//            searchShopIntentId = getActivity().getIntent().getIntExtra(SearchFragment.SHOP_SEARCH_ID, 0);
+//            Log.d("TAG", "shopFragment: " + searchShopIntentId);
+//            //observe only works when using LiveData
+//            budgetTrackerSpendingViewModel.getBudgetTrackerSpendingId(searchShopIntentId).observe(getActivity(), new Observer<BudgetTrackerSpending>() {
+//                @Override
+//                public void onChanged(BudgetTrackerSpending budgetTrackerSpending) {
+//                    if (budgetTrackerSpending != null) {
+//                        enterDate.setText(budgetTrackerSpending.getDate());
+//                        enterStoreName.setText(budgetTrackerSpending.getStoreName());
+//                        enterProductName.setText(budgetTrackerSpending.getProductName());
+//                        enterProductType.setText(budgetTrackerSpending.getProductType());
+//                        enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
+//                        enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
+//                        enterNotes.setText(budgetTrackerSpending.getNotes());
+//                    }
+//                }
+//
+//            });
+//            isEdit = true;
+//        }
+
+        //SearchFragment to AddSpendingFragment
+        getParentFragmentManager().setFragmentResultListener("shop_search_id", getActivity(), new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                int data = getArguments().getInt("storeId");
+//                int data = result.getInt("storeId");
+                if (data != 0) {
+                    searchShopId = data;
+                    Log.d("TAG09072022", "shopFragment: " + searchShopId);
+                    //observe only works when using LiveData
+                    budgetTrackerSpendingViewModel.getBudgetTrackerSpendingId(searchShopId).observe(getActivity(), new Observer<BudgetTrackerSpending>() {
+                        @Override
+                        public void onChanged(BudgetTrackerSpending budgetTrackerSpending) {
+                            if (budgetTrackerSpending != null) {
+                                enterDate.setText(budgetTrackerSpending.getDate());
+                                enterStoreName.setText(budgetTrackerSpending.getStoreName());
+                                enterProductName.setText(budgetTrackerSpending.getProductName());
+                                enterProductType.setText(budgetTrackerSpending.getProductType());
+                                enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
+                                enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
+                                enterNotes.setText(budgetTrackerSpending.getNotes());
+                            }
+                        }
+
+                    });
+                    isEdit = true;
                 }
-
-            });
-            isEdit = true;
-        }
-
-
-
+            }
+        });
 
         return view;
     }

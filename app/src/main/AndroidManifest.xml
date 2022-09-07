@@ -22,9 +22,6 @@
             android:name=".SpendingReplacementActivity"
             android:exported="false" />
         <activity
-            android:name=".AddSpendingFragment"
-            tools:ignore="Instantiatable" />
-        <activity
             android:name=".AddBudgetTracker"
             android:exported="false" />
         <activity

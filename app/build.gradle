@@ -71,4 +71,8 @@ dependencies {
 
     //  Currency Converter API
     implementation "com.squareup.okhttp3:okhttp:4.10.0"
+
+    //  for fragments
+    def fragment_version = "1.5.2"
+    implementation "androidx.fragment:fragment:$fragment_version"
 }

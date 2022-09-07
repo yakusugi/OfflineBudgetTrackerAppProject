@@ -1,7 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -18,6 +17,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.SearchListViewAdapter;
@@ -58,7 +59,6 @@ public class SearchFragment extends Fragment {
     String dateTo;
     SharedPreferences sharedPreferences;
     String calcSumStr;
-    public static final String SHOP_SEARCH_ID = "shop_search_id";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -185,11 +185,18 @@ public class SearchFragment extends Fragment {
                             List<BudgetTrackerSpending> budgetSpendingListItems = searchStoreNameLists;
                             int intId = (int) id;
                             BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
-                            Intent searchShopIntent = new Intent(getActivity(), AddSpendingFragment.class);
-                            searchShopIntent.putExtra(SHOP_SEARCH_ID, storeItemId.getId());
-                            startActivityForResult(searchShopIntent, 1);
 
-//                            Log.d(TAG, "onItemClick: " + date);
+                            //fragment intent
+                            Fragment fragment = new AddSpendingFragment();
+                            Bundle result = new Bundle();
+                            result.putInt("storeId", storeItemId.getId());
+                            fragment.setArguments(result);
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentManager.setFragmentResult("shop_search_id", result);
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.main_container, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     });
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_name) {
