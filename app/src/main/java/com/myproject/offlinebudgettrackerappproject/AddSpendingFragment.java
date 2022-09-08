@@ -3,6 +3,7 @@ package com.myproject.offlinebudgettrackerappproject;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myproject.offlinebudgettrackerappproject.adapter.BankNameSpinnerAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
@@ -40,8 +43,9 @@ import java.util.List;
 public class AddSpendingFragment extends Fragment {
 
     EditText enterDate, enterStoreName, enterProductName, enterProductType, enterPrice, enterVatRate, enterNotes;
+    TextView expenseTitleTv, expenseSubTitleTv;
     RadioGroup radioGroup;
-    Button saveButton;
+    Button saveButton, updateButton, deleteButton;
     SharedPreferences sharedPreferences;
     private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
@@ -103,6 +107,8 @@ public class AddSpendingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_spending, container, false);
 
+        expenseTitleTv = (TextView) view.findViewById(R.id.title_spending);
+        expenseSubTitleTv = (TextView) view.findViewById(R.id.sub_title_spending);
         enterDate = (EditText) view.findViewById(R.id.spd_enter_date);
         enterStoreName = (EditText) view.findViewById(R.id.spd_enter_store_name);
         enterProductName = (EditText) view.findViewById(R.id.spd_enter_product_name);
@@ -112,6 +118,8 @@ public class AddSpendingFragment extends Fragment {
         enterNotes = (EditText) view.findViewById(R.id.spd_notes);
         radioGroup = (RadioGroup) view.findViewById(R.id.spd_radio_group);
         saveButton = (Button) view.findViewById(R.id.spd_save_button);
+        updateButton = (Button) view.findViewById(R.id.spd_update_btn);
+        deleteButton = (Button) view.findViewById(R.id.spd_delete_btn);
         sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
         budgetTrackerSpinner = (Spinner) view.findViewById(R.id.icm_budget_tracker_spinner);
 
@@ -207,31 +215,6 @@ public class AddSpendingFragment extends Fragment {
             }
         });
 
-        //fragment to activity intent (failed)
-//        Intent searchShopGetIntent = getActivity().getIntent();
-//        Bundle searchShopGetIntentBundle = searchShopGetIntent.getExtras();
-//        if (searchShopGetIntentBundle != null) {
-//            searchShopIntentId = getActivity().getIntent().getIntExtra(SearchFragment.SHOP_SEARCH_ID, 0);
-//            Log.d("TAG", "shopFragment: " + searchShopIntentId);
-//            //observe only works when using LiveData
-//            budgetTrackerSpendingViewModel.getBudgetTrackerSpendingId(searchShopIntentId).observe(getActivity(), new Observer<BudgetTrackerSpending>() {
-//                @Override
-//                public void onChanged(BudgetTrackerSpending budgetTrackerSpending) {
-//                    if (budgetTrackerSpending != null) {
-//                        enterDate.setText(budgetTrackerSpending.getDate());
-//                        enterStoreName.setText(budgetTrackerSpending.getStoreName());
-//                        enterProductName.setText(budgetTrackerSpending.getProductName());
-//                        enterProductType.setText(budgetTrackerSpending.getProductType());
-//                        enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
-//                        enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
-//                        enterNotes.setText(budgetTrackerSpending.getNotes());
-//                    }
-//                }
-//
-//            });
-//            isEdit = true;
-//        }
-
         //SearchFragment to AddSpendingFragment
         getParentFragmentManager().setFragmentResultListener("shop_search_id", getActivity(), new FragmentResultListener() {
             @Override
@@ -261,6 +244,71 @@ public class AddSpendingFragment extends Fragment {
                 }
             }
         });
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchShopId != 0) {
+//                    idStore = shopFragmentIntentId;
+//                    idProduct = productFragmentIntentId;
+//                    idDate = dateFragmentIntentId;
+//                    idReplace = replacedActivityIntentId;
+                    String date = enterDate.getText().toString();
+                    String storeName = enterStoreName.getText().toString();
+                    String productName = enterProductName.getText().toString();
+                    String productType = enterProductType.getText().toString();
+                    double price = Double.parseDouble(enterPrice.getText().toString());
+                    if (enterVatRate == null) {
+                        enterVatRate.setText((int) Double.parseDouble(String.valueOf(0.0)));
+                    } else {
+                        double vatRate = Double.parseDouble(enterVatRate.getText().toString());
+                    }
+
+                    String notes = enterNotes.getText().toString();
+
+                    if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price)) || TextUtils.isEmpty(String.valueOf(vatRate)) || TextUtils.isEmpty(notes)) {
+                        Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending();
+                        if (searchShopId != 0) {
+                            budgetTrackerSpending.setId(searchShopId);
+                        }
+//                        } else if (productFragmentIntentId != 0) {
+//                            budgetTracker.setId(idProduct);
+//                        } else if (dateFragmentIntentId != 0) {
+//                            budgetTracker.setId(idDate);
+//                        } else if (replacedActivityIntentId != 0) {
+//                            budgetTracker.setId(idReplace);
+//                        }
+                        budgetTrackerSpending.setDate(date);
+                        budgetTrackerSpending.setStoreName(storeName);
+                        budgetTrackerSpending.setProductName(productName);
+                        budgetTrackerSpending.setProductType(productType);
+                        budgetTrackerSpending.setPrice(price);
+                        budgetTrackerSpending.setTaxRate(vatRate);
+                        budgetTrackerSpending.setNotes(notes);
+                        BudgetTrackerSpendingViewModel.updateBudgetTrackerSpending(budgetTrackerSpending);
+//                         Todo Automatic search after updated an item
+//                        if (searchShopId != 0) {
+//                            setResult(RESULT_OK, shopFragmentGetIntent);
+//                        } else if (productFragmentIntentId != 0) {
+//                            setResult(RESULT_OK, productFragmentGetIntent);
+//                        }
+                        getActivity().getFragmentManager().popBackStack();
+                    }
+                }
+
+            }
+        });
+
+        if (isEdit) {
+            saveButton.setVisibility(View.GONE);
+            expenseTitleTv.setVisibility(View.GONE);
+            expenseSubTitleTv.setVisibility(View.GONE);
+        } else {
+            updateButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
+        }
 
         return view;
     }

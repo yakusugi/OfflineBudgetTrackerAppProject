@@ -19,6 +19,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myproject.offlinebudgettrackerappproject.adapter.IncomeSpinnerAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
@@ -312,56 +313,52 @@ public class NewBudgetTracker extends AppCompatActivity {
 //            }
 //        });
 //
-//        //Update button
-//        updateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0 || dateFragmentIntentId != 0) {
-//                    idStore = shopFragmentIntentId;
-//                    idProduct = productFragmentIntentId;
-//                    idDate = dateFragmentIntentId;
-//                    idReplace = replacedActivityIntentId;
-//                    String date = enterDate.getText().toString();
-//                    String storeName = enterStoreName.getText().toString();
-//                    String productName = enterProductName.getText().toString();
-//                    String productType = enterProductType.getText().toString();
-//                    int price = Integer.parseInt(enterPrice.getText().toString());
-//
-//                    if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price))) {
-//                        Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
-//                    } else {
-//                        BudgetTracker budgetTracker = new BudgetTracker();
-//                        if (shopFragmentIntentId != 0) {
-//                            budgetTracker.setId(idStore);
-//                        } else if (productFragmentIntentId != 0) {
-//                            budgetTracker.setId(idProduct);
-//                        } else if (dateFragmentIntentId != 0) {
-//                            budgetTracker.setId(idDate);
-//                        } else if (replacedActivityIntentId != 0) {
-//                            budgetTracker.setId(idReplace);
-//                        }
-//                        budgetTracker.setDate(date);
-//                        budgetTracker.setStoreName(storeName);
-//                        budgetTracker.setProductName(productName);
-//                        budgetTracker.setProductType(productType);
-//                        budgetTracker.setPrice(price);
-//                        BudgetTrackerViewModel.updateBudgetTracker(budgetTracker);
-////                         Todo Automatic search after updated an item
-//                        if (shopFragmentIntentId != 0) {
-//                            setResult(RESULT_OK, shopFragmentGetIntent);
-//                        } else if (productFragmentIntentId != 0) {
-//                            setResult(RESULT_OK, productFragmentGetIntent);
-//                        } else if (dateFragmentIntentId != 0) {
-//                            setResult(RESULT_OK, dateFragmentGetIntent);
-//                        } else if (replacedActivityIntentId != 0) {
-//                            setResult(RESULT_OK, replacedActivityGetIntent);
-//                        }
-//                        finish();
-//                    }
-//                }
-//
-//            }
-//        });
+        //Update button
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (shopFragmentIntentId != 0 || productFragmentIntentId != 0 || dateFragmentIntentId != 0) {
+                    idStore = shopFragmentIntentId;
+                    idProduct = productFragmentIntentId;
+                    idDate = dateFragmentIntentId;
+                    idReplace = replacedActivityIntentId;
+                    String date = enterDate.getText().toString();
+                    String storeName = enterStoreName.getText().toString();
+                    String productName = enterProductName.getText().toString();
+                    String productType = enterProductType.getText().toString();
+                    int price = Integer.parseInt(enterPrice.getText().toString());
+
+                    if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price))) {
+                        Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        BudgetTracker budgetTracker = new BudgetTracker();
+                        if (shopFragmentIntentId != 0) {
+                            budgetTracker.setId(idStore);
+                        } else if (productFragmentIntentId != 0) {
+                            budgetTracker.setId(idProduct);
+                        } else if (dateFragmentIntentId != 0) {
+                            budgetTracker.setId(idDate);
+                        } else if (replacedActivityIntentId != 0) {
+                            budgetTracker.setId(idReplace);
+                        }
+                        budgetTracker.setDate(date);
+                        budgetTracker.setStoreName(storeName);
+                        budgetTracker.setProductName(productName);
+                        budgetTracker.setProductType(productType);
+                        budgetTracker.setPrice(price);
+                        BudgetTrackerViewModel.updateBudgetTracker(budgetTracker);
+//                         Todo Automatic search after updated an item
+                        if (shopFragmentIntentId != 0) {
+                            setResult(RESULT_OK, shopFragmentGetIntent);
+                        } else if (productFragmentIntentId != 0) {
+                            setResult(RESULT_OK, productFragmentGetIntent);
+                        }
+                        finish();
+                    }
+                }
+
+            }
+        });
 
         if (isEdit) {
             saveInfoButton.setVisibility(View.GONE);

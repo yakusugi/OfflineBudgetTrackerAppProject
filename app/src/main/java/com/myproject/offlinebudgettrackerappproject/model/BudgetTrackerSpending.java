@@ -61,6 +61,10 @@ public class BudgetTrackerSpending {
     public BudgetTrackerSpending(String searchWord, String replaceWith) {
     }
 
+    public BudgetTrackerSpending() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -34,6 +34,10 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public static void insert(BudgetTrackerSpending budgetTrackerSpending) {
         repository.insert(budgetTrackerSpending);
     }
+
+    public static void updateBudgetTrackerSpending(BudgetTrackerSpending budgetTrackerSpending) {repository.updateBudgetTrackerSpending(budgetTrackerSpending);}
+    public static void deleteBudgetTrackerSpending(BudgetTrackerSpending budgetTrackerSpending) {repository.deleteBudgetTrackerSpending(budgetTrackerSpending);}
+
     //  SearchFragment
     public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
         radioSearchStoreNameLists = repository.getSearchStoreNameLists(storeName, dateFrom, dateTo);

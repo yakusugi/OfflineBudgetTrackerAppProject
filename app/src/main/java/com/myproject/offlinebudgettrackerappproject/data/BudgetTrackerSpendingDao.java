@@ -2,9 +2,11 @@ package com.myproject.offlinebudgettrackerappproject.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 
@@ -19,6 +21,12 @@ public interface BudgetTrackerSpendingDao {
 
     @Query("DELETE FROM budget_tracker_spending_table")
     void deleteAll();
+
+    @Update
+    void updateBudgetTrackerSpending(BudgetTrackerSpending budgetTrackerSpending);
+
+    @Delete
+    void deleteBudgetTrackerSpending(BudgetTrackerSpending budgetTrackerSpending);
 
     @Query("SELECT * FROM budget_tracker_spending_table ORDER BY store_name ASC")
     LiveData<List<BudgetTrackerSpending>> getAllBudgetTrackerSpendingList();

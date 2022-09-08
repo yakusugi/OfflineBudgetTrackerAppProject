@@ -38,6 +38,15 @@ public class BudgetTrackerSpendingRepository {
             budgetTrackerSpendingDao.insert(budgetTrackerSpending);
         });
     }
+
+    public void updateBudgetTrackerSpending(BudgetTrackerSpending budgetTrackerSpending) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerSpendingDao.updateBudgetTrackerSpending(budgetTrackerSpending));
+    }
+
+    public void deleteBudgetTrackerSpending(BudgetTrackerSpending budgetTrackerSpending) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerSpendingDao.deleteBudgetTrackerSpending(budgetTrackerSpending));
+    }
+
 //  SearchFragment
     public List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo) {
         radioSearchStoreNameLists = budgetTrackerSpendingDao.getSearchStoreNameLists(storeName, dateFrom, dateTo);

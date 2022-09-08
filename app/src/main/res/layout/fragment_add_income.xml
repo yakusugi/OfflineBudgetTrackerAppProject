@@ -24,6 +24,7 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/sub_title_incomes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title_incomes"
