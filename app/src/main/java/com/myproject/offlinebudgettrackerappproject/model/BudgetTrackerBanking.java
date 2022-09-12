@@ -43,5 +43,6 @@ public class BudgetTrackerBanking {
     public void setBankBalance(double bankBalance) {
         this.bankBalance = bankBalance;
     }
+
 }
 

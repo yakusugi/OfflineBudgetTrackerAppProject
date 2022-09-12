@@ -159,6 +159,11 @@
             android:layout_gravity="center_horizontal"
             />
 
+        <ListView
+            android:id="@+id/currency_converter_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
 </FrameLayout>

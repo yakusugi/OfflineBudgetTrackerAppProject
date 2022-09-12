@@ -19,6 +19,7 @@ import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomesDao
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerProductTypeDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingAliasDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingDao;
+import com.myproject.offlinebudgettrackerappproject.data.CurrencyConverterDao;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
@@ -29,11 +30,12 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomes;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerProductType;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingAlias;
+import com.myproject.offlinebudgettrackerappproject.model.CurrencyConverter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class, BudgetTrackerBanking.class, BudgetTrackerIncomes.class}, version = 12, exportSchema = false
+@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class, BudgetTrackerBanking.class, BudgetTrackerIncomes.class, CurrencyConverter.class}, version = 13, exportSchema = false
 )
 public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerDao budgetTrackerDao();
@@ -46,6 +48,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerSpendingAliasDao budgetTrackerSpendingAliasDao();
     public abstract BudgetTrackerBankingDao budgetTrackerBankingDao();
     public abstract BudgetTrackerIncomesDao budgetTrackerIncomesDao();
+    public abstract CurrencyConverterDao currencyConverterDao();
 
     public static final int NUMBER_OF_THREADS = 4;
 
@@ -73,6 +76,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                             .addMigrations(MIGRATION_9_10)
                             .addMigrations(MIGRATION_10_11)
                             .addMigrations(MIGRATION_11_12)
+                            .addMigrations(MIGRATION_12_13)
                             .addCallback(sRoomDatabaseSpendingCallback)
                             .build();
                 }
@@ -296,6 +300,20 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                     "category TEXT," +
                     "amount REAL NOT NULL," +
                     "notes TEXT)");
+        }
+    };
+
+    public static final Migration MIGRATION_12_13 = new Migration(12, 13) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE bank_currency_converter_table (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "date TEXT," +
+                    "bank_name TEXT," +
+                    "original_currency TEXT," +
+                    "original_currency_balance REAL," +
+                    "converted_currency TEXT," +
+                    "converted_currency_balance REAL)");
         }
     };
 

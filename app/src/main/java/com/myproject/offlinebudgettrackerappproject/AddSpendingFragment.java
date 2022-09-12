@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -51,7 +52,6 @@ public class AddSpendingFragment extends Fragment {
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
     BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel;
     boolean spdBool = false;
-    Double vatRate;
     Double price;
     private int searchShopIntentId = 0;
     private int searchShopId = 0;
@@ -61,6 +61,7 @@ public class AddSpendingFragment extends Fragment {
     private ArrayList<BudgetTrackerBanking> bankArrayList;
     private Spinner budgetTrackerSpinner;
     private String spinnerText;
+    double vatRate;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -258,10 +259,12 @@ public class AddSpendingFragment extends Fragment {
                     String productName = enterProductName.getText().toString();
                     String productType = enterProductType.getText().toString();
                     double price = Double.parseDouble(enterPrice.getText().toString());
-                    if (enterVatRate == null) {
-                        enterVatRate.setText((int) Double.parseDouble(String.valueOf(0.0)));
+                    if (enterVatRate.getText().toString().trim().length() > 0) {
+                        Log.d("09120222", "onClick: " + enterVatRate.getText().toString());
+//                        enterVatRate.setText(String.valueOf(0.0));
+                        enterVatRate.setText(null);
                     } else {
-                        double vatRate = Double.parseDouble(enterVatRate.getText().toString());
+                        vatRate = Double.parseDouble(enterVatRate.getText().toString());
                     }
 
                     String notes = enterNotes.getText().toString();
@@ -294,7 +297,8 @@ public class AddSpendingFragment extends Fragment {
 //                        } else if (productFragmentIntentId != 0) {
 //                            setResult(RESULT_OK, productFragmentGetIntent);
 //                        }
-                        getActivity().getFragmentManager().popBackStack();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentManager.popBackStack();
                     }
                 }
 

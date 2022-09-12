@@ -19,10 +19,16 @@ import com.myproject.offlinebudgettrackerappproject.adapter.CurrencySpinnerAdapt
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.Currency;
+import com.myproject.offlinebudgettrackerappproject.model.CurrencyConverter;
+import com.myproject.offlinebudgettrackerappproject.model.CurrencyConverterViewModel;
 import com.myproject.offlinebudgettrackerappproject.util.CurrencyConverterAPIs;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,8 +50,11 @@ public class ConverterFragment extends Fragment {
     private String spinnerTargetCurrencyText;
     private Double bankBalanceNum;
     public String targetCurrencyString;
+    public String bankNameString;
     public String currentCurrencyString;
     private String convertedCalcResult;
+    CurrencyConverterViewModel currencyConverterViewModel;
+    CurrencyConverter currencyConverter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -130,6 +139,8 @@ public class ConverterFragment extends Fragment {
             }
         });
 
+        currencyConverterViewModel = new ViewModelProvider(requireActivity()).get(CurrencyConverterViewModel.class);
+
         CurrencySpinnerAdapter currencySpinnerAdapter = new CurrencySpinnerAdapter(getActivity(), R.layout.currency_spinner_adopter,
                 Currency.getCurrencyArrayList());
         targetCurrencySpinner.setAdapter(currencySpinnerAdapter);
@@ -152,10 +163,17 @@ public class ConverterFragment extends Fragment {
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //for currency conversion
                 Currency currency = (Currency) targetCurrencySpinner.getSelectedItem();
-                String currentCurrencyString = currentCurrency.getText().toString();
                 targetCurrencyString = currency.getCurrencyString();
+                String currentCurrencyString = currentCurrency.getText().toString();
                 Double bankBalanceNum = Double.parseDouble(bankBalance.getText().toString());
+                Double convertedCalcResultDouble = 0.0;
+
+                //for saving data to the db (bankName)
+                String selectedBankName = bankNameSpinner.getSelectedItem().toString();
+                String targetCurrency = targetCurrencySpinner.getSelectedItem().toString();
+                String currencyCurrencyStr = currency.getCurrencyString();
 
                 Log.d("TAG0904", "currentCurrency: " + currentCurrencyString);
                 Log.d("TAG0904", "targetCurrency: " + targetCurrencyString);
@@ -164,11 +182,22 @@ public class ConverterFragment extends Fragment {
                 CurrencyConverterAPIs currencyConverterAPIs = new CurrencyConverterAPIs(getActivity());
                 try {
                     convertedCalcResult = currencyConverterAPIs.currencyConverter(currentCurrencyString, targetCurrencyString, bankBalanceNum);
-//                    currencyConverterAPIs.currencyConverter(currentCurrencyString, targetCurrencyString, bankBalanceNum);
                     convertedResult.setText(convertedCalcResult);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                //for saving data to the db (convertedResult String -> Double)
+                convertedCalcResultDouble = Double.parseDouble(convertedCalcResult);
+
+                //for saving data to the db (date)
+                Date todayDate = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                String strDate = dateFormat.format(todayDate);
+
+                currencyConverter = new CurrencyConverter(strDate, selectedBankName, currencyCurrencyStr, bankBalanceNum, targetCurrency, convertedCalcResultDouble);
+                currencyConverterViewModel.insert(currencyConverter);
+
             }
         });
 
