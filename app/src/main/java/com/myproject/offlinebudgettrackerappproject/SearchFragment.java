@@ -59,6 +59,7 @@ public class SearchFragment extends Fragment {
     String dateTo;
     SharedPreferences sharedPreferences;
     String calcSumStr;
+    TextView searchCalcResultTxt;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -111,7 +112,7 @@ public class SearchFragment extends Fragment {
         EditText searchDateFrom = (EditText) view.findViewById(R.id.search_date_from_txt);
         EditText searchDateTo = (EditText) view.findViewById(R.id.search_date_to_txt);
         Button searchBtn = (Button) view.findViewById(R.id.search_btn);
-        TextView searchCalcResultTxt = (TextView) view.findViewById(R.id.search_calc_result_txt);
+        searchCalcResultTxt = (TextView) view.findViewById(R.id.search_calc_result_txt);
 
         searchListViewAdapter = new SearchListViewAdapter(getActivity(), 1);
         searchListView.setAdapter(searchListViewAdapter);
@@ -170,54 +171,109 @@ public class SearchFragment extends Fragment {
                 String dateTo = searchDateTo.getText().toString();
                 budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
                 if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_store_name) {
-                    budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
-                    searchStoreNameLists = budgetTrackerSpendingViewModel.getSearchStoreNameLists(searchKey, dateFrom, dateTo);
-                    searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchStoreNameLists);
-                    searchListView.setAdapter(searchListViewAdapter);
-                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchStoreSum(searchKey, dateFrom, dateTo));
-                    searchCalcResultTxt.setText(calcSumStr);
-
-                    //              Todo  2022/08/22 Tapped modified
-                    searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                            String date = adapterView.getItemAtPosition(position).toString();
-                            List<BudgetTrackerSpending> budgetSpendingListItems = searchStoreNameLists;
-                            int intId = (int) id;
-                            BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
-
-                            //fragment intent
-                            Fragment fragment = new AddSpendingFragment();
-                            Bundle result = new Bundle();
-                            result.putInt("storeId", storeItemId.getId());
-                            fragment.setArguments(result);
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.setFragmentResult("shop_search_id", result);
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-                        }
-                    });
+                    transferStore(searchKey, dateFrom, dateTo);
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_name) {
-                    budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
-                    searchProductNameLists = budgetTrackerSpendingViewModel.getSearchProductNameLists(searchKey, dateFrom, dateTo);
-                    searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchProductNameLists);
-                    searchListView.setAdapter(searchListViewAdapter);
-                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductSum(searchKey, dateFrom, dateTo));
-                    searchCalcResultTxt.setText(calcSumStr);
+                    transferProductName(searchKey, dateFrom, dateTo);
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_type) {
-                    budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
-                    searchProductTypeLists = budgetTrackerSpendingViewModel.getSearchProductTypeLists(searchKey, dateFrom, dateTo);
-                    searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchProductTypeLists);
-                    searchListView.setAdapter(searchListViewAdapter);
-                    calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductTypeSum(searchKey, dateFrom, dateTo));
-                    searchCalcResultTxt.setText(calcSumStr);
+                    transferProductType(searchKey, dateFrom, dateTo);
                 }
             }
         });
 
         return view;
+    }
+
+    private void transferStore(String searchKey, String dateFrom, String dateTo) {
+        budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
+        searchStoreNameLists = budgetTrackerSpendingViewModel.getSearchStoreNameLists(searchKey, dateFrom, dateTo);
+        searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchStoreNameLists);
+        searchListView.setAdapter(searchListViewAdapter);
+        calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchStoreSum(searchKey, dateFrom, dateTo));
+        searchCalcResultTxt.setText(calcSumStr);
+
+        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String date = adapterView.getItemAtPosition(position).toString();
+                List<BudgetTrackerSpending> budgetSpendingListItems = searchStoreNameLists;
+                int intId = (int) id;
+                BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
+
+                //fragment intent
+                Fragment fragment = new AddSpendingFragment();
+                Bundle result = new Bundle();
+                result.putInt("storeId", storeItemId.getId());
+                fragment.setArguments(result);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.setFragmentResult("shop_search_id", result);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    private void transferProductName(String searchKey, String dateFrom, String dateTo) {
+        budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
+        searchProductNameLists = budgetTrackerSpendingViewModel.getSearchProductNameLists(searchKey, dateFrom, dateTo);
+        searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchProductNameLists);
+        searchListView.setAdapter(searchListViewAdapter);
+        calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductSum(searchKey, dateFrom, dateTo));
+        searchCalcResultTxt.setText(calcSumStr);
+
+        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String date = adapterView.getItemAtPosition(position).toString();
+                List<BudgetTrackerSpending> budgetSpendingListItems = searchProductNameLists;
+                int intId = (int) id;
+                BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
+
+                //fragment intent
+                Fragment fragment = new AddSpendingFragment();
+                Bundle result = new Bundle();
+                result.putInt("storeId", storeItemId.getId());
+                fragment.setArguments(result);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.setFragmentResult("shop_search_id", result);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    private void transferProductType(String searchKey, String dateFrom, String dateTo) {
+        budgetTrackerSpending = new BudgetTrackerSpending(searchKey, dateFrom, dateTo);
+        searchProductTypeLists = budgetTrackerSpendingViewModel.getSearchProductTypeLists(searchKey, dateFrom, dateTo);
+        searchListViewAdapter = new SearchListViewAdapter(getActivity(), searchProductTypeLists);
+        searchListView.setAdapter(searchListViewAdapter);
+        calcSumStr = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductTypeSum(searchKey, dateFrom, dateTo));
+        searchCalcResultTxt.setText(calcSumStr);
+
+        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String date = adapterView.getItemAtPosition(position).toString();
+                List<BudgetTrackerSpending> budgetSpendingListItems = searchProductTypeLists;
+                int intId = (int) id;
+                BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
+
+                //fragment intent
+                Fragment fragment = new AddSpendingFragment();
+                Bundle result = new Bundle();
+                result.putInt("storeId", storeItemId.getId());
+                fragment.setArguments(result);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.setFragmentResult("shop_search_id", result);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
 

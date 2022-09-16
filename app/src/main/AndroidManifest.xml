@@ -34,26 +34,9 @@
             android:name=".BudgetTrackerSettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".NewBudgetTrackerBank"
-            android:exported="false" />
-        <activity
-            android:name=".NewBudgetTrackerIncome"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" /> <!-- android:windowSoftInputMode="adjustResize" -->
-        <activity
-            android:name=".NewBudgetTracker"
-            android:exported="true">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true"

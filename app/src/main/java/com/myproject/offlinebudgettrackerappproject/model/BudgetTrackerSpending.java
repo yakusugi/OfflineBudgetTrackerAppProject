@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "budget_tracker_spending_table")
@@ -61,6 +62,7 @@ public class BudgetTrackerSpending {
     public BudgetTrackerSpending(String searchWord, String replaceWith) {
     }
 
+    @Ignore
     public BudgetTrackerSpending() {
 
     }

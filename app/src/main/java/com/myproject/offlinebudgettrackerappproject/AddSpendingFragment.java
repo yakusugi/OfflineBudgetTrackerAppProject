@@ -305,6 +305,66 @@ public class AddSpendingFragment extends Fragment {
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchShopId != 0) {
+//                    idStore = shopFragmentIntentId;
+//                    idProduct = productFragmentIntentId;
+//                    idDate = dateFragmentIntentId;
+//                    idReplace = replacedActivityIntentId;
+                    String date = enterDate.getText().toString();
+                    String storeName = enterStoreName.getText().toString();
+                    String productName = enterProductName.getText().toString();
+                    String productType = enterProductType.getText().toString();
+                    double price = Double.parseDouble(enterPrice.getText().toString());
+                    if (enterVatRate.getText().toString().trim().length() > 0) {
+                        Log.d("09120222", "onClick: " + enterVatRate.getText().toString());
+//                        enterVatRate.setText(String.valueOf(0.0));
+                        enterVatRate.setText(null);
+                    } else {
+                        vatRate = Double.parseDouble(enterVatRate.getText().toString());
+                    }
+
+                    String notes = enterNotes.getText().toString();
+
+                    if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price)) || TextUtils.isEmpty(String.valueOf(vatRate)) || TextUtils.isEmpty(notes)) {
+                        Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        BudgetTrackerSpending budgetTrackerSpending = new BudgetTrackerSpending();
+                        if (searchShopId != 0) {
+                            budgetTrackerSpending.setId(searchShopId);
+                        }
+//                        } else if (productFragmentIntentId != 0) {
+//                            budgetTracker.setId(idProduct);
+//                        } else if (dateFragmentIntentId != 0) {
+//                            budgetTracker.setId(idDate);
+//                        } else if (replacedActivityIntentId != 0) {
+//                            budgetTracker.setId(idReplace);
+//                        }
+                        budgetTrackerSpending.setDate(date);
+                        budgetTrackerSpending.setStoreName(storeName);
+                        budgetTrackerSpending.setProductName(productName);
+                        budgetTrackerSpending.setProductType(productType);
+                        budgetTrackerSpending.setPrice(price);
+                        budgetTrackerSpending.setTaxRate(vatRate);
+                        budgetTrackerSpending.setNotes(notes);
+                        BudgetTrackerSpendingViewModel.deleteBudgetTrackerSpending(budgetTrackerSpending);
+//                         Todo Automatic search after updated an item
+//                        if (searchShopId != 0) {
+//                            setResult(RESULT_OK, shopFragmentGetIntent);
+//                        } else if (productFragmentIntentId != 0) {
+//                            setResult(RESULT_OK, productFragmentGetIntent);
+//                        }
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentManager.popBackStack();
+                    }
+                }
+
+            }
+        });
+
+
         if (isEdit) {
             saveButton.setVisibility(View.GONE);
             expenseTitleTv.setVisibility(View.GONE);

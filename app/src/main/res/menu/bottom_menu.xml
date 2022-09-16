@@ -17,9 +17,5 @@
         android:id="@+id/nav_converter"
         android:icon="@drawable/transfer"
         android:title="Converter" />
-    <item
-        android:id="@+id/nav_shop"
-        android:icon="@drawable/store"
-        android:title="Shop" />
 
 </menu>

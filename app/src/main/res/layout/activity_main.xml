@@ -42,16 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-            tools:ignore="DuplicateIds,MissingConstraints,SpeakableTextPresentCheck"
-            android:elevation="@android:dimen/thumbnail_height"
-            tools:layout_editor_absoluteX="206dp" />
-
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/add_budget_tracker_fab_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:elevation="@android:dimen/thumbnail_height"
             app:fab_expandDirection="up"
             app:fab_size="normal"
@@ -59,37 +49,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints" />
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_budget_tracker_bank_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorPressed="@color/white"
-                app:fab_icon="@drawable/bank_icon"
-                app:fab_size="mini"
-                app:fab_title="adding bank balance info" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_budget_tracker_income_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorPressed="@color/white"
-                app:fab_icon="@drawable/profit"
-                app:fab_size="mini"
-                app:fab_title="adding income info" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_budget_tracker_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorPressed="@color/white"
-                app:fab_icon="@drawable/list_items"
-                app:fab_size="mini"
-                app:fab_title="adding purchased item info" />
-
-
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
