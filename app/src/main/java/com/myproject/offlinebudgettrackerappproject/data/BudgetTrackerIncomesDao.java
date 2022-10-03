@@ -33,9 +33,18 @@ public interface BudgetTrackerIncomesDao {
 //    @Query("SELECT * FROM budget_tracker_incomes_table WHERE budget_tracker_incomes_table.id == :id")
 //    LiveData<BudgetTrackerIncome> getBudgetTrackerIncomesId(int id);
 
+    //ReplaceIncomeActivity
+    @Query("update budget_tracker_incomes_table set category = `replace`(category,:categoryNameFrom,:categoryNameTo) where category like :categoryNameFrom || '%'")
+    void replaceCategoryName(String categoryNameFrom, String categoryNameTo);
+
+    @Query("SELECT * FROM budget_tracker_incomes_table WHERE category LIKE '%' || :categoryName|| '%'")
+    List<BudgetTrackerIncomes> getCategoryList(String categoryName);
+
+    //update
     @Update
     void updateBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes);
 
+    //delete
     @Delete
     void deleteBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes);
 }

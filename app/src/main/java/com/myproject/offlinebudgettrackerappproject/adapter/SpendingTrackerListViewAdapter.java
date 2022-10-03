@@ -83,4 +83,8 @@ public class SpendingTrackerListViewAdapter extends ArrayAdapter<BudgetTrackerSp
 //        void onContactClick(int position);
 //    }
 
+    public interface OnSpendingClickListener {
+        void onSpendingClick(int position);
+    }
+
 }

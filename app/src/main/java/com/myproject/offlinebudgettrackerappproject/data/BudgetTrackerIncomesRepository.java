@@ -18,6 +18,7 @@ public class BudgetTrackerIncomesRepository {
     private int productTypeSum;
     private List<BudgetTrackerSpending> dateLists;
     private LiveData<List<BudgetTrackerIncomes>> allBudgetTrackerIncomesList;
+    private List<BudgetTrackerIncomes> categoryNameList;
 
     public BudgetTrackerIncomesRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -35,6 +36,18 @@ public class BudgetTrackerIncomesRepository {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
             budgetTrackerIncomesDao.insert(budgetTrackerIncomes);
         });
+    }
+
+    //replace
+    public void replaceCategoryName(String categoryNameFrom, String categoryNameTo) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
+            budgetTrackerIncomesDao.replaceCategoryName(categoryNameFrom, categoryNameTo);
+        });
+    }
+
+    public List<BudgetTrackerIncomes> getCategoryName(String categoryName) {
+        categoryNameList = budgetTrackerIncomesDao.getCategoryList(categoryName);
+        return categoryNameList;
     }
 
 //    public LiveData<BudgetTrackerIncome> getBudgetTrackerIncomeId(int id) {

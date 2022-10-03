@@ -15,6 +15,7 @@ public class BudgetTrackerIncomesViewModel extends AndroidViewModel {
     public List<BudgetTrackerIncomes> incomesCategoryLists;
     public static BudgetTrackerIncomesRepository incomesRepository;
     public LiveData<List<BudgetTrackerIncomes>> allBudgetTrackerIncomesList;
+    public List<BudgetTrackerIncomes> categoryNameList;
 
     public BudgetTrackerIncomesViewModel(@NonNull Application application) {
         super(application);
@@ -26,6 +27,16 @@ public class BudgetTrackerIncomesViewModel extends AndroidViewModel {
 
     public static void insert(BudgetTrackerIncomes budgetTrackerIncomes) {
         incomesRepository.insert(budgetTrackerIncomes);
+    }
+
+    //  ReplaceActivity
+    public static void replaceCategoryName(String categoryNameFrom, String categoryNameToe) {
+        incomesRepository.replaceCategoryName(categoryNameFrom, categoryNameToe);
+    }
+
+    public List<BudgetTrackerIncomes> getCategoryNameList(String categoryName) {
+        categoryNameList = incomesRepository.getCategoryName(categoryName);
+        return categoryNameList;
     }
 
 //    public List<BudgetTrackerIncome> getIncomeCategoryLists(String incomeCategory) {

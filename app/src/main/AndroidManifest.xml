@@ -22,6 +22,9 @@
             android:name=".SpendingReplacementActivity"
             android:exported="false" />
         <activity
+            android:name=".IncomeReplacementActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddBudgetTracker"
             android:exported="false" />
         <activity
