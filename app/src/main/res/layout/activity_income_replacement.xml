@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IncomeReplacementActivity"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/replace_title"
+            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_replace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bulk edits (Income)"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_below="@+id/title_replace"
+                android:text="Your money, your life"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:src="@drawable/replace"
+                android:layout_width="62dp"
+                android:layout_height="62dp"/>
+
+        </RelativeLayout>
+
+        <RadioGroup
+            android:id="@+id/replacement_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stats_pie_chart"
+            tools:ignore="MissingConstraints">
+
+        </RadioGroup>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/stats_table_row"
+            >
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/replacement_income_search_txt"
+                    android:layout_width="180sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/replace_word_hint"
+                    android:minHeight="48dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText
+                    android:id="@+id/replacement_income_search_with_txt"
+                    android:layout_width="180sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_replace"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/replace_it_with"
+                    android:minHeight="48dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </TableRow>
+            <TableRow android:layout_marginTop="8dp">
+
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/rep_income_search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"
+            android:text="Replace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stats_table_row"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <ListView
+            android:id="@+id/replacement_income_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

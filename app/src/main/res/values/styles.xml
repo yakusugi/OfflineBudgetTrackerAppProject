@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="formStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:padding">@dimen/general_padding</item>
+    </style>
+
+    <style name="header_icon_style">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">87dp</item>
+        <item name="android:layout_marginStart">44dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="header_title_style">
+        <item name="android:layout_width">254dp</item>
+        <item name="android:layout_height">37dp</item>
+        <item name="android:layout_marginTop">48dp</item>
+        <item name="android:fontFamily">@font/playfair_display</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="currency_title_style">
+        <item name="android:layout_width">254dp</item>
+        <item name="android:layout_height">37dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:fontFamily">@font/playfair_display</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+</resources>

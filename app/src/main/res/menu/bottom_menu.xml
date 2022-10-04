@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dash"
+        android:icon="@drawable/dashboard"
+        android:title="Dash" />
+    <item
+        android:id="@+id/nav_stats"
+        android:icon="@drawable/pie_chart_stats"
+        android:title="Stats" />
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/search_icon"
+        android:title="Search" />
+    <item
+        android:id="@+id/nav_converter"
+        android:icon="@drawable/transfer"
+        android:title="Converter" />
+
+</menu>

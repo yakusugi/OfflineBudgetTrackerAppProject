@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/custom_input.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_about.xml" value="0.1165" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_bank.xml" value="0.1165" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.1165" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_baseline_product_24.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_calendar.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_income.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_menu.xml" value="0.124" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_money.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_replace.xml" value="0.216" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_search.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/ic_settings.xml" value="0.114" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/item_selector.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_about.xml" value="0.259375" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_add_budget_tracker.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_add_incomes_fragment.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_bank.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_banking.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_income.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_incomes.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_budget_tracker_settings.xml" value="0.259375" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_main.xml" value="0.2594871794871795" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker.xml" value="0.2594871794871795" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker_bank.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_new_budget_tracker_income.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_replace.xml" value="0.2916666666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_spending_replacement.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_spending_tracker.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/activity_splash.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/bank_list_item.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_recycler_design.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_tracker_product_row.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_tracker_row.xml" value="0.2594871794871795" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_tracker_shop_row.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budget_tracker_store_row.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/budgettracker_home_row.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/currency_converter_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/currency_spinner_adopter.xml" value="0.259375" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/date_list_item.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_bank.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_income.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_incomes.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_add_spending.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_converter.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_date.xml" value="0.2594871794871795" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_home.xml" value="0.2594871794871795" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_product.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_search.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_searcj.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_shop.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_stats.xml" value="0.335" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/fragment_transfer.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/header_layout.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/income_list_item.xml" value="0.25" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/income_spinner_adapter.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/incomes_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/main_nav_drawer.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/main_toolbar.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/product_list_item.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/replaced_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/search_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/spending_replacement_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/spending_tracker_list_item.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/layout/store_list_item.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/add_bottom_menu.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/menu/bottom_menu.xml" value="0.2594871794871795" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AndroidStudioProjects/OfflineBudgetTrackerAppProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/deeps/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.259375" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
