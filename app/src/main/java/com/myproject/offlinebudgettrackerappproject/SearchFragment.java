@@ -199,17 +199,19 @@ public class SearchFragment extends Fragment {
                 int intId = (int) id;
                 BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
 
+
+
                 //fragment intent
-                Fragment fragment = new AddSpendingFragment();
-                Bundle result = new Bundle();
-                result.putInt("storeId", storeItemId.getId());
-                fragment.setArguments(result);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.setFragmentResult("shop_search_id", result);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+//                Fragment fragment = new AddSpendingFragment();
+//                Bundle result = new Bundle();
+//                result.putInt("storeId", storeItemId.getId());
+//                fragment.setArguments(result);
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                fragmentManager.setFragmentResult("shop_search_id", result);
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.main_container, fragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
     }
