@@ -73,4 +73,12 @@ public interface BudgetTrackerSpendingDao {
     @Query("SELECT * FROM budget_tracker_spending_table WHERE budget_tracker_spending_table.id == :id")
     LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id);
 
+    //For Quick search (Store)
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%'")
+    List<BudgetTrackerSpending> getQuickStoreNameList(String storeName);
+
+
+    @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%'")
+    double getQuickStoreSum(String storeName);
+
 }

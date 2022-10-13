@@ -15,9 +15,11 @@ public class BudgetTrackerSpendingRepository {
     private List<BudgetTrackerSpending> radioSearchStoreNameLists;
     private List<BudgetTrackerSpending> radioSearchProductNameLists;
     private List<BudgetTrackerSpending> radioSearchProductTypeLists;
+    private List<BudgetTrackerSpending> quickStoreNameList;
     private double searchStoreSum;
     private double searchProductSum;
     private double searchProductTypeSum;
+    private double quickStoreSum;
     private List<BudgetTrackerSpending> storeNameList;
     private List<BudgetTrackerSpending> productNameList;
     private List<BudgetTrackerSpending> productTypeList;
@@ -115,5 +117,16 @@ public class BudgetTrackerSpendingRepository {
     //For getting ID for tapped item in a listview
     public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {
         return budgetTrackerSpendingDao.getBudgetTrackerSpendingId(id);
+    }
+
+    //For Quick search (Store)
+    public List<BudgetTrackerSpending> getQuickStoreNameList(String storeName) {
+        quickStoreNameList = budgetTrackerSpendingDao.getQuickStoreNameList(storeName);
+        return quickStoreNameList;
+    }
+
+    public double getQuickStoreSum(String storeName) {
+        quickStoreSum = budgetTrackerSpendingDao.getQuickStoreSum(storeName);
+        return quickStoreSum;
     }
 }

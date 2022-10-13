@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         openDrawer(drawerLayout);
     }
 
+    public void ClickQuickStoreSearch(View view) {
+        //open drawer
+        redirectActivity(this,QuickStoreSearchActivity.class);
+    }
+
     public void ClickSettingsMenu(View view) {
         //open drawer
         redirectActivity(this,BudgetTrackerSettingsActivity.class);

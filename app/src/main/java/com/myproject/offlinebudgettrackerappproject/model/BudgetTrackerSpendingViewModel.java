@@ -15,9 +15,11 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public List<BudgetTrackerSpending> radioSearchStoreNameLists;
     public List<BudgetTrackerSpending> radioSearchProductNameLists;
     public List<BudgetTrackerSpending> radioSearchProductTypeLists;
+    private List<BudgetTrackerSpending> quickStoreNameList;
     private double searchStoreSum;
     private double searchProductSum;
     private double searchProductTypeSum;
+    private double quickStoreSum;
     public List<BudgetTrackerSpending> storeNameList;
     public List<BudgetTrackerSpending> productNameList;
     public List<BudgetTrackerSpending> productTypeList;
@@ -100,4 +102,14 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     //For getting ID for tapped item in a listview
     public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {return repository.getBudgetTrackerSpendingId(id);}
 
+    //For Quick search (Store)
+    public List<BudgetTrackerSpending> getQuickStoreNameList(String storeName) {
+        quickStoreNameList = repository.getQuickStoreNameList(storeName);
+        return quickStoreNameList;
+    }
+
+    public double getQuickStoreSum(String storeName) {
+        quickStoreSum = repository.getQuickStoreSum(storeName);
+        return quickStoreSum;
+    }
 }

@@ -67,6 +67,9 @@ public class BudgetTrackerSpending {
 
     }
 
+    public BudgetTrackerSpending(String searchKey) {
+    }
+
     public int getId() {
         return id;
     }
