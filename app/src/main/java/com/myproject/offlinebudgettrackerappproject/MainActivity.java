@@ -1,8 +1,11 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,8 +21,9 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.ItemSpendingViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchFragment.OnDataPass {
 
     private static final int NEW_BUDGET_TRACKER_ACTIVITY_REQUEST_CODE = 1;
     private static final int NEW_BUDGET_TRACKER_INCOME_ACTIVITY_REQUEST_CODE = 1;
@@ -27,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private BudgetTrackerViewModel budgetTrackerViewModel;
     DrawerLayout drawerLayout;
+    ItemSpendingViewModel itemSpendingViewModel;
+    public static final String STORE_FRAGMENT_ID = "store_search_id";
+    AddBudgetTracker addBudgetTracker;
 
 
     @Override
@@ -82,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //                pass data to viewModel and share it with host activity
+
+
     }
 
     //feb 15 追加
@@ -121,4 +132,17 @@ public class MainActivity extends AppCompatActivity {
         activity.startActivity(intent);
     }
 
+
+    @Override
+    public void onDataPass(Integer data) {
+        Log.d(TAG, "onDataPass: " + data);
+        itemSpendingViewModel = new ViewModelProvider(this).get(ItemSpendingViewModel.class);
+        itemSpendingViewModel.setData(data);
+//        Intent searchStoreIntent = new Intent(this, AddBudgetTracker.class);
+//        searchStoreIntent.putExtra(itemSpendingViewModel.getSelectedItem(), data);
+//        startActivityForResult(searchStoreIntent, 1);
+        //todo: from here call AddBudgetTracker's method (not created yet) and use FragmentManager to activate a specific fragment
+        addBudgetTracker = new AddBudgetTracker();
+        addBudgetTracker.startAddFragment();
+    }
 }

@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.myproject.offlinebudgettrackerappproject.databinding.ActivityMainBind
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.Currency;
+import com.myproject.offlinebudgettrackerappproject.model.ItemSpendingViewModel;
 
 import java.util.List;
 
@@ -40,6 +42,7 @@ public class SearchFragment extends Fragment {
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
     private static final int RESULT_OK = -1;
     BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel;
+
     List<BudgetTrackerSpending> searchStoreNameLists;
     List<BudgetTrackerSpending> searchProductNameLists;
     List<BudgetTrackerSpending> searchProductTypeLists;
@@ -60,6 +63,7 @@ public class SearchFragment extends Fragment {
     SharedPreferences sharedPreferences;
     String calcSumStr;
     TextView searchCalcResultTxt;
+    ItemSpendingViewModel itemSpendingViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -126,6 +130,8 @@ public class SearchFragment extends Fragment {
         Currency currency = Currency.getCurrencyArrayList().get(currentCurrencyNum);
         searchCalcResultTxt.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
+        budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
+
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -169,7 +175,7 @@ public class SearchFragment extends Fragment {
                 String searchKey = searchName.getText().toString();
                 String dateFrom = searchDateFrom.getText().toString();
                 String dateTo = searchDateTo.getText().toString();
-                budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
+
                 if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_store_name) {
                     transferStore(searchKey, dateFrom, dateTo);
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_name) {
@@ -194,11 +200,17 @@ public class SearchFragment extends Fragment {
         searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String date = adapterView.getItemAtPosition(position).toString();
                 List<BudgetTrackerSpending> budgetSpendingListItems = searchStoreNameLists;
                 int intId = (int) id;
                 BudgetTrackerSpending storeItemId = budgetSpendingListItems.get(intId);
 
+                //new ItemSpendingViewModel
+//                itemSpendingViewModel = new ViewModelProvider(requireActivity()).get(ItemSpendingViewModel.class);
+
+                //set id of the particular record and pass it to ViewModel
+//                itemSpendingViewModel.setData(Integer.parseInt(String.valueOf(id)));
+
+                passData(storeItemId.getId());
 
 
                 //fragment intent
@@ -278,5 +290,21 @@ public class SearchFragment extends Fragment {
         });
     }
 
+
+    public interface OnDataPass {
+        public void onDataPass(Integer data);
+    }
+
+    OnDataPass dataPasser;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataPasser = (OnDataPass) context;
+    }
+
+    public void passData(Integer data) {
+        dataPasser.onDataPass(data);
+    }
 
 }

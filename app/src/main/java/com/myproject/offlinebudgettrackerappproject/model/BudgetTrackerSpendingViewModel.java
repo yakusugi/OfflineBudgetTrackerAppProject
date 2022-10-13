@@ -99,4 +99,5 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
 
     //For getting ID for tapped item in a listview
     public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {return repository.getBudgetTrackerSpendingId(id);}
+
 }
