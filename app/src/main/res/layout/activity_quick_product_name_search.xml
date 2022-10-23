@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuickStoreSearchActivity">
+    tools:context=".QuickProductTypeSearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/quick_store_title"
+            android:id="@+id/quick_product_name_title"
             android:layout_marginTop="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,15 +21,15 @@
             tools:ignore="MissingConstraints">
 
             <TextView
-                android:id="@+id/title_quick_store"
+                android:id="@+id/title_quick_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quick search (store)"
+                android:text="Quick search (Product name)"
                 android:textSize="22sp" />
 
             <TextView
                 android:layout_marginTop="6dp"
-                android:layout_below="@+id/title_quick_store"
+                android:layout_below="@+id/title_quick_product_name"
                 android:text="Your money, your life"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
@@ -37,14 +37,14 @@
 
             <ImageView
                 android:layout_alignParentRight="true"
-                android:src="@drawable/shopping_online"
+                android:src="@drawable/products"
                 android:layout_width="62dp"
                 android:layout_height="62dp"/>
 
         </RelativeLayout>
 
         <EditText
-            android:id="@+id/quick_store_name"
+            android:id="@+id/quick_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -60,11 +60,10 @@
             android:paddingEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_radio_group" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/quick_store_calc_result_txt"
+            android:id="@+id/quick_product_name_calc_result_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -80,12 +79,11 @@
             android:paddingEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
-
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/quick_store_btn"
+            android:id="@+id/quick_product_name_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -99,7 +97,7 @@
             />
 
         <ListView
-            android:id="@+id/quick_product_type_listview"
+            android:id="@+id/quick_product_name_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

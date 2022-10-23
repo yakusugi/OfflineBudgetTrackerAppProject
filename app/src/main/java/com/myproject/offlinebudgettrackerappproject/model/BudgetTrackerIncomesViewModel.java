@@ -16,6 +16,7 @@ public class BudgetTrackerIncomesViewModel extends AndroidViewModel {
     public static BudgetTrackerIncomesRepository incomesRepository;
     public LiveData<List<BudgetTrackerIncomes>> allBudgetTrackerIncomesList;
     public List<BudgetTrackerIncomes> categoryNameList;
+    private double quickCategorySum;
 
     public BudgetTrackerIncomesViewModel(@NonNull Application application) {
         super(application);
@@ -47,6 +48,11 @@ public class BudgetTrackerIncomesViewModel extends AndroidViewModel {
 //    public LiveData<BudgetTrackerIncome> getBudgetTrackerIncomeId(int id) {return incomeRepository.getBudgetTrackerIncomeId(id);}
 //    public static void updateBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {incomeRepository.updateBudgetTrackerIncome(budgetTrackerIncome);}
 //    public static void deleteBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {incomeRepository.deleteBudgetTrackerIncome(budgetTrackerIncome);}
+
+    public double getQuickCategorySum(String category) {
+        quickCategorySum = incomesRepository.getQuickCategorySum(category);
+            return quickCategorySum;
+    }
 
 
 }

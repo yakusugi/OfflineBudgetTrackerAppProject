@@ -16,10 +16,14 @@ public class BudgetTrackerSpendingRepository {
     private List<BudgetTrackerSpending> radioSearchProductNameLists;
     private List<BudgetTrackerSpending> radioSearchProductTypeLists;
     private List<BudgetTrackerSpending> quickStoreNameList;
+    private List<BudgetTrackerSpending> quickProductTypeList;
+    private List<BudgetTrackerSpending> quickProductNameList;
     private double searchStoreSum;
     private double searchProductSum;
     private double searchProductTypeSum;
     private double quickStoreSum;
+    private double quickProductTypeSum;
+    private double quickProductNameSum;
     private List<BudgetTrackerSpending> storeNameList;
     private List<BudgetTrackerSpending> productNameList;
     private List<BudgetTrackerSpending> productTypeList;
@@ -128,5 +132,27 @@ public class BudgetTrackerSpendingRepository {
     public double getQuickStoreSum(String storeName) {
         quickStoreSum = budgetTrackerSpendingDao.getQuickStoreSum(storeName);
         return quickStoreSum;
+    }
+
+    //For Quick search (Product type)
+    public List<BudgetTrackerSpending> getQuickProductTypeList(String productType) {
+        quickProductTypeList = budgetTrackerSpendingDao.getQuickProductTypeList(productType);
+        return quickProductTypeList;
+    }
+
+    public double getQuickProductTypeSum(String productType) {
+        quickProductTypeSum = budgetTrackerSpendingDao.getQuickProductTypeSum(productType);
+        return quickProductTypeSum;
+    }
+
+    //For Quick search (Product name)
+    public List<BudgetTrackerSpending> getQuickProductNameList(String productName) {
+        quickProductNameList = budgetTrackerSpendingDao.getQuickProductNameList(productName);
+        return quickProductNameList;
+    }
+
+    public double getQuickProductNameSum(String productName) {
+        quickProductNameSum = budgetTrackerSpendingDao.getQuickProductNameSum(productName);
+        return quickProductNameSum;
     }
 }

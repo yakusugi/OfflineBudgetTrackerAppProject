@@ -77,8 +77,21 @@ public interface BudgetTrackerSpendingDao {
     @Query("SELECT * FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%'")
     List<BudgetTrackerSpending> getQuickStoreNameList(String storeName);
 
-
     @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%'")
     double getQuickStoreSum(String storeName);
+
+    //For Quick search (Product type)
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE product_type LIKE '%' || :productType|| '%'")
+    List<BudgetTrackerSpending> getQuickProductTypeList(String productType);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE product_type LIKE '%' || :productType|| '%'")
+    double getQuickProductTypeSum(String productType);
+
+    //For Quick search (Product name)
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE product_name LIKE '%' || :productName|| '%'")
+    List<BudgetTrackerSpending> getQuickProductNameList(String productName);
+
+    @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE product_name LIKE '%' || :productName|| '%'")
+    double getQuickProductNameSum(String productName);
 
 }

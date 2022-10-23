@@ -19,6 +19,7 @@ public class BudgetTrackerIncomesRepository {
     private List<BudgetTrackerSpending> dateLists;
     private LiveData<List<BudgetTrackerIncomes>> allBudgetTrackerIncomesList;
     private List<BudgetTrackerIncomes> categoryNameList;
+    private double quickCategorySum;
 
     public BudgetTrackerIncomesRepository(Application application) {
         BudgetTrackerDatabase db = BudgetTrackerDatabase.getDatabase(application);
@@ -61,4 +62,11 @@ public class BudgetTrackerIncomesRepository {
 //    public void deleteBudgetTrackerIncome(BudgetTrackerIncome budgetTrackerIncome) {
 //        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerIncomeDao.deleteBudgetTrackerIncome(budgetTrackerIncome));
 //    }
+
+    //For Quick search (Product name)
+
+    public double getQuickCategorySum(String categoryName) {
+        quickCategorySum = budgetTrackerIncomesDao.getQuickCategorySum(categoryName);
+        return quickCategorySum;
+    }
 }

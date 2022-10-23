@@ -47,4 +47,9 @@ public interface BudgetTrackerIncomesDao {
     //delete
     @Delete
     void deleteBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes);
+
+    //For Quick search (Category)
+
+    @Query("SELECT SUM(amount) FROM budget_tracker_incomes_table WHERE category LIKE '%' || :category|| '%'")
+    double getQuickCategorySum(String category);
 }

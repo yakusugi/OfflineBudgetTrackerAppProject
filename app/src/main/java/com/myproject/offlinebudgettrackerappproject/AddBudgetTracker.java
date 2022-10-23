@@ -31,6 +31,7 @@ public class AddBudgetTracker extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
 
         bottomNavigationView.setSelectedItemId(R.id.nav_spending);
+        bottomNavigationView.setItemIconTintList(null);
         itemSpendingViewModel = new ViewModelProvider(this).get(ItemSpendingViewModel.class);
         itemSpendingViewModel.getSelectedItem().observe(this, new Observer<Integer>() {
             @Override
@@ -38,6 +39,7 @@ public class AddBudgetTracker extends AppCompatActivity {
                 id = liveId.intValue();
             }
         });
+//        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
 //        id = itemSpendingViewModel.getSelectedItem();
 //        Log.d(TAG, "startAddFragment1008: " + id);
 
@@ -66,6 +68,8 @@ public class AddBudgetTracker extends AppCompatActivity {
 
     //todo: new method receive info from MainActivity and activate a specific fragment
     protected void startAddFragment() {
+
+
         Log.d(TAG, "startAddFragment1008: " + id);
 
 

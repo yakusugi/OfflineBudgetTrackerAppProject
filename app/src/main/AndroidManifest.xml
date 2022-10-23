@@ -20,6 +20,15 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".QuickProductTypeSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickProductNameSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IncomeCategorySearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".BudgetTrackerIncomesActivity"
             android:exported="false" />
         <activity

@@ -16,10 +16,14 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public List<BudgetTrackerSpending> radioSearchProductNameLists;
     public List<BudgetTrackerSpending> radioSearchProductTypeLists;
     private List<BudgetTrackerSpending> quickStoreNameList;
+    private List<BudgetTrackerSpending> quickProductTypeList;
+    private List<BudgetTrackerSpending> quickProductNameList;
     private double searchStoreSum;
     private double searchProductSum;
     private double searchProductTypeSum;
     private double quickStoreSum;
+    private double quickProductTypeSum;
+    private double quickProductNameSum;
     public List<BudgetTrackerSpending> storeNameList;
     public List<BudgetTrackerSpending> productNameList;
     public List<BudgetTrackerSpending> productTypeList;
@@ -111,5 +115,27 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public double getQuickStoreSum(String storeName) {
         quickStoreSum = repository.getQuickStoreSum(storeName);
         return quickStoreSum;
+    }
+
+    //For Quick search (Product Type)
+    public List<BudgetTrackerSpending> getQuickProductTypeList(String productType) {
+        quickProductTypeList = repository.getQuickProductTypeList(productType);
+        return quickProductTypeList;
+    }
+
+    public double getQuickProductTypeSum(String productType) {
+        quickProductTypeSum = repository.getQuickProductTypeSum(productType);
+        return quickProductTypeSum;
+    }
+
+    //For Quick search (Product Name)
+    public List<BudgetTrackerSpending> getQuickProductNameList(String productName) {
+        quickProductNameList = repository.getQuickProductNameList(productName);
+        return quickProductNameList;
+    }
+
+    public double getQuickProductNameSum(String productName) {
+        quickProductNameSum = repository.getQuickProductNameSum(productName);
+        return quickProductNameSum;
     }
 }

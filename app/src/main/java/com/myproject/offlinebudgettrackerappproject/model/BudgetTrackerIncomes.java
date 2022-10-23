@@ -28,6 +28,9 @@ public class BudgetTrackerIncomes {
         this.notes = notes;
     }
 
+    public BudgetTrackerIncomes(String searchKey) {
+    }
+
     public int getId() {
         return id;
     }
