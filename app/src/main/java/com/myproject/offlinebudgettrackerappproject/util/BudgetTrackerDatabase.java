@@ -12,6 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerAliasDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerBankingDao;
+import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerConverterDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeDao;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerIncomeTypeDao;
@@ -24,6 +25,7 @@ import com.myproject.offlinebudgettrackerappproject.model.BudgetTracker;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerAlias;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBank;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerConverter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncome;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomeType;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomes;
@@ -35,7 +37,7 @@ import com.myproject.offlinebudgettrackerappproject.model.CurrencyConverter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class, BudgetTrackerBanking.class, BudgetTrackerIncomes.class, CurrencyConverter.class}, version = 13, exportSchema = false
+@Database(entities = {BudgetTracker.class, BudgetTrackerIncome.class, BudgetTrackerBank.class, BudgetTrackerAlias.class, BudgetTrackerProductType.class, BudgetTrackerIncomeType.class, BudgetTrackerSpending.class, BudgetTrackerSpendingAlias.class, BudgetTrackerBanking.class, BudgetTrackerIncomes.class, CurrencyConverter.class, BudgetTrackerConverter.class}, version = 14, exportSchema = false
 )
 public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerDao budgetTrackerDao();
@@ -49,6 +51,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
     public abstract BudgetTrackerBankingDao budgetTrackerBankingDao();
     public abstract BudgetTrackerIncomesDao budgetTrackerIncomesDao();
     public abstract CurrencyConverterDao currencyConverterDao();
+    public abstract BudgetTrackerConverterDao budgetTrackerConverterDao();
 
     public static final int NUMBER_OF_THREADS = 4;
 
@@ -77,6 +80,7 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                             .addMigrations(MIGRATION_10_11)
                             .addMigrations(MIGRATION_11_12)
                             .addMigrations(MIGRATION_12_13)
+                            .addMigrations(MIGRATION_13_14)
                             .addCallback(sRoomDatabaseSpendingCallback)
                             .build();
                 }
@@ -95,64 +99,6 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                         BudgetTrackerDao budgetTrackerDao = INSTANCE.budgetTrackerDao();
                         BudgetTrackerIncomeDao budgetTrackerIncomeDao = INSTANCE.budgetTrackerIncomeDao();
                         budgetTrackerDao.deleteAll();
-                    });
-                }
-            };
-
-    private static final RoomDatabase.Callback prePopulateProductIncomeType =
-            new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-
-                    dataWritableExecutor.execute(() -> {
-                        BudgetTrackerProductTypeDao budgetTrackerProductTypeDao = INSTANCE.budgetTrackerProductTypeDao();
-                        BudgetTrackerIncomeTypeDao budgetTrackerIncomeTypeDao = INSTANCE.budgetTrackerIncomeTypeDao();
-
-                        //BudgetTrackerProductType Insert
-                        BudgetTrackerProductType budgetTrackerProductType  = new BudgetTrackerProductType("App");
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Book");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Book(Digital)");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Clothing");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Entertainment");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Food & Drink");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Gadget");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Grocery");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Health Care");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Medical");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Other");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Public Services");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Rent");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Tax");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Transportation");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-                        budgetTrackerProductType  = new BudgetTrackerProductType("Travel");
-                        budgetTrackerProductTypeDao.insert(budgetTrackerProductType);
-
-                        //BudgetTrackerIncomeType Insert
-                        BudgetTrackerIncomeType budgetTrackerIncomeType  = new BudgetTrackerIncomeType("Business");
-                        budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
-                        budgetTrackerIncomeType  = new BudgetTrackerIncomeType("Other");
-                        budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
-                        budgetTrackerIncomeType  = new BudgetTrackerIncomeType("Rent");
-                        budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
-                        budgetTrackerIncomeType  = new BudgetTrackerIncomeType("Salary");
-                        budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
-                        budgetTrackerIncomeType  = new BudgetTrackerIncomeType("Sold");
-                        budgetTrackerIncomeTypeDao.insert(budgetTrackerIncomeType);
                     });
                 }
             };
@@ -314,6 +260,26 @@ public abstract class BudgetTrackerDatabase extends RoomDatabase {
                     "original_currency_balance REAL," +
                     "converted_currency TEXT," +
                     "converted_currency_balance REAL)");
+        }
+    };
+
+    public static final Migration MIGRATION_13_14 = new Migration(13, 14) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE budget_tracker_converter_table (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "date TEXT," +
+                    "store_name TEXT," +
+                    "product_name TEXT," +
+                    "product_type TEXT," +
+                    "is_tax INTEGER," +
+                    "tax_rate REAL," +
+                    "notes TEXT," +
+                    "original_currency TEXT," +
+                    "original_currency_price REAL," +
+                    "target_currency TEXT," +
+                    "target_currency_price REAL," +
+                    "converted_date TEXT)");
         }
     };
 

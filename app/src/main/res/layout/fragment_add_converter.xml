@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddConverterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/add_converter_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/title_converter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expense (Price converter)"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/sub_title_converter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_converter"
+            android:layout_marginTop="6dp"
+            android:text="Your money, your life"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/transfer" />
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/add_converter_table_row1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/add_spending_banner"
+        tools:ignore="MissingConstraints">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/add_converter_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:hint="@string/new_budget_tracker_date_hint"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_spending_banner"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+
+            <EditText
+                android:id="@+id/add_converter_store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/new_budget_tracker_store_name_hint"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spd_enter_product_name"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/ic_baseline_shopping_cart_24"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:drawablePadding="12dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+    </TableLayout>
+
+        <TableLayout
+            android:id="@+id/add_converter_table_row2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_spending_banner"
+            tools:ignore="MissingConstraints">
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/add_converter_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:hint="@string/new_budget_tracker_product_name_hint"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_enter_store_name"
+                    android:drawableStart="@drawable/ic_product"
+                    android:background="@drawable/custom_input"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:drawablePadding="12dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText
+                    android:id="@+id/add_converter_product_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:hint="@string/new_budget_tracker_product_type_hint"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_enter_product_name"
+                    android:drawableStart="@drawable/ic_category"
+                    android:background="@drawable/custom_input"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:drawablePadding="12dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/isTaxTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="Is VAT included?"
+            android:minHeight="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spd_enter_price"
+            android:paddingEnd="5dp"
+            android:drawablePadding="12dp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <RadioGroup
+            android:id="@+id/add_converter_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isTaxTextView"
+            tools:ignore="MissingConstraints">
+
+            <RadioButton
+                android:id="@+id/add_converter_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="No" />
+
+            <RadioButton
+                android:id="@+id/add_converter_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes" />
+
+
+        </RadioGroup>
+
+        <TableLayout
+            android:id="@+id/add_converter_table_row3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_spending_banner"
+            tools:ignore="MissingConstraints">
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/add_converter_vat_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_money_icon"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="@string/new_budget_tracker_vat_hint"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_radio_group"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText
+                    android:id="@+id/add_converter_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_baseline_edit_note_24"
+                    android:drawablePadding="12dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:ems="10"
+                    android:hint="@string/new_budget_tracker_notes_hint"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_vat_rate"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/add_converter_table_row4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_spending_banner"
+            tools:ignore="MissingConstraints">
+
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/original_currency_spinner"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:layout_marginTop="5dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_notes"
+                    tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+                <EditText
+                    android:id="@+id/original_currency_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_money_icon"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="@string/foreign_currency_price_hint"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_enter_product_type"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/add_converter_table_row5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_spending_banner"
+            tools:ignore="MissingConstraints">
+
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/target_currency_spinner"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:layout_marginTop="5dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_notes"
+                    tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/target_currency_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/ic_money"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:hint="@string/your_currency_proce_hint"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:paddingEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_enter_product_type"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/add_converter_table_row6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_spending_banner"
+            tools:ignore="MissingConstraints">
+
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/add_converter_bank_spinner"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:layout_marginTop="5dp"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_notes"
+                    tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+                <Button
+                    android:id="@+id/currency_converter_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Convert"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/spd_update_btn"
+                    android:background="@drawable/rounded_corner"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_save_button" />
+
+            </TableRow>
+
+        </TableLayout>
+
+
+
+
+
+        <TableLayout
+            android:id="@+id/add_converter_table_row7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/add_spending_banner"
+            tools:ignore="MissingConstraints">
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/add_converter_delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Delete"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/spd_update_btn"
+                    android:background="@drawable/rounded_corner"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_save_button" />
+
+                <Button
+                    android:id="@+id/add_converter_save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Save"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@drawable/rounded_corner"
+                    app:layout_constraintTop_toBottomOf="@+id/icm_budget_tracker_spinner" />
+
+                <Button
+                    android:id="@+id/add_converter_update_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Update"
+                    app:layout_constraintEnd_toStartOf="@+id/spd_delete_btn"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@drawable/rounded_corner"
+                    app:layout_constraintTop_toBottomOf="@+id/spd_save_button" />
+
+            </TableRow>
+
+        </TableLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

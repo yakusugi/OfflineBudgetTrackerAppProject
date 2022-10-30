@@ -24,9 +24,10 @@ public class CurrencyConverterAPIs {
 
     public static String currencyConverter(String currentCurrencyString, String targetCurrencyString, Double bankBalanceNum) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
+        String url1 = "https://api.apilayer.com/exchangerates_data/convert?to=";
 
         //YouTube tutorial
-        String url  = "https://api.apilayer.com/exchangerates_data/convert?to=" + targetCurrencyString + "&from=" + currentCurrencyString + "&amount=" + bankBalanceNum;
+        String url  = url1 + targetCurrencyString + "&from=" + currentCurrencyString + "&amount=" + bankBalanceNum;
         String apiKey = "GHSOg6VcH44yR9oKUQBm19JPhoGbq0mD";
 
 
@@ -62,4 +63,48 @@ public class CurrencyConverterAPIs {
 
         return convertedResult;
     }
+
+    public static String currencyDateConverter(String currentCurrencyString, String targetCurrencyString, Double foreignPriceNum, String date) throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        String url1 = "https://api.apilayer.com/exchangerates_data/convert?to=";
+
+        //YouTube tutorial
+        String url  = url1 + targetCurrencyString + "&from=" + currentCurrencyString + "&amount=" + foreignPriceNum + "&date=" + date;
+        String apiKey = "GHSOg6VcH44yR9oKUQBm19JPhoGbq0mD";
+
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("apiKey", apiKey)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String myResponse = response.body().string();
+                Log.d("TAG0905", "convertedResult: " + myResponse);
+
+                JSONObject obj = null;
+                try {
+                    obj = new JSONObject(myResponse);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    convertedResult = obj.getString("result");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return convertedResult;
+    }
+
+
 }

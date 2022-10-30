@@ -6,6 +6,10 @@
         android:icon="@drawable/shopping_online"
         android:title="Spending" />
     <item
+        android:id="@+id/nav_converter"
+        android:icon="@drawable/transfer"
+        android:title="Converter" />
+    <item
         android:id="@+id/nav_income"
         android:icon="@drawable/rich"
         android:title="Income" />

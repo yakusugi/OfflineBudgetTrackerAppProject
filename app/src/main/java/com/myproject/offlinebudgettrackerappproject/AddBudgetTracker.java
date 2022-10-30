@@ -53,6 +53,9 @@ public class AddBudgetTracker extends AppCompatActivity {
                     case R.id.nav_spending:
                         fragment = new AddSpendingFragment();
                         break;
+                    case R.id.nav_converter:
+                        fragment = new AddConverterFragment();
+                        break;
                     case R.id.nav_income:
                         fragment = new AddIncomeFragment();
                         break;

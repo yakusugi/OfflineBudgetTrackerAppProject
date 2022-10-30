@@ -36,4 +36,8 @@
     <string name="convert_hint">Converted result here</string>
     <string name="converter_bank_balance">Bank balance</string>
     <string name="converter_current_currency">Currenct currency</string>
+    <string name="original_currency_hint">Original currency</string>
+    <string name="target_currency_hint">Target currency</string>
+    <string name="foreign_currency_price_hint">Foreign currency price</string>
+    <string name="your_currency_proce_hint">Your currency price</string>
 </resources>
