@@ -38,6 +38,7 @@ public class CurrencyConverterListViewAdapter extends ArrayAdapter<CurrencyConve
     }
 
 
+
     //When tapped
     public void setOnItemClickListener(View.OnClickListener listener) {
         this.listener = listener;
