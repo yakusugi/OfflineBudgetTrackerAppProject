@@ -72,9 +72,7 @@ public class AddBudgetTracker extends AppCompatActivity {
     //todo: new method receive info from MainActivity and activate a specific fragment
     protected void startAddFragment() {
 
-
         Log.d(TAG, "startAddFragment1008: " + id);
-
 
     }
 

@@ -7,8 +7,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,6 +22,7 @@ public class SpendingTrackerActivity extends AppCompatActivity {
     private ListView listView;
     private SpendingTrackerListViewAdapter spendingTrackerListViewAdapter;
     LiveData<List<BudgetTrackerSpending>> searchLists;
+    List<BudgetTrackerSpending> budgetSpendingListItems = (List<BudgetTrackerSpending>) searchLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,34 +46,22 @@ public class SpendingTrackerActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                List<BudgetTrackerSpending> budgetSpendingListItems = (List<BudgetTrackerSpending>) searchLists;
-                int intId = (int) id;
-                BudgetTrackerSpending itemId = budgetSpendingListItems.get(intId);
-                Bundle result = new Bundle();
-                result.putInt("itemId", itemId.getId());
 
-                Fragment fragment = new AddSpendingFragment();
-                fragment.setArguments(result);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.setFragmentResult("itemId", result);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.activity_add_container, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-
-//                BudgetTracker storeItemId = budgetListItems.get(intId);
-//                Intent shopFragmentIntent = new Intent(getActivity(), NewBudgetTracker.class);
-//                shopFragmentIntent.putExtra(SHOP_FRAGMENT_ID, storeItemId.getId());
-//                startActivityForResult(shopFragmentIntent, 1);
-//
-//                BudgetTrackerSpending budgetTrackerSpending = Objects.requireNonNull(budgetTrackerSpendingViewModel.getAllSpendingData().getValue().get(position));
-//                Log.d(TAG, "onContactClick: " + position + budgetTrackerSpending.getId());
-//
-//                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
+                BudgetTrackerSpending spending = budgetSpendingListItems.get(position);
+                MainActivity mainActivity = new MainActivity();
+                if(mainActivity != null) {
+                    Fragment fragment = AddSpendingFragment.newInstance(spending);
+                    mainActivity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
+
         });
+
+
     }
 
 }

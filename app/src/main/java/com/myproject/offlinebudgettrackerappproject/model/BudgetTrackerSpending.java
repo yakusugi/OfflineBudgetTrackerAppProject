@@ -7,8 +7,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "budget_tracker_spending_table")
-public class BudgetTrackerSpending {
+public class BudgetTrackerSpending implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
