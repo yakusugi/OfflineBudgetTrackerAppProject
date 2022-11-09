@@ -5,9 +5,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.SpendingTrackerListViewAdapter;
@@ -22,7 +24,9 @@ public class SpendingTrackerActivity extends AppCompatActivity {
     private ListView listView;
     private SpendingTrackerListViewAdapter spendingTrackerListViewAdapter;
     LiveData<List<BudgetTrackerSpending>> searchLists;
-    List<BudgetTrackerSpending> budgetSpendingListItems = (List<BudgetTrackerSpending>) searchLists;
+    List<BudgetTrackerSpending> budgetSpendingListItems;
+    Observer<List> listObserver = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,18 @@ public class SpendingTrackerActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                listObserver = new Observer<List>() {
+                    @Override
+                    public void onChanged(@Nullable final List searchResultList) {
+                        // Update the UI, in this case, a TextView.
+                        budgetSpendingListItems = searchResultList;
+                    }
+                };
+
 
                 BudgetTrackerSpending spending = budgetSpendingListItems.get(position);
                 MainActivity mainActivity = new MainActivity();
-                if(mainActivity != null) {
+                if (mainActivity != null) {
                     Fragment fragment = AddSpendingFragment.newInstance(spending);
                     mainActivity.getSupportFragmentManager()
                             .beginTransaction()
@@ -61,7 +73,10 @@ public class SpendingTrackerActivity extends AppCompatActivity {
 
         });
 
+        budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, listObserver);
+
 
     }
+
 
 }
