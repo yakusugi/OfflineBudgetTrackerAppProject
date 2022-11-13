@@ -47,6 +47,8 @@ public class SpendingTrackerActivity extends AppCompatActivity {
 
         });
 
+        budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, listObserver);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -72,9 +74,6 @@ public class SpendingTrackerActivity extends AppCompatActivity {
             }
 
         });
-
-        budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, listObserver);
-
 
     }
 
