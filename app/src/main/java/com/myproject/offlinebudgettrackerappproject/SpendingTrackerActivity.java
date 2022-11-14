@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -16,6 +15,7 @@ import com.myproject.offlinebudgettrackerappproject.adapter.SpendingTrackerListV
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpendingTrackerActivity extends AppCompatActivity {
@@ -47,16 +47,17 @@ public class SpendingTrackerActivity extends AppCompatActivity {
 
         });
 
+        budgetSpendingListItems = new ArrayList<>();
+
         budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, listObserver);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                listObserver = new Observer<List>() {
+                final Observer<List> listObserver = new Observer<List>() {
                     @Override
-                    public void onChanged(@Nullable final List searchResultList) {
-                        // Update the UI, in this case, a TextView.
-                        budgetSpendingListItems = searchResultList;
+                    public void onChanged(List list) {
+                        budgetSpendingListItems = list;
                     }
                 };
 
