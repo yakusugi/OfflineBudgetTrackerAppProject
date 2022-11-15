@@ -16,7 +16,6 @@ import com.myproject.offlinebudgettrackerappproject.adapter.SpendingTrackerListV
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpendingTrackerActivity extends AppCompatActivity {
@@ -48,9 +47,9 @@ public class SpendingTrackerActivity extends AppCompatActivity {
 
         });
 
-        budgetSpendingListItems = new ArrayList<>();
-
-        budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, listObserver);
+//        budgetSpendingListItems = new ArrayList<>();
+//
+//        budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, listObserver);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
