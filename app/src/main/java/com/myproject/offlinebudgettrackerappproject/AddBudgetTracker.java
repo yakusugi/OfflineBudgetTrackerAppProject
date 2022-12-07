@@ -9,11 +9,13 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.ItemSpendingViewModel;
 
 public class AddBudgetTracker extends AppCompatActivity {
@@ -21,11 +23,14 @@ public class AddBudgetTracker extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     ItemSpendingViewModel itemSpendingViewModel;
     int id;
+    static final String EXTRA_DATA = "data";
+    private static final String REQUEST_EDIT = "edit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_budget_tracker);
+
 
         bottomNavigationView = findViewById(R.id.add_bottom_navigation);
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
@@ -42,6 +47,16 @@ public class AddBudgetTracker extends AppCompatActivity {
 //        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
 //        id = itemSpendingViewModel.getSelectedItem();
 //        Log.d(TAG, "startAddFragment1008: " + id);
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.setFragmentResultListener(REQUEST_EDIT, this, (requestKey, result) -> {
+            finish();
+        });
+
+        if(savedInstanceState == null) {
+            BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getIntent().getSerializableExtra(EXTRA_DATA);
+            fm.beginTransaction().replace(R.id.activity_add_container, AddSpendingFragment.newInstance(REQUEST_EDIT, budgetTrackerSpending)).commit();
+        }
 
 
 
