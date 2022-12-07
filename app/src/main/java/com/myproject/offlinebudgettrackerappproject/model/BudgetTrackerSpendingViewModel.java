@@ -1,13 +1,21 @@
 package com.myproject.offlinebudgettrackerappproject.model;
 
+import static android.provider.Telephony.Mms.Part.FILENAME;
+
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
 import com.myproject.offlinebudgettrackerappproject.data.BudgetTrackerSpendingRepository;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.List;
 
 public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
@@ -28,6 +36,9 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public List<BudgetTrackerSpending> productNameList;
     public List<BudgetTrackerSpending> productTypeList;
     public LiveData<List<BudgetTrackerSpending>> allBudgetTrackerSpendingList;
+    private MutableLiveData<List<BudgetTrackerSpending>> dataListLiveData = new MutableLiveData<>(null);
+
+
 
     public BudgetTrackerSpendingViewModel(@NonNull Application application) {
         super(application);
@@ -103,8 +114,8 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
         return productTypeList;
     }
 
-    //For getting ID for tapped item in a listview
-    public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {return repository.getBudgetTrackerSpendingId(id);}
+    //todo temporality commented out For getting ID for tapped item in a listview
+//    public LiveData<BudgetTrackerSpending> getBudgetTrackerSpendingId(int id) {return repository.getBudgetTrackerSpendingId(id);}
 
     //For Quick search (Store)
     public List<BudgetTrackerSpending> getQuickStoreNameList(String storeName) {
@@ -138,4 +149,46 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
         quickProductNameSum = repository.getQuickProductNameSum(productName);
         return quickProductNameSum;
     }
+
+    // todo: 2022/12/07 for listview tap
+
+    private void writeFile() {
+        try(Writer w = new PrintWriter(getApplication().openFileOutput(FILENAME, Context.MODE_PRIVATE))) {
+            w.write(new Gson().toJson(dataListLiveData.getValue()));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    LiveData<List<BudgetTrackerSpending>> getDataList() { return dataListLiveData; }
+//
+//    void delete(long id) {
+//        if(deleteFromList(id)) writeFile();
+//    }
+//    private boolean deleteFromList(long id) {
+//        List<BudgetTrackerSpending> list = dataListLiveData.getValue();
+//        for(int i=0; i<list.size(); i++) {
+//            if(list.get(i).id == id) {
+//                list.remove(i);
+//                dataListLiveData.setValue(list); //一応オブザーバへ通知
+//                return true; //更新有り
+//            }
+//        }
+//        return false;
+//    }
+//
+//    void update(Data data) {
+//        if(updateListElement(data)) writeFile();
+//    }
+//    private boolean updateListElement(Data data) {
+//        List<Data> list = dataListLiveData.getValue();
+//        for(int i=0; i<list.size(); i++) {
+//            if(list.get(i).id == data.id) {
+//                list.set(i, data);
+//                dataListLiveData.setValue(list); //一応オブザーバへ通知
+//                return true; //更新有り
+//            }
+//        }
+//        return false;
+//    }
 }

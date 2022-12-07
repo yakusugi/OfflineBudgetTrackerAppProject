@@ -75,4 +75,6 @@ dependencies {
     //  for fragments
     def fragment_version = "1.5.2"
     implementation "androidx.fragment:fragment:$fragment_version"
+
+    implementation "com.google.code.gson:gson:2.10"
 }

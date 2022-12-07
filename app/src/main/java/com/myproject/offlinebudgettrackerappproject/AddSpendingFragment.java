@@ -126,7 +126,17 @@ public class AddSpendingFragment extends Fragment {
         enterPrice.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
         enterVatRate.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
+        // 2022/12/07 received data from list view and put them in textview for update/delete
         String requestKey = getArguments().getString(ARG_REQUESTKEY);
+        BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getArguments().getSerializable(ARG_DATA);
+
+        enterDate.setText(budgetTrackerSpending.getDate());
+        enterStoreName.setText(budgetTrackerSpending.getStoreName());
+        enterProductName.setText(budgetTrackerSpending.getProductName());
+        enterProductType.setText(budgetTrackerSpending.getProductType());
+        enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
+        enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
+        enterNotes.setText(budgetTrackerSpending.getNotes());
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -286,7 +296,7 @@ public class AddSpendingFragment extends Fragment {
 //            }
 //        });
 
-        BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
+//        BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
         FragmentManager fm = getParentFragmentManager();
 
         Button deleteButton = view.findViewById(R.id.spd_delete_btn);
