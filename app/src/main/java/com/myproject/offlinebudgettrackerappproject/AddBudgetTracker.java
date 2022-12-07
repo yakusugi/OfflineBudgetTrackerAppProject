@@ -33,7 +33,8 @@ public class AddBudgetTracker extends AppCompatActivity {
 
 
         bottomNavigationView = findViewById(R.id.add_bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
+        //todo: 2022/12/07 temporality commented out
+//        getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
 
         bottomNavigationView.setSelectedItemId(R.id.nav_spending);
         bottomNavigationView.setItemIconTintList(null);

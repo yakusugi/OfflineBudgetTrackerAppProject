@@ -72,14 +72,14 @@ public class AddSpendingFragment extends Fragment {
     }
 
 
-
-    public static AddSpendingFragment newInstance(BudgetTrackerSpending spending) {
-        AddSpendingFragment fragment = new AddSpendingFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_SPENDING, spending);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//todo: 2022/12/07 temporality commented out
+//    public static AddSpendingFragment newInstance(BudgetTrackerSpending spending) {
+//        AddSpendingFragment fragment = new AddSpendingFragment();
+//        Bundle args = new Bundle();
+//        args.putSerializable(ARG_SPENDING, spending);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     public static AddSpendingFragment newInstance(String requestKey, BudgetTrackerSpending spending) {
         AddSpendingFragment fragment = new AddSpendingFragment();
@@ -223,6 +223,10 @@ public class AddSpendingFragment extends Fragment {
             }
         });
 
+
+
+
+        //todo: 2022.12.27 old update button
 //        updateButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -266,7 +270,7 @@ public class AddSpendingFragment extends Fragment {
 //                }
 //            }
 //        });
-
+//          todo: 2022.12.27 old delete button
 //        deleteButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -282,6 +286,7 @@ public class AddSpendingFragment extends Fragment {
 //            }
 //        });
 
+        BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
         FragmentManager fm = getParentFragmentManager();
 
         Button deleteButton = view.findViewById(R.id.spd_delete_btn);
@@ -295,6 +300,7 @@ public class AddSpendingFragment extends Fragment {
             if (activity != null) {
                 activity.getSupportFragmentManager().popBackStack();
             }
+//            budgetTrackerSpendingViewModel.
             fm.setFragmentResult(requestKey, new Bundle());
         });
 

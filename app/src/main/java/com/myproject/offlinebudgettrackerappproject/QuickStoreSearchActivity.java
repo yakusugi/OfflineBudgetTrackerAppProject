@@ -8,7 +8,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myproject.offlinebudgettrackerappproject.adapter.SpendingTrackerListViewAdapter;
@@ -55,12 +54,12 @@ public class QuickStoreSearchActivity extends AppCompatActivity {
                     BudgetTrackerSpending spending = searchList.get(position);
                     MainActivity mainActivity = new MainActivity();
                     if(mainActivity != null) {
-                        Fragment fragment = AddSpendingFragment.newInstance(spending);
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.main_container, fragment)
-                                .addToBackStack(null)
-                                .commit();
+//                        Fragment fragment = AddSpendingFragment.newInstance(spending);
+//                        getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .replace(R.id.main_container, fragment)
+//                                .addToBackStack(null)
+//                                .commit();
                     }
                 });
             }

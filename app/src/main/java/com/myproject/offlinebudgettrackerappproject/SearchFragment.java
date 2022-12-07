@@ -142,12 +142,12 @@ public class SearchFragment extends Fragment {
                     BudgetTrackerSpending spending = searchedSpendingList.get(position);
                     MainActivity mainActivity = ((MainActivity)getActivity());
                     if(mainActivity != null) {
-                        Fragment fragment = AddSpendingFragment.newInstance(spending);
-                        mainActivity.getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.main_container, fragment)
-                                .addToBackStack(null)
-                                .commit();
+//                        Fragment fragment = AddSpendingFragment.newInstance(spending);
+//                        mainActivity.getSupportFragmentManager()
+//                                .beginTransaction()
+//                                .replace(R.id.main_container, fragment)
+//                                .addToBackStack(null)
+//                                .commit();
                     }
                 });
             }
