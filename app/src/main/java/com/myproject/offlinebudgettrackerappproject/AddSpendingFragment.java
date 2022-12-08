@@ -130,13 +130,18 @@ public class AddSpendingFragment extends Fragment {
         String requestKey = getArguments().getString(ARG_REQUESTKEY);
         BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getArguments().getSerializable(ARG_DATA);
 
-        enterDate.setText(budgetTrackerSpending.getDate());
-        enterStoreName.setText(budgetTrackerSpending.getStoreName());
-        enterProductName.setText(budgetTrackerSpending.getProductName());
-        enterProductType.setText(budgetTrackerSpending.getProductType());
-        enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
-        enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
-        enterNotes.setText(budgetTrackerSpending.getNotes());
+        if (budgetTrackerSpending != null) {
+            enterDate.setText(budgetTrackerSpending.getDate());
+            enterStoreName.setText(budgetTrackerSpending.getStoreName());
+            enterProductName.setText(budgetTrackerSpending.getProductName());
+            enterProductType.setText(budgetTrackerSpending.getProductType());
+            enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
+            enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
+            enterNotes.setText(budgetTrackerSpending.getNotes());
+            isEdit = true;
+        }
+
+
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -301,11 +306,11 @@ public class AddSpendingFragment extends Fragment {
 
         Button deleteButton = view.findViewById(R.id.spd_delete_btn);
         deleteButton.setOnClickListener(v -> {
-            if (mSpending == null) {
+            if (budgetTrackerSpending == null) {
                 return;
             }
 
-            BudgetTrackerSpendingViewModel.deleteBudgetTrackerSpending(mSpending);
+            BudgetTrackerSpendingViewModel.deleteBudgetTrackerSpending(budgetTrackerSpending);
             FragmentActivity activity = getActivity();
             if (activity != null) {
                 activity.getSupportFragmentManager().popBackStack();
@@ -314,9 +319,9 @@ public class AddSpendingFragment extends Fragment {
             fm.setFragmentResult(requestKey, new Bundle());
         });
 
-        Button updateButton = view.findViewById(R.id.spd_update_btn);
+        // 2022/12/07 new update button
         updateButton.setOnClickListener(v -> {
-            if (mSpending == null) {
+            if (budgetTrackerSpending == null) {
                 return;
             }
 
@@ -339,7 +344,7 @@ public class AddSpendingFragment extends Fragment {
                 Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
             } else {
                 BudgetTrackerSpending newSpending = new BudgetTrackerSpending();
-                newSpending.setId(mSpending.getId());
+                newSpending.setId(budgetTrackerSpending.getId());
                 newSpending.setDate(date);
                 newSpending.setStoreName(storeName);
                 newSpending.setProductName(productName);
