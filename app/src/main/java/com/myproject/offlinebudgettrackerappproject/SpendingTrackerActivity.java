@@ -39,7 +39,7 @@ public class SpendingTrackerActivity extends AppCompatActivity {
                 .getApplication())
                 .create(BudgetTrackerSpendingViewModel.class);
 
-        searchLists = budgetTrackerSpendingViewModel.getAllSpendingData();
+//        searchLists = budgetTrackerSpendingViewModel.getAllSpendingData();
 
         budgetTrackerSpendingViewModel.getAllSpendingData().observe(this, contacts -> {
             spendingTrackerListViewAdapter = new SpendingTrackerListViewAdapter(contacts, SpendingTrackerActivity.this);
@@ -51,15 +51,11 @@ public class SpendingTrackerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-//                BudgetTrackerSpending spending = budgetSpendingListItems.get(position);
 
                 Intent intent = new Intent(SpendingTrackerActivity.this, AddBudgetTracker.class);
                 intent.putExtra(AddBudgetTracker.EXTRA_DATA, (BudgetTrackerSpending)listView.getItemAtPosition(position));
                 startActivity(intent);
 
-//                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                Fragment fragment = AddSpendingFragment.newInstance(spending);
-//                fragmentTransaction.replace(R.id.main_container, fragment).commit();
 
             }
 

@@ -1,8 +1,10 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myproject.offlinebudgettrackerappproject.adapter.BankNameSpinnerAdapter;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
@@ -37,7 +42,7 @@ import java.util.List;
 public class AddIncomeFragment extends Fragment {
 
     EditText enterDate, enterCategory, enterAmount, enterNotes;
-    Button saveButton;
+    Button saveButton, deleteButton, updateButton;
     SharedPreferences sharedPreferences;
     private static final String PREF_CURRENCY_FILENAME = "CURRENCY_SHARED";
     private static final String PREF_CURRENCY_VALUE = "currencyValue";
@@ -61,6 +66,9 @@ public class AddIncomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private static final String ARG_REQUESTKEY = "requestKey";
+    private static final String ARG_DATA = "data";
+
     public AddIncomeFragment() {
         // Required empty public constructor
     }
@@ -83,6 +91,15 @@ public class AddIncomeFragment extends Fragment {
         return fragment;
     }
 
+    public static AddIncomeFragment newInstance(String requestKey, BudgetTrackerIncomes incomes) {
+        AddIncomeFragment fragment = new AddIncomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_REQUESTKEY, requestKey);
+        args.putSerializable(ARG_DATA, incomes);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +109,7 @@ public class AddIncomeFragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,6 +120,8 @@ public class AddIncomeFragment extends Fragment {
         enterAmount = (EditText) view.findViewById(R.id.icm_enter_amount);
         enterNotes = (EditText) view.findViewById(R.id.icm_notes);
         saveButton = (Button) view.findViewById(R.id.icm_save_button);
+        deleteButton = (Button) view.findViewById(R.id.icm_delete_button);
+        updateButton = (Button) view.findViewById(R.id.icm_update_button);
         sharedPreferences = getActivity().getSharedPreferences(PREF_CURRENCY_FILENAME, 0);
         budgetTrackerSpinner = (Spinner) view.findViewById(R.id.icm_budget_tracker_spinner);
 
@@ -178,6 +198,75 @@ public class AddIncomeFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        // 2022/12/07 received data from list view and put them in textview for update/delete
+        String requestKey = getArguments().getString(ARG_REQUESTKEY);
+        BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes)getArguments().getSerializable(ARG_DATA);
+
+        if (budgetTrackerIncomes != null) {
+            enterDate.setText(budgetTrackerIncomes.getDate());
+            enterCategory.setText(budgetTrackerIncomes.getCategory());
+            enterAmount.setText(String.valueOf(budgetTrackerIncomes.getAmount()));
+            enterNotes.setText(budgetTrackerIncomes.getNotes());
+            isEdit = true;
+        }
+
+        //2022/12/14
+        FragmentManager fm = getParentFragmentManager();
+
+        deleteButton.setOnClickListener(v -> {
+            if (budgetTrackerIncomes == null) {
+                return;
+            }
+
+            BudgetTrackerIncomesViewModel.deleteBudgetTrackerIncomes(budgetTrackerIncomes);
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.getSupportFragmentManager().popBackStack();
+            }
+//            budgetTrackerSpendingViewModel.
+            fm.setFragmentResult(requestKey, new Bundle());
+        });
+
+        // 2022/12/07 new update button
+        updateButton.setOnClickListener(v -> {
+            if (budgetTrackerIncomes == null) {
+                return;
+            }
+
+            String date = enterDate.getText().toString();
+            String categoryName = enterCategory.getText().toString();
+            double amount = Double.parseDouble(enterAmount.getText().toString());
+            String notes = enterNotes.getText().toString();
+
+            if (TextUtils.isEmpty(date) || TextUtils.isEmpty(categoryName) || TextUtils.isEmpty(String.valueOf(amount)) || TextUtils.isEmpty(notes)) {
+                Snackbar.make(enterCategory, R.string.empty, Snackbar.LENGTH_SHORT).show();
+            } else {
+                BudgetTrackerIncomes newIncomes = new BudgetTrackerIncomes();
+                newIncomes.setId(budgetTrackerIncomes.getId());
+                newIncomes.setDate(date);
+                newIncomes.setCategory(categoryName);
+                newIncomes.setAmount(amount);
+                newIncomes.setNotes(notes);
+                BudgetTrackerIncomesViewModel.updateBudgetTrackerIncomes(newIncomes);
+
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    activity.getSupportFragmentManager().popBackStack();
+                }
+            }
+            fm.setFragmentResult(requestKey, new Bundle());
+        });
+
+
+        if (isEdit) {
+            saveButton.setVisibility(View.GONE);
+//            expenseTitleTv.setVisibility(View.GONE);
+//            expenseSubTitleTv.setVisibility(View.GONE);
+        } else {
+            updateButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
+        }
 
         // Inflate the layout for this fragment
         return view;

@@ -30,6 +30,9 @@ public class BudgetTrackerIncomesViewModel extends AndroidViewModel {
         incomesRepository.insert(budgetTrackerIncomes);
     }
 
+    public static void updateBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes) {incomesRepository.updateBudgetTrackerIncomes(budgetTrackerIncomes);}
+    public static void deleteBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes) {incomesRepository.deleteBudgetTrackerIncomes(budgetTrackerIncomes);}
+
     //  ReplaceActivity
     public static void replaceCategoryName(String categoryNameFrom, String categoryNameToe) {
         incomesRepository.replaceCategoryName(categoryNameFrom, categoryNameToe);

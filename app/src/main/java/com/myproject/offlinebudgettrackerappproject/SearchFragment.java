@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class SearchFragment extends Fragment {
     ActivityMainBinding activityMainBinding;
     SharedPreferences sharedPreferences;
     TextView searchCalcResultTxt;
+    int searchMode = 0;
 
 
     public SearchFragment() {
@@ -131,15 +133,17 @@ public class SearchFragment extends Fragment {
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_name) {
                     searchedSpendingList = budgetTrackerSpendingViewModel.getSearchProductNameLists(searchKey, dateFrom, dateTo);
                     spendingSum = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductSum(searchKey, dateFrom, dateTo));
+                    searchMode = 1;
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.search_radio_product_type) {
                     searchedSpendingList = budgetTrackerSpendingViewModel.getSearchProductTypeLists(searchKey, dateFrom, dateTo);
                     spendingSum = String.valueOf(budgetTrackerSpendingViewModel.getSearchProductTypeSum(searchKey, dateFrom, dateTo));
+                    searchMode = 2;
                 }
 
                 searchListView.setAdapter(new SearchListViewAdapter(getActivity(), searchedSpendingList));
                 searchCalcResultTxt.setText(spendingSum);
                 searchListView.setOnItemClickListener((adapterView, view1, position, id) -> {
-                    BudgetTrackerSpending spending = searchedSpendingList.get(position);
+//                    BudgetTrackerSpending spending = searchedSpendingList.get(position);
                     MainActivity mainActivity = ((MainActivity)getActivity());
                     if(mainActivity != null) {
 //                        Fragment fragment = AddSpendingFragment.newInstance(spending);
@@ -148,6 +152,10 @@ public class SearchFragment extends Fragment {
 //                                .replace(R.id.main_container, fragment)
 //                                .addToBackStack(null)
 //                                .commit();
+                        Intent intent = new Intent(getActivity(), AddBudgetTracker.class);
+                        intent.putExtra(AddBudgetTracker.EXTRA_DATA, (BudgetTrackerSpending)searchListView.getItemAtPosition(position));
+                        startActivity(intent);
+
                     }
                 });
             }

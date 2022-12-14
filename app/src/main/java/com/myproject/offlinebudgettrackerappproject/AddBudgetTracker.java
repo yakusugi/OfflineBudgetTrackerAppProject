@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomes;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.ItemSpendingViewModel;
 
@@ -24,6 +25,7 @@ public class AddBudgetTracker extends AppCompatActivity {
     ItemSpendingViewModel itemSpendingViewModel;
     int id;
     static final String EXTRA_DATA = "data";
+    static final String EXTRA_DATA_INCOME = "data_income";
     private static final String REQUEST_EDIT = "edit";
 
     @Override
@@ -56,7 +58,13 @@ public class AddBudgetTracker extends AppCompatActivity {
 
         if(savedInstanceState == null) {
             BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getIntent().getSerializableExtra(EXTRA_DATA);
-            fm.beginTransaction().replace(R.id.activity_add_container, AddSpendingFragment.newInstance(REQUEST_EDIT, budgetTrackerSpending)).commit();
+            BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes)getIntent().getSerializableExtra(EXTRA_DATA_INCOME);
+            if (budgetTrackerSpending != null) {
+                fm.beginTransaction().replace(R.id.activity_add_container, AddSpendingFragment.newInstance(REQUEST_EDIT, budgetTrackerSpending)).commit();
+            } else if (budgetTrackerIncomes != null) {
+                fm.beginTransaction().replace(R.id.activity_add_container, AddIncomeFragment.newInstance(REQUEST_EDIT, budgetTrackerIncomes)).commit();
+            }
+
         }
 
 

@@ -257,12 +257,12 @@
         android:id="@+id/spd_update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corner"
         android:text="Update"
         app:layout_constraintEnd_toStartOf="@+id/spd_delete_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/rounded_corner"
         app:layout_constraintTop_toBottomOf="@+id/spd_save_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

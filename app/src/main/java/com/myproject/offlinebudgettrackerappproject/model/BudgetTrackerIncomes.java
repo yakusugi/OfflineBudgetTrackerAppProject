@@ -6,8 +6,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "budget_tracker_incomes_table")
-public class BudgetTrackerIncomes {
+public class BudgetTrackerIncomes implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "date")
@@ -29,6 +31,10 @@ public class BudgetTrackerIncomes {
     }
 
     public BudgetTrackerIncomes(String searchKey) {
+    }
+
+    public BudgetTrackerIncomes() {
+
     }
 
     public int getId() {

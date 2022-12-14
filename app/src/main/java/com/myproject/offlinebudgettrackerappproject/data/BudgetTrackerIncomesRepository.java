@@ -39,6 +39,14 @@ public class BudgetTrackerIncomesRepository {
         });
     }
 
+    public void updateBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerIncomesDao.updateBudgetTrackerIncomes(budgetTrackerIncomes));
+    }
+
+    public void deleteBudgetTrackerIncomes(BudgetTrackerIncomes budgetTrackerIncomes) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerIncomesDao.deleteBudgetTrackerIncomes(budgetTrackerIncomes));
+    }
+
     //replace
     public void replaceCategoryName(String categoryNameFrom, String categoryNameTo) {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> {
