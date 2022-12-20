@@ -128,7 +128,8 @@ public class AddSpendingFragment extends Fragment {
 
         // 2022/12/07 received data from list view and put them in textview for update/delete
         String requestKey = getArguments().getString(ARG_REQUESTKEY);
-        BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getArguments().getSerializable(ARG_DATA);
+
+        BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending) getArguments().getSerializable(ARG_DATA);
 
         if (budgetTrackerSpending != null) {
             enterDate.setText(budgetTrackerSpending.getDate());
@@ -140,7 +141,6 @@ public class AddSpendingFragment extends Fragment {
             enterNotes.setText(budgetTrackerSpending.getNotes());
             isEdit = true;
         }
-
 
 
         Calendar calendar = Calendar.getInstance();
@@ -239,69 +239,6 @@ public class AddSpendingFragment extends Fragment {
         });
 
 
-
-
-        //todo: 2022.12.27 old update button
-//        updateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mSpending == null) {
-//                    return;
-//                }
-//
-//                String date = enterDate.getText().toString();
-//                String storeName = enterStoreName.getText().toString();
-//                String productName = enterProductName.getText().toString();
-//                String productType = enterProductType.getText().toString();
-//                double price = Double.parseDouble(enterPrice.getText().toString());
-//                if (enterVatRate.getText().toString().trim().length() > 0) {
-//                    Log.d("09120222", "onClick: " + enterVatRate.getText().toString());
-//                    enterVatRate.setText(null);
-//                } else {
-//                    vatRate = Double.parseDouble(enterVatRate.getText().toString());
-//                }
-//
-//                String notes = enterNotes.getText().toString();
-//
-//                Log.d("noifuji", date + "," + storeName + "," + productName);
-//                if (TextUtils.isEmpty(date) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(productName) || TextUtils.isEmpty(productType) || TextUtils.isEmpty(String.valueOf(price)) || TextUtils.isEmpty(String.valueOf(vatRate)) || TextUtils.isEmpty(notes)) {
-//                    Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
-//                } else {
-//                    BudgetTrackerSpending newSpending = new BudgetTrackerSpending();
-//                    newSpending.setId(mSpending.getId());
-//                    newSpending.setDate(date);
-//                    newSpending.setStoreName(storeName);
-//                    newSpending.setProductName(productName);
-//                    newSpending.setProductType(productType);
-//                    newSpending.setPrice(price);
-//                    newSpending.setTaxRate(vatRate);
-//                    newSpending.setNotes(notes);
-//                    BudgetTrackerSpendingViewModel.updateBudgetTrackerSpending(newSpending);
-//
-//                    FragmentActivity activity = getActivity();
-//                    if (activity != null) {
-//                        activity.getSupportFragmentManager().popBackStack();
-//                    }
-//                }
-//            }
-//        });
-//          todo: 2022.12.27 old delete button
-//        deleteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mSpending == null) {
-//                    return;
-//                }
-//
-//                BudgetTrackerSpendingViewModel.deleteBudgetTrackerSpending(mSpending);
-//                FragmentActivity activity = getActivity();
-//                if (activity != null) {
-//                    activity.getSupportFragmentManager().popBackStack();
-//                }
-//            }
-//        });
-
-//        BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerSpendingViewModel.class);
         FragmentManager fm = getParentFragmentManager();
 
         Button deleteButton = view.findViewById(R.id.spd_delete_btn);

@@ -200,8 +200,10 @@ public class AddIncomeFragment extends Fragment {
         });
 
         // 2022/12/07 received data from list view and put them in textview for update/delete
+
+
         String requestKey = getArguments().getString(ARG_REQUESTKEY);
-        BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes)getArguments().getSerializable(ARG_DATA);
+        BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes) getArguments().getSerializable(ARG_DATA);
 
         if (budgetTrackerIncomes != null) {
             enterDate.setText(budgetTrackerIncomes.getDate());
@@ -210,6 +212,7 @@ public class AddIncomeFragment extends Fragment {
             enterNotes.setText(budgetTrackerIncomes.getNotes());
             isEdit = true;
         }
+
 
         //2022/12/14
         FragmentManager fm = getParentFragmentManager();
