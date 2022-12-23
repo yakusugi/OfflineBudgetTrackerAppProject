@@ -75,6 +75,8 @@ public class AddBudgetTracker extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.nav_spending:
+//                        BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getIntent().getSerializableExtra(EXTRA_DATA);
+//                        fm.beginTransaction().replace(R.id.activity_add_container, AddSpendingFragment.newInstance(REQUEST_EDIT, budgetTrackerSpending)).commit();
                         fragment = new AddSpendingFragment();
                         break;
                     case R.id.nav_converter:

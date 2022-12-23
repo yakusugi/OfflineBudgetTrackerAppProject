@@ -127,20 +127,27 @@ public class AddSpendingFragment extends Fragment {
         enterVatRate.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         // 2022/12/07 received data from list view and put them in textview for update/delete
-        String requestKey = getArguments().getString(ARG_REQUESTKEY);
-
-        BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending) getArguments().getSerializable(ARG_DATA);
-
-        if (budgetTrackerSpending != null) {
-            enterDate.setText(budgetTrackerSpending.getDate());
-            enterStoreName.setText(budgetTrackerSpending.getStoreName());
-            enterProductName.setText(budgetTrackerSpending.getProductName());
-            enterProductType.setText(budgetTrackerSpending.getProductType());
-            enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
-            enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
-            enterNotes.setText(budgetTrackerSpending.getNotes());
-            isEdit = true;
+        String requestKey = null;
+        if (getArguments() != null) {
+            requestKey = getArguments().getString(ARG_REQUESTKEY);
         }
+
+        BudgetTrackerSpending budgetTrackerSpending = null;
+        if (ARG_DATA != null) {
+            budgetTrackerSpending = (BudgetTrackerSpending) getArguments().getSerializable(ARG_DATA);
+            if (budgetTrackerSpending != null) {
+                enterDate.setText(budgetTrackerSpending.getDate());
+                enterStoreName.setText(budgetTrackerSpending.getStoreName());
+                enterProductName.setText(budgetTrackerSpending.getProductName());
+                enterProductType.setText(budgetTrackerSpending.getProductType());
+                enterPrice.setText(String.valueOf(budgetTrackerSpending.getPrice()));
+                enterVatRate.setText(String.valueOf(budgetTrackerSpending.getTaxRate()));
+                enterNotes.setText(budgetTrackerSpending.getNotes());
+                isEdit = true;
+            }
+        }
+
+
 
 
         Calendar calendar = Calendar.getInstance();
@@ -242,23 +249,27 @@ public class AddSpendingFragment extends Fragment {
         FragmentManager fm = getParentFragmentManager();
 
         Button deleteButton = view.findViewById(R.id.spd_delete_btn);
+        String finalRequestKey = requestKey;
+        BudgetTrackerSpending finalBudgetTrackerSpending = budgetTrackerSpending;
         deleteButton.setOnClickListener(v -> {
-            if (budgetTrackerSpending == null) {
+            if (finalBudgetTrackerSpending == null) {
                 return;
             }
 
-            BudgetTrackerSpendingViewModel.deleteBudgetTrackerSpending(budgetTrackerSpending);
+            BudgetTrackerSpendingViewModel.deleteBudgetTrackerSpending(finalBudgetTrackerSpending);
             FragmentActivity activity = getActivity();
             if (activity != null) {
                 activity.getSupportFragmentManager().popBackStack();
             }
 //            budgetTrackerSpendingViewModel.
-            fm.setFragmentResult(requestKey, new Bundle());
+            fm.setFragmentResult(finalRequestKey, new Bundle());
         });
 
         // 2022/12/07 new update button
+        String finalRequestKey1 = requestKey;
+        BudgetTrackerSpending finalBudgetTrackerSpending1 = budgetTrackerSpending;
         updateButton.setOnClickListener(v -> {
-            if (budgetTrackerSpending == null) {
+            if (finalBudgetTrackerSpending1 == null) {
                 return;
             }
 
@@ -281,7 +292,7 @@ public class AddSpendingFragment extends Fragment {
                 Snackbar.make(enterProductName, R.string.empty, Snackbar.LENGTH_SHORT).show();
             } else {
                 BudgetTrackerSpending newSpending = new BudgetTrackerSpending();
-                newSpending.setId(budgetTrackerSpending.getId());
+                newSpending.setId(finalBudgetTrackerSpending1.getId());
                 newSpending.setDate(date);
                 newSpending.setStoreName(storeName);
                 newSpending.setProductName(productName);
@@ -296,7 +307,7 @@ public class AddSpendingFragment extends Fragment {
                     activity.getSupportFragmentManager().popBackStack();
                 }
             }
-            fm.setFragmentResult(requestKey, new Bundle());
+            fm.setFragmentResult(finalRequestKey1, new Bundle());
         });
 
 
