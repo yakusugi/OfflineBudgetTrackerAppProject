@@ -36,7 +36,7 @@ public class AddBudgetTracker extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.add_bottom_navigation);
         //todo: 2022/12/07 temporality commented out
-//        getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, new AddSpendingFragment()).commit();
 
         bottomNavigationView.setSelectedItemId(R.id.nav_spending);
         bottomNavigationView.setItemIconTintList(null);
@@ -75,8 +75,6 @@ public class AddBudgetTracker extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.nav_spending:
-//                        BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getIntent().getSerializableExtra(EXTRA_DATA);
-//                        fm.beginTransaction().replace(R.id.activity_add_container, AddSpendingFragment.newInstance(REQUEST_EDIT, budgetTrackerSpending)).commit();
                         fragment = new AddSpendingFragment();
                         break;
                     case R.id.nav_converter:

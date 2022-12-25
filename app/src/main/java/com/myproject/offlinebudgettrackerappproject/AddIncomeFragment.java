@@ -201,9 +201,13 @@ public class AddIncomeFragment extends Fragment {
 
         // 2022/12/07 received data from list view and put them in textview for update/delete
 
+        String requestKey = null;
+        BudgetTrackerIncomes budgetTrackerIncomes = null;
+        if (getArguments() != null) {
+            requestKey = getArguments().getString(ARG_REQUESTKEY);
+            budgetTrackerIncomes = (BudgetTrackerIncomes) getArguments().getSerializable(ARG_DATA);
+        }
 
-        String requestKey = getArguments().getString(ARG_REQUESTKEY);
-        BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes) getArguments().getSerializable(ARG_DATA);
 
         if (budgetTrackerIncomes != null) {
             enterDate.setText(budgetTrackerIncomes.getDate());
@@ -217,23 +221,27 @@ public class AddIncomeFragment extends Fragment {
         //2022/12/14
         FragmentManager fm = getParentFragmentManager();
 
+        BudgetTrackerIncomes finalBudgetTrackerIncomes = budgetTrackerIncomes;
+        String finalRequestKey = requestKey;
         deleteButton.setOnClickListener(v -> {
-            if (budgetTrackerIncomes == null) {
+            if (finalBudgetTrackerIncomes == null) {
                 return;
             }
 
-            BudgetTrackerIncomesViewModel.deleteBudgetTrackerIncomes(budgetTrackerIncomes);
+            BudgetTrackerIncomesViewModel.deleteBudgetTrackerIncomes(finalBudgetTrackerIncomes);
             FragmentActivity activity = getActivity();
             if (activity != null) {
                 activity.getSupportFragmentManager().popBackStack();
             }
 //            budgetTrackerSpendingViewModel.
-            fm.setFragmentResult(requestKey, new Bundle());
+            fm.setFragmentResult(finalRequestKey, new Bundle());
         });
 
         // 2022/12/07 new update button
+        BudgetTrackerIncomes finalBudgetTrackerIncomes1 = budgetTrackerIncomes;
+        String finalRequestKey1 = requestKey;
         updateButton.setOnClickListener(v -> {
-            if (budgetTrackerIncomes == null) {
+            if (finalBudgetTrackerIncomes1 == null) {
                 return;
             }
 
@@ -246,7 +254,7 @@ public class AddIncomeFragment extends Fragment {
                 Snackbar.make(enterCategory, R.string.empty, Snackbar.LENGTH_SHORT).show();
             } else {
                 BudgetTrackerIncomes newIncomes = new BudgetTrackerIncomes();
-                newIncomes.setId(budgetTrackerIncomes.getId());
+                newIncomes.setId(finalBudgetTrackerIncomes1.getId());
                 newIncomes.setDate(date);
                 newIncomes.setCategory(categoryName);
                 newIncomes.setAmount(amount);
@@ -258,7 +266,7 @@ public class AddIncomeFragment extends Fragment {
                     activity.getSupportFragmentManager().popBackStack();
                 }
             }
-            fm.setFragmentResult(requestKey, new Bundle());
+            fm.setFragmentResult(finalRequestKey1, new Bundle());
         });
 
 

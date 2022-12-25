@@ -133,7 +133,7 @@ public class AddSpendingFragment extends Fragment {
         }
 
         BudgetTrackerSpending budgetTrackerSpending = null;
-        if (ARG_DATA != null) {
+        if (getArguments() != null) {
             budgetTrackerSpending = (BudgetTrackerSpending) getArguments().getSerializable(ARG_DATA);
             if (budgetTrackerSpending != null) {
                 enterDate.setText(budgetTrackerSpending.getDate());
@@ -261,7 +261,6 @@ public class AddSpendingFragment extends Fragment {
             if (activity != null) {
                 activity.getSupportFragmentManager().popBackStack();
             }
-//            budgetTrackerSpendingViewModel.
             fm.setFragmentResult(finalRequestKey, new Bundle());
         });
 
