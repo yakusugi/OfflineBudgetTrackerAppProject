@@ -1,5 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,16 +52,9 @@ public class QuickStoreSearchActivity extends AppCompatActivity {
 
                 searchStore(searchKey);
                 listView.setOnItemClickListener((adapterView, view1, position, id) -> {
-                    BudgetTrackerSpending spending = searchList.get(position);
-                    MainActivity mainActivity = new MainActivity();
-                    if(mainActivity != null) {
-//                        Fragment fragment = AddSpendingFragment.newInstance(spending);
-//                        getSupportFragmentManager()
-//                                .beginTransaction()
-//                                .replace(R.id.main_container, fragment)
-//                                .addToBackStack(null)
-//                                .commit();
-                    }
+                    Intent intent = new Intent(QuickStoreSearchActivity.this, AddBudgetTracker.class);
+                    intent.putExtra(AddBudgetTracker.EXTRA_DATA, (BudgetTrackerSpending)listView.getItemAtPosition(position));
+                    startActivity(intent);
                 });
             }
         });

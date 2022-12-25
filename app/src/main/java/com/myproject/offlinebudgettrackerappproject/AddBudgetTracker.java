@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerIncomes;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
 import com.myproject.offlinebudgettrackerappproject.model.ItemSpendingViewModel;
@@ -26,6 +27,7 @@ public class AddBudgetTracker extends AppCompatActivity {
     int id;
     static final String EXTRA_DATA = "data";
     static final String EXTRA_DATA_INCOME = "data_income";
+    static final String EXTRA_DATA_BANKING = "data_baking";
     private static final String REQUEST_EDIT = "edit";
 
     @Override
@@ -57,12 +59,15 @@ public class AddBudgetTracker extends AppCompatActivity {
         });
 
         if(savedInstanceState == null) {
-            BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending)getIntent().getSerializableExtra(EXTRA_DATA);
-            BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes)getIntent().getSerializableExtra(EXTRA_DATA_INCOME);
+            BudgetTrackerSpending budgetTrackerSpending = (BudgetTrackerSpending) getIntent().getSerializableExtra(EXTRA_DATA);
+            BudgetTrackerIncomes budgetTrackerIncomes = (BudgetTrackerIncomes) getIntent().getSerializableExtra(EXTRA_DATA_INCOME);
+            BudgetTrackerBanking budgetTrackerBanking = (BudgetTrackerBanking) getIntent().getSerializableExtra(EXTRA_DATA_BANKING);
             if (budgetTrackerSpending != null) {
                 fm.beginTransaction().replace(R.id.activity_add_container, AddSpendingFragment.newInstance(REQUEST_EDIT, budgetTrackerSpending)).commit();
             } else if (budgetTrackerIncomes != null) {
                 fm.beginTransaction().replace(R.id.activity_add_container, AddIncomeFragment.newInstance(REQUEST_EDIT, budgetTrackerIncomes)).commit();
+            } else if (budgetTrackerBanking != null) {
+                fm.beginTransaction().replace(R.id.activity_add_container, AddBankFragment.newInstance(REQUEST_EDIT, budgetTrackerBanking)).commit();
             }
 
         }

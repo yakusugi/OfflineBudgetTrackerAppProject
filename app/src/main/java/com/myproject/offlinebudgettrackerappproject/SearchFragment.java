@@ -143,15 +143,8 @@ public class SearchFragment extends Fragment {
                 searchListView.setAdapter(new SearchListViewAdapter(getActivity(), searchedSpendingList));
                 searchCalcResultTxt.setText(spendingSum);
                 searchListView.setOnItemClickListener((adapterView, view1, position, id) -> {
-//                    BudgetTrackerSpending spending = searchedSpendingList.get(position);
                     MainActivity mainActivity = ((MainActivity)getActivity());
                     if(mainActivity != null) {
-//                        Fragment fragment = AddSpendingFragment.newInstance(spending);
-//                        mainActivity.getSupportFragmentManager()
-//                                .beginTransaction()
-//                                .replace(R.id.main_container, fragment)
-//                                .addToBackStack(null)
-//                                .commit();
                         Intent intent = new Intent(getActivity(), AddBudgetTracker.class);
                         intent.putExtra(AddBudgetTracker.EXTRA_DATA, (BudgetTrackerSpending)searchListView.getItemAtPosition(position));
                         startActivity(intent);

@@ -1,5 +1,6 @@
 package com.myproject.offlinebudgettrackerappproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +63,14 @@ public class SpendingReplacementActivity extends AppCompatActivity {
                     productTypeReplace(searchWord, replaceWith);
                 }
 
+                replacedListView.setOnItemClickListener((adapterView, view1, position, id) -> {
+                    Intent intent = new Intent(SpendingReplacementActivity.this, AddBudgetTracker.class);
+                    intent.putExtra(AddBudgetTracker.EXTRA_DATA, (BudgetTrackerSpending)replacedListView.getItemAtPosition(position));
+                    startActivity(intent);
+                });
+
             }
+
         });
     }
 

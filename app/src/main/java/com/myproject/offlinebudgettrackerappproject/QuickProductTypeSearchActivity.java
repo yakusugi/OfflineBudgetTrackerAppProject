@@ -1,6 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,14 @@ public class QuickProductTypeSearchActivity extends AppCompatActivity {
                 String searchKey = searchName.getText().toString();
 
                 searchProductType(searchKey);
+
+                listView.setOnItemClickListener((adapterView, view1, position, id) -> {
+                    Intent intent = new Intent(QuickProductTypeSearchActivity.this, AddBudgetTracker.class);
+                    intent.putExtra(AddBudgetTracker.EXTRA_DATA, (BudgetTrackerSpending)listView.getItemAtPosition(position));
+                    startActivity(intent);
+                });
             }
+
         });
 
 

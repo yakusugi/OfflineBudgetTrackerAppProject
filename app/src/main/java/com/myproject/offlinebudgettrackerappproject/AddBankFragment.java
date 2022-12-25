@@ -44,24 +44,31 @@ public class AddBankFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private static final String ARG_BANKING = "banking";
+
+    private BudgetTrackerBanking mBanking;
+
+    private static final String ARG_REQUESTKEY = "requestKey";
+
     public AddBankFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddBankFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static AddBankFragment newInstance(String param1, String param2) {
+//    public static AddBankFragment newInstance(String param1, String param2) {
+//        AddBankFragment fragment = new AddBankFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+
+    public static AddBankFragment newInstance(String requestKey, BudgetTrackerBanking banking) {
         AddBankFragment fragment = new AddBankFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_REQUESTKEY, requestKey);
+        args.putSerializable(ARG_BANKING, banking);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,9 +77,13 @@ public class AddBankFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mBanking = (BudgetTrackerBanking) getArguments().getSerializable(ARG_BANKING);
         }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//
+//        }
     }
 
     @Override
@@ -95,6 +106,12 @@ public class AddBankFragment extends Fragment {
         enterBankBalance.setCompoundDrawablesWithIntrinsicBounds(currency.getCurrencyImage(), 0, 0, 0);
 
         budgetTrackerBankingViewModel = new ViewModelProvider(requireActivity()).get(BudgetTrackerBankingViewModel.class);
+
+        if (mBanking != null) {
+            enterBankName.setText(mBanking.getBankName());
+            enterBankBalance.setText(String.valueOf(mBanking.getBankBalance()));
+            isEdit = true;
+        }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
