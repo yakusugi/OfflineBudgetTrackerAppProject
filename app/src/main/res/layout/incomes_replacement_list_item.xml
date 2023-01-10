@@ -48,6 +48,15 @@
                     android:textColor="@color/black"
                     />
 
+                <TextView
+                    android:id="@+id/replacement_amount_text_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="amount here"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
@@ -56,16 +65,7 @@
                 android:layout_marginStart="20dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/replacement_amount_text_row"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:layout_alignParentRight="true"
-                    android:text="amount here"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
+
 
             </LinearLayout>
 
