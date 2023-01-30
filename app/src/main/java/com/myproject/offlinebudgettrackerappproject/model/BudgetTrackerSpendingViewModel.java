@@ -160,35 +160,4 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
         }
     }
 
-//    LiveData<List<BudgetTrackerSpending>> getDataList() { return dataListLiveData; }
-//
-//    void delete(long id) {
-//        if(deleteFromList(id)) writeFile();
-//    }
-//    private boolean deleteFromList(long id) {
-//        List<BudgetTrackerSpending> list = dataListLiveData.getValue();
-//        for(int i=0; i<list.size(); i++) {
-//            if(list.get(i).id == id) {
-//                list.remove(i);
-//                dataListLiveData.setValue(list); //一応オブザーバへ通知
-//                return true; //更新有り
-//            }
-//        }
-//        return false;
-//    }
-//
-//    void update(Data data) {
-//        if(updateListElement(data)) writeFile();
-//    }
-//    private boolean updateListElement(Data data) {
-//        List<Data> list = dataListLiveData.getValue();
-//        for(int i=0; i<list.size(); i++) {
-//            if(list.get(i).id == data.id) {
-//                list.set(i, data);
-//                dataListLiveData.setValue(list); //一応オブザーバへ通知
-//                return true; //更新有り
-//            }
-//        }
-//        return false;
-//    }
 }

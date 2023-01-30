@@ -71,16 +71,6 @@ public class AddSpendingFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-//todo: 2022/12/07 temporality commented out
-//    public static AddSpendingFragment newInstance(BudgetTrackerSpending spending) {
-//        AddSpendingFragment fragment = new AddSpendingFragment();
-//        Bundle args = new Bundle();
-//        args.putSerializable(ARG_SPENDING, spending);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     public static AddSpendingFragment newInstance(String requestKey, BudgetTrackerSpending spending) {
         AddSpendingFragment fragment = new AddSpendingFragment();
         Bundle args = new Bundle();

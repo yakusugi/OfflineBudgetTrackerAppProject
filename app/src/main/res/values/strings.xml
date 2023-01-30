@@ -40,4 +40,6 @@
     <string name="target_currency_hint">Target currency</string>
     <string name="foreign_currency_price_hint">Foreign currency price</string>
     <string name="your_currency_proce_hint">Your currency price</string>
+    <string name="mysql_login_id_hint">Enter your  login id</string>
+    <string name="mysql_login_pw_hint">Enter your login password</string>
 </resources>
