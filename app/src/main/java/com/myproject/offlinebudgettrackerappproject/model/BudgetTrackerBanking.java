@@ -22,6 +22,9 @@ public class BudgetTrackerBanking implements Serializable {
         this.bankBalance = bankBalance;
     }
 
+    public BudgetTrackerBanking() {
+    }
+
     public int getId() {
         return id;
     }

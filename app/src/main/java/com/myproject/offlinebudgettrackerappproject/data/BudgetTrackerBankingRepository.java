@@ -57,4 +57,12 @@ public class BudgetTrackerBankingRepository {
         BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankingDao.updateAddition(incomesNum, bankName));
     }
 
+    public void updateBudgetTrackerBanking(BudgetTrackerBanking budgetTrackerBanking) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankingDao.updateBudgetTrackerBanking(budgetTrackerBanking));
+    }
+
+    public void deleteBudgetTrackerBanking(BudgetTrackerBanking budgetTrackerBanking) {
+        BudgetTrackerDatabase.dataWritableExecutor.execute(() -> budgetTrackerBankingDao.deleteBudgetTrackerBanking(budgetTrackerBanking));
+    }
+
 }

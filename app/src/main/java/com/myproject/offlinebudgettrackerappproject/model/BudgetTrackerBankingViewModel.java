@@ -52,5 +52,8 @@ public class BudgetTrackerBankingViewModel extends AndroidViewModel {
         bankRepository.updateAddition(incomesNum, bankName);
     }
 
+    public static void updateBudgetTrackerBanking(BudgetTrackerBanking budgetTrackerBanking) {bankRepository.updateBudgetTrackerBanking(budgetTrackerBanking);}
+    public static void deleteBudgetTrackerBanking(BudgetTrackerBanking budgetTrackerBanking) {bankRepository.deleteBudgetTrackerBanking(budgetTrackerBanking);}
+
 
 }

@@ -2,6 +2,7 @@ package com.myproject.offlinebudgettrackerappproject;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBanking;
 import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerBankingViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.Currency;
@@ -49,6 +53,7 @@ public class AddBankFragment extends Fragment {
     private BudgetTrackerBanking mBanking;
 
     private static final String ARG_REQUESTKEY = "requestKey";
+    private static final String ARG_DATA = "data";
 
     public AddBankFragment() {
         // Required empty public constructor
@@ -122,6 +127,67 @@ public class AddBankFragment extends Fragment {
                 budgetTrackerBankingViewModel.insert(budgetTrackerBanking);
                 getActivity().finish();
             }
+        });
+
+
+        // for update/delete
+        String requestKey = null;
+        BudgetTrackerBanking budgetTrackerBanking = null;
+        if (getArguments() != null) {
+            requestKey = getArguments().getString(ARG_REQUESTKEY);
+            budgetTrackerBanking = (BudgetTrackerBanking) getArguments().getSerializable(ARG_DATA);
+        }
+
+
+        if (budgetTrackerBanking != null) {
+            enterBankName.setText(budgetTrackerBanking.getBankName());
+            enterBankBalance.setText(Integer.valueOf((int) budgetTrackerBanking.getBankBalance()));
+            isEdit = true;
+        }
+
+        FragmentManager fm = getParentFragmentManager();
+
+        BudgetTrackerBanking finalBudgetTrackerBanking = budgetTrackerBanking;
+        String finalRequestKey = requestKey;
+        deleteBankButton.setOnClickListener(v -> {
+            if (finalBudgetTrackerBanking == null) {
+                return;
+            }
+
+            BudgetTrackerBankingViewModel.deleteBudgetTrackerBanking(finalBudgetTrackerBanking);
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.getSupportFragmentManager().popBackStack();
+            }
+            fm.setFragmentResult(finalRequestKey, new Bundle());
+        });
+
+        // 2022/12/07 new update button
+        BudgetTrackerBanking finalBudgetTrackerBanking1 = budgetTrackerBanking;
+        String finalRequestKey1 = requestKey;
+        updateBankButton.setOnClickListener(v -> {
+            if (finalBudgetTrackerBanking1 == null) {
+                return;
+            }
+
+            String bankName = enterBankName.getText().toString();
+            double bankBalance = Double.parseDouble(enterBankBalance.getText().toString());
+
+            if (TextUtils.isEmpty(bankName) || TextUtils.isEmpty(String.valueOf(bankBalance))) {
+                Snackbar.make(enterBankName, R.string.empty, Snackbar.LENGTH_SHORT).show();
+            } else {
+                BudgetTrackerBanking newBanking = new BudgetTrackerBanking();
+                newBanking.setId(finalBudgetTrackerBanking1.getId());
+                newBanking.setBankName(bankName);
+                newBanking.setBankBalance(bankBalance);
+                BudgetTrackerBankingViewModel.updateBudgetTrackerBanking(newBanking);
+
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    activity.getSupportFragmentManager().popBackStack();
+                }
+            }
+            fm.setFragmentResult(finalRequestKey1, new Bundle());
         });
 
         if (isEdit) {
