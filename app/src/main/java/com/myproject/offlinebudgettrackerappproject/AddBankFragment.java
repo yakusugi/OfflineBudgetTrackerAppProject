@@ -60,14 +60,14 @@ public class AddBankFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-//    public static AddBankFragment newInstance(String param1, String param2) {
-//        AddBankFragment fragment = new AddBankFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    public static AddBankFragment newInstance(String param1, String param2) {
+        AddBankFragment fragment = new AddBankFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public static AddBankFragment newInstance(String requestKey, BudgetTrackerBanking banking) {
         AddBankFragment fragment = new AddBankFragment();
