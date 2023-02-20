@@ -83,7 +83,7 @@ public class CloudUserDao {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     //We need hashmap, this is equivalent to array
                     Map<String, String> params = new HashMap<>();
-                    params.put("user_email", budgetTrackerUserDto.getEmail());
+                    params.put("email", budgetTrackerUserDto.getEmail());
                     params.put("user_name", budgetTrackerUserDto.getId());
                     params.put("password", budgetTrackerUserDto.getPassword());
 
