@@ -17,4 +17,8 @@
         android:id="@+id/nav_bank"
         android:icon="@drawable/bank_color"
         android:title="Banks" />
+    <item
+        android:id="@+id/nav_upload"
+        android:icon="@drawable/cloud_upload"
+        android:title="Cloud" />
 </menu>

@@ -91,6 +91,9 @@ public class AddBudgetTracker extends AppCompatActivity {
                     case R.id.nav_bank:
                         fragment = new AddBankFragment();
                         break;
+                    case R.id.nav_upload:
+                        fragment = new AddCloudFragment();
+                        break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.activity_add_container, fragment).commit();
                 return true;

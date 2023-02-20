@@ -42,4 +42,5 @@
     <string name="your_currency_proce_hint">Your currency price</string>
     <string name="mysql_login_id_hint">Enter your  login id</string>
     <string name="mysql_login_pw_hint">Enter your login password</string>
+    <string name="mysql_login_email_hint">Enter your login Email</string>
 </resources>
