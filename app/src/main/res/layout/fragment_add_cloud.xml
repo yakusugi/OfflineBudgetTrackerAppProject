@@ -68,25 +68,6 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/upload_login_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/ic_person_24"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:hint="@string/mysql_login_id_hint"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
                 android:id="@+id/upload_login_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

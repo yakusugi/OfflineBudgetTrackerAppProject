@@ -18,6 +18,7 @@ public class BudgetTrackerSpendingRepository {
     private List<BudgetTrackerSpending> quickStoreNameList;
     private List<BudgetTrackerSpending> quickProductTypeList;
     private List<BudgetTrackerSpending> quickProductNameList;
+    private List<BudgetTrackerSpending> quickDateList;
     private double searchStoreSum;
     private double searchProductSum;
     private double searchProductTypeSum;
@@ -154,5 +155,10 @@ public class BudgetTrackerSpendingRepository {
     public double getQuickProductNameSum(String productName) {
         quickProductNameSum = budgetTrackerSpendingDao.getQuickProductNameSum(productName);
         return quickProductNameSum;
+    }
+
+    public List<BudgetTrackerSpending> getQuickDate(String dateFrom, String dateTo) {
+        quickDateList = budgetTrackerSpendingDao.getQuickDateList(dateFrom, dateTo);
+        return quickDateList;
     }
 }

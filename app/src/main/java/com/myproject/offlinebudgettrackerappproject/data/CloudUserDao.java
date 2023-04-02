@@ -1,5 +1,7 @@
 package com.myproject.offlinebudgettrackerappproject.data;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import java.util.Properties;
 
 public class CloudUserDao {
     private Context mContext;
+    private int result;
 
     public CloudUserDao(Context context) {
         mContext = context.getApplicationContext();
@@ -101,7 +104,6 @@ public class CloudUserDao {
     }
 
     public int logIn(BudgetTrackerUserDto budgetTrackerUserDto) throws IOException {
-        final int[] result = {0};
         try {
             Properties properties = new Properties();
             InputStream inputStream = mContext.getAssets().open("server_config.properties");
@@ -118,9 +120,10 @@ public class CloudUserDao {
                         public void onResponse(String response) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                String success = jsonObject.getString("success");
-                                if (success.equals("1")) {
-                                    result[0] = 1;
+                                int success = jsonObject.getInt("success");
+                                if (success == 1) {
+                                    result = 1;
+                                    Log.d(TAG, "onResponse: result is 1");
                                 }
                             } catch (JSONException e) {
                                 Log.e("JSONException", e.toString());
@@ -145,7 +148,6 @@ public class CloudUserDao {
                     //We need hashmap, this is equivalent to array
                     Map<String, String> params = new HashMap<>();
                     params.put("email", budgetTrackerUserDto.getEmail());
-                    params.put("user_name", budgetTrackerUserDto.getId());
                     params.put("password", budgetTrackerUserDto.getPassword());
 
                     return params;
@@ -158,6 +160,6 @@ public class CloudUserDao {
             e.printStackTrace();
         }
 
-        return result[0];
+        return result;
     }
 }

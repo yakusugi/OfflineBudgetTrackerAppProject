@@ -99,6 +99,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 i = new Intent(view.getContext(), BudgetTrackerBankingActivity.class);
                 startActivity(i);
                 break;
+            case R.id.date_card:
+                i = new Intent(view.getContext(), BudgetTrackerBankingActivity.class);
+                startActivity(i);
+                break;
             case R.id.mysql_card:
                 i = new Intent(view.getContext(), MysqlLoginActivity.class);
                 startActivity(i);

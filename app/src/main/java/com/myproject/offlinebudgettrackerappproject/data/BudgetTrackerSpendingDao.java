@@ -94,4 +94,8 @@ public interface BudgetTrackerSpendingDao {
     @Query("SELECT SUM(price) FROM budget_tracker_spending_table WHERE product_name LIKE '%' || :productName|| '%'")
     double getQuickProductNameSum(String productName);
 
+    //For Quick date search
+    @Query("SELECT * FROM budget_tracker_spending_table WHERE date >= :dateFrom and date <= :dateTo")
+    List<BudgetTrackerSpending> getQuickDateList(String dateFrom, String dateTo);
+
 }

@@ -6,10 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.myproject.offlinebudgettrackerappproject.data.CloudUserDao;
+import com.myproject.offlinebudgettrackerappproject.dto.BudgetTrackerUserDto;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +26,8 @@ public class AddCloudFragment extends Fragment {
 
     EditText enterEmail, enterUserId, enterPassword;
     Button loginButton, registerButton;
+    BudgetTrackerUserDto budgetTrackerUserDto;
+    CloudUserDao cloudUserDao;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,10 +76,38 @@ public class AddCloudFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_cloud, container, false);
 
         enterEmail = (EditText) view.findViewById(R.id.upload_login_email);
-        enterUserId = (EditText) view.findViewById(R.id.upload_login_id);
         enterPassword = (EditText) view.findViewById(R.id.upload_login_password);
         loginButton = (Button) view.findViewById(R.id.upload_login_btn);
         registerButton = (Button) view.findViewById(R.id.upload_register_btn);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userEmail = enterEmail.getText().toString();
+                String userPassword = enterPassword.getText().toString();
+                budgetTrackerUserDto = new BudgetTrackerUserDto();
+                budgetTrackerUserDto.setEmail(userEmail);
+                budgetTrackerUserDto.setPassword(userPassword);
+                cloudUserDao = new CloudUserDao(getActivity());
+
+                try {
+                    int result = cloudUserDao.logIn(budgetTrackerUserDto);
+                    if (result == 1) {
+                        Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.activity_add_container, new AddSyncCloudFragment());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else {
+                        Toast.makeText(getActivity(), "Login failed", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
