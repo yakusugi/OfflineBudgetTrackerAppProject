@@ -26,6 +26,7 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     private List<BudgetTrackerSpending> quickStoreNameList;
     private List<BudgetTrackerSpending> quickProductTypeList;
     private List<BudgetTrackerSpending> quickProductNameList;
+    private List<BudgetTrackerSpending> allBudgetTrackerListForMySQL;
     private double searchStoreSum;
     private double searchProductSum;
     private double searchProductTypeSum;
@@ -35,6 +36,7 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     public List<BudgetTrackerSpending> storeNameList;
     public List<BudgetTrackerSpending> productNameList;
     public List<BudgetTrackerSpending> productTypeList;
+    public List<BudgetTrackerSpending> mySqlSyncLists;
     public LiveData<List<BudgetTrackerSpending>> allBudgetTrackerSpendingList;
     private MutableLiveData<List<BudgetTrackerSpending>> dataListLiveData = new MutableLiveData<>(null);
 
@@ -47,6 +49,12 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<BudgetTrackerSpending>> getAllSpendingData() { return allBudgetTrackerSpendingList; }
+
+    //for mysql sync
+    public List<BudgetTrackerSpending> getBudgetTrackerSpendingListForMySQL() {
+        radioSearchProductNameLists = repository.getBudgetTrackerSpendingListForMySQL();
+        return mySqlSyncLists;
+    }
 
     public static void insert(BudgetTrackerSpending budgetTrackerSpending) {
         repository.insert(budgetTrackerSpending);

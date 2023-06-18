@@ -3,41 +3,50 @@ package com.myproject.offlinebudgettrackerappproject;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.myproject.offlinebudgettrackerappproject.model.MysqlInsertViewModel;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpending;
+import com.myproject.offlinebudgettrackerappproject.model.BudgetTrackerSpendingViewModel;
 import com.myproject.offlinebudgettrackerappproject.model.MysqlRegistration;
+import com.myproject.offlinebudgettrackerappproject.model.MysqlRegistrationViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MysqlRegistrationActivity extends AppCompatActivity {
 
-    EditText enterId, enterPassword;
-    Button registerButton;
-    MysqlInsertViewModel mysqlInsertViewModel;
+    Button syncButton;
     MysqlRegistration mysqlRegistration;
+    BudgetTrackerSpendingViewModel budgetTrackerSpendingViewModel;
+    MysqlRegistrationViewModel mysqlRegistrationViewModel;
+    List<BudgetTrackerSpending> searchedSpendingList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mysql_registration);
 
-        enterId = (EditText) findViewById(R.id.mysql_login_register_id);
-        enterPassword = (EditText) findViewById(R.id.mysql_login_register_password);
-        registerButton = (Button) findViewById(R.id.mysql_registration_btn);
+        syncButton = (Button) findViewById(R.id.mysql_sync_btn);
 
-        mysqlInsertViewModel = new ViewModelProvider.AndroidViewModelFactory(MysqlRegistrationActivity.this
+        budgetTrackerSpendingViewModel = new ViewModelProvider.AndroidViewModelFactory(MysqlRegistrationActivity.this
                 .getApplication())
-                .create(MysqlInsertViewModel.class);
+                .create(BudgetTrackerSpendingViewModel.class);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        mysqlRegistrationViewModel = new ViewModelProvider.AndroidViewModelFactory(MysqlRegistrationActivity.this
+                .getApplication())
+                .create(MysqlRegistrationViewModel.class);
+
+
+
+        syncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userId = enterId.getText().toString();
-                String userPassword = enterPassword.getText().toString();
-                mysqlRegistration = new MysqlRegistration(userId, userPassword);
-                mysqlInsertViewModel.registrationInsert(mysqlRegistration);
+                searchedSpendingList = budgetTrackerSpendingViewModel.getBudgetTrackerSpendingListForMySQL();
+
+                mysqlRegistrationViewModel.sendSearchedSpendingList(searchedSpendingList);
+
             }
         });
 

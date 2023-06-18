@@ -12,7 +12,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.myproject.offlinebudgettrackerappproject.model.MysqlRegistration;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +37,7 @@ public class MysqlInsertDao  {
 
     }
 
-    public void mySqlRegistrationInsert(MysqlRegistration mysqlRegistration) {
+    public void mySqlCsvInsert(String csvData) {
         try {
             Properties properties = new Properties();
             mContext = mContext.getApplicationContext();
@@ -57,7 +56,7 @@ public class MysqlInsertDao  {
                                 String success = jsonObject.getString("success");
 
                                 if (success.equals("1")) {
-                                    Toast.makeText(mContext, "User data has been inserted", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, "CSV data has been inserted", Toast.LENGTH_SHORT).show();
                                 }
 
                             } catch (JSONException e) {
@@ -75,10 +74,8 @@ public class MysqlInsertDao  {
                 @Nullable
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
-                    //We need hashmap, this is equivalent to array
                     Map<String, String> params = new HashMap<>();
-                    params.put("id", mysqlRegistration.getUserId());
-                    params.put("password", mysqlRegistration.getPassword());
+                    params.put("csvData", csvData);  // Add the csvData to the parameters
 
                     return params;
                 }
@@ -91,7 +88,4 @@ public class MysqlInsertDao  {
         }
 
     }
-
-
-
 }

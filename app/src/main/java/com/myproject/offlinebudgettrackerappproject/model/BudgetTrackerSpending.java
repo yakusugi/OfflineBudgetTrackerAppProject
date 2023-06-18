@@ -147,4 +147,36 @@ public class BudgetTrackerSpending implements Serializable {
     public void setNotes(@Nullable String notes) {
         this.notes = notes;
     }
+
+    public String getColumn1() {
+        return date;
+    }
+
+    public String getColumn2() {
+        return storeName != null ? storeName : "";
+    }
+
+    public String getColumn3() {
+        return productName != null ? productName : "";
+    }
+
+    public String getColumn4() {
+        return productType != null ? productType : "";
+    }
+
+    public Double getColumn5() {
+        return price != null ? price : 0;
+    }
+
+    public Boolean getColumn6() {
+        return isTax;
+    }
+
+    public Double getColumn7() {
+        return taxRate != null ? taxRate : 0;
+    }
+
+    public String getColumn8() {
+        return notes != null ? notes : "";
+    }
 }

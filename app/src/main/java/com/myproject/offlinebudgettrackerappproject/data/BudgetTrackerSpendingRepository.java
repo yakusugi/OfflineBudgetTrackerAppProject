@@ -13,6 +13,7 @@ public class BudgetTrackerSpendingRepository {
     private BudgetTrackerSpendingDao budgetTrackerSpendingDao;
     private LiveData<List<BudgetTrackerSpending>> allBudgetTrackerList;
     private List<BudgetTrackerSpending> radioSearchStoreNameLists;
+    private List<BudgetTrackerSpending> allBudgetTrackerListForMySQL;
     private List<BudgetTrackerSpending> radioSearchProductNameLists;
     private List<BudgetTrackerSpending> radioSearchProductTypeLists;
     private List<BudgetTrackerSpending> quickStoreNameList;
@@ -38,6 +39,12 @@ public class BudgetTrackerSpendingRepository {
 
     public LiveData<List<BudgetTrackerSpending>> getAllBudgetTrackerSpendingData() {
         return allBudgetTrackerList;
+    }
+
+    //for mysql sync
+    public List<BudgetTrackerSpending> getBudgetTrackerSpendingListForMySQL() {
+        allBudgetTrackerListForMySQL = budgetTrackerSpendingDao.getBudgetTrackerSpendingListForMySQL();
+        return allBudgetTrackerListForMySQL;
     }
 
     public void insert(BudgetTrackerSpending budgetTrackerSpending) {

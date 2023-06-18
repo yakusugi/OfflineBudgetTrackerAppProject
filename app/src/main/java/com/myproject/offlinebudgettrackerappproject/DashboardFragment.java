@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
  */
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
-    private CardView incomeCard, bankCard, mysqlCard, settingsCard, aboutCard, replaceCard, replaceIncomeCard, spendingCard;
+    private CardView incomeCard, bankCard, mysqlInsertCard, settingsCard, aboutCard, replaceCard, replaceIncomeCard, spendingCard;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,7 +64,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         incomeCard = (CardView) view.findViewById(R.id.income_card);
         bankCard = (CardView) view.findViewById(R.id.bank_card);
-        mysqlCard = (CardView) view.findViewById(R.id.mysql_card);
+        mysqlInsertCard = (CardView) view.findViewById(R.id.mysql_insert_card);
         settingsCard = (CardView) view.findViewById(R.id.settings_card);
         aboutCard = (CardView) view.findViewById(R.id.about_card);
         replaceCard = (CardView) view.findViewById(R.id.replace_card);
@@ -73,7 +73,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         incomeCard.setOnClickListener(this);
         bankCard.setOnClickListener(this);
-        mysqlCard.setOnClickListener(this);
+        mysqlInsertCard.setOnClickListener(this);
         settingsCard.setOnClickListener(this);
         aboutCard.setOnClickListener(this);
         replaceCard.setOnClickListener(this);
@@ -103,8 +103,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 i = new Intent(view.getContext(), BudgetTrackerBankingActivity.class);
                 startActivity(i);
                 break;
-            case R.id.mysql_card:
-                i = new Intent(view.getContext(), MysqlLoginActivity.class);
+            case R.id.mysql_insert_card:
+                i = new Intent(view.getContext(), MysqlRegistrationActivity.class);
                 startActivity(i);
                 break;
             case R.id.replace_card:

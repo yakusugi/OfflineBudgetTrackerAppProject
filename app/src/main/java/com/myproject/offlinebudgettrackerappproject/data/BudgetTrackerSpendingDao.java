@@ -31,6 +31,10 @@ public interface BudgetTrackerSpendingDao {
     @Query("SELECT * FROM budget_tracker_spending_table ORDER BY store_name ASC")
     LiveData<List<BudgetTrackerSpending>> getAllBudgetTrackerSpendingList();
 
+    //for mysql sync
+    @Query("SELECT * FROM budget_tracker_spending_table")
+    List<BudgetTrackerSpending> getBudgetTrackerSpendingListForMySQL();
+
     //SearchFragment
     @Query("SELECT * FROM budget_tracker_spending_table WHERE store_name LIKE '%' || :storeName|| '%' and date >= :dateFrom and date <= :dateTo")
     List<BudgetTrackerSpending> getSearchStoreNameLists(String storeName, String dateFrom, String dateTo);
