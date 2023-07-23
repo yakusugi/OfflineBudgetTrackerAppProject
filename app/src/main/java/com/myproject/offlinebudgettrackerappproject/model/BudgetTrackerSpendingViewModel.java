@@ -53,7 +53,7 @@ public class BudgetTrackerSpendingViewModel extends AndroidViewModel {
     //for mysql sync
     public List<BudgetTrackerSpending> getBudgetTrackerSpendingListForMySQL() {
         radioSearchProductNameLists = repository.getBudgetTrackerSpendingListForMySQL();
-        return mySqlSyncLists;
+        return radioSearchProductNameLists;
     }
 
     public static void insert(BudgetTrackerSpending budgetTrackerSpending) {

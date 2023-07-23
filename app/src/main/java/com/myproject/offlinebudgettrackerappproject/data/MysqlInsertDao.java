@@ -32,6 +32,10 @@ public class MysqlInsertDao  {
 //        this.userPassword = userPassword;
 //    }
 
+    public MysqlInsertDao(Context context) {
+        mContext = context.getApplicationContext();
+    }
+
 
     public MysqlInsertDao() {
 
